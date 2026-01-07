@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,41 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG</title>
     <style>
+        /* Base Styles & Responsive Design */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #fff; transition: 0.3s; scroll-behavior: smooth; }
+        body { background: #fff; color: #000; transition: 0.3s; scroll-behavior: smooth; overflow-x: hidden; }
         body.rtl { direction: rtl; text-align: right; }
         
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Navigation */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 100; }
-        .logo { font-weight: 900; font-size: 1.5rem; animation: fadeInUp 0.8s ease; }
-        .nav-links { display: flex; gap: 15px; align-items: center; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 12px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 100; }
+        .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: -1px; }
+        .nav-links { display: flex; gap: 8px; align-items: center; }
         
-        /* Buttons */
-        .btn-nav { background: none; border: 1px solid #000; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; text-decoration: none; color: #000; }
-        .btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); color: white !important; border: none; }
+        .btn-nav { background: #f4f4f4; border: none; padding: 6px 10px; border-radius: 10px; cursor: pointer; font-size: 11px; font-weight: bold; text-decoration: none; color: #000; }
+        .btn-insta { background: #000; color: #fff !important; }
         
-        /* Sections */
-        .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 40px 5%; }
-        .product { cursor: pointer; animation: fadeInUp 1s ease both; }
-        .product img { width: 100%; border-radius: 20px; transition: 0.5s; background: #f9f9f9; aspect-ratio: 1/1; object-fit: cover; }
-        .product:hover img { transform: scale(1.03); }
-        .price { font-weight: bold; color: #d32f2f; margin-top: 5px; }
-        .old { text-decoration: line-through; color: #aaa; margin-right: 10px; font-weight: normal; }
+        /* Shop Grid */
+        .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; padding: 25px 5%; }
+        .product { cursor: pointer; animation: fadeInUp 0.8s ease both; text-align: center; }
+        .product img { width: 100%; border-radius: 15px; transition: 0.4s; background: #f9f9f9; aspect-ratio: 1/1; object-fit: cover; }
+        .product:hover img { transform: scale(1.02); }
+        .product h3 { margin-top: 12px; font-size: 1rem; }
+        .price { font-weight: bold; color: #d32f2f; margin: 3px 0; }
+        .old { text-decoration: line-through; color: #aaa; margin-right: 6px; font-weight: normal; }
 
-        /* Story Section at the bottom */
-        .about-section { padding: 80px 10%; background: #000; color: #fff; margin-top: 50px; text-align: center; }
-        .about-section h2 { font-size: 2.5rem; margin-bottom: 20px; }
-        .about-section p { font-size: 1.2rem; line-height: 1.8; color: #ccc; }
+        /* Modals - Scaled down for Mobile/Laptop */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; backdrop-filter: blur(4px); }
+        .modal-content { background: #fff; margin: 4vh auto; padding: 18px; width: 92%; max-width: 360px; border-radius: 20px; animation: fadeInUp 0.3s ease; position: relative; max-height: 92vh; overflow-y: auto; }
+        
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 12px 0; }
+        .qty-btn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #ddd; background: #fff; cursor: pointer; font-weight: bold; }
+        
+        /* Button Styles - Grey with Rounded Edges */
+        .btn-buy { background: #808080; color: #fff; padding: 14px; width: 100%; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 0.95rem; }
+        .btn-cart { background: #eeeeee; color: #000; padding: 14px; width: 100%; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 0.95rem; }
+        
+        /* Cart List */
+        .cart-item { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
+        .total-box { font-weight: 900; font-size: 1.1rem; margin: 15px 0; border-top: 2px solid #000; padding-top: 8px; }
 
-        /* Modals */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; backdrop-filter: blur(8px); }
-        .modal-content { background: #fff; margin: 5vh auto; padding: 30px; width: 90%; max-width: 450px; border-radius: 30px; animation: fadeInUp 0.4s ease; }
-        .btn-black { background: #000; color: #fff; padding: 18px; width: 100%; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; }
-        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .cart-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; }
+        /* Story Section */
+        .about-section { padding: 50px 10%; background: #000; color: #fff; text-align: center; border-radius: 30px 30px 0 0; margin-top: 30px; }
+        .about-section h2 { font-size: 1.8rem; margin-bottom: 12px; }
+        .about-section p { font-size: 0.95rem; line-height: 1.6; color: #bbb; max-width: 500px; margin: 0 auto; }
+
+        /* Form Inputs */
+        input, select { width: 100%; padding: 10px; margin: 6px 0; border: 1px solid #eee; border-radius: 10px; background: #fafafa; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -48,48 +59,69 @@
     <nav>
         <div class="logo">THE BAG</div>
         <div class="nav-links">
-            <button class="btn-nav" onclick="document.getElementById('story').scrollIntoView()">About Us</button>
-            <a href="https://www.instagram.com/YOUR_USERNAME_HERE" target="_blank" class="btn-nav btn-insta">Instagram</a>
+            <button class="btn-nav" onclick="document.getElementById('story').scrollIntoView()">Story</button>
+            <a href="https://instagram.com/the_bag.egy" target="_blank" class="btn-nav btn-insta">Insta</a>
             <button class="btn-nav" onclick="toggleLang()" id="lBtn">العربية</button>
-            <span onclick="openCart()" style="cursor:pointer; font-weight:bold;">(<span id="count">0</span>)</span>
+            <span onclick="openCart()" style="cursor:pointer; font-weight:bold;">🛒(<span id="count">0</span>)</span>
         </div>
     </nav>
 
     <div class="shop">
-        <div class="product" onclick="openP('9544A993-B04E-46EB-9723-184ECF0990E4.PNG', 'Signature Mask', '600 EGP')">
+        <div class="product" onclick="openP('9544A993-B04E-46EB-9723-184ECF0990E4.PNG', 'Signature Mask', 600)">
             <img src="9544A993-B04E-46EB-9723-184ECF0990E4.PNG"><h3>Signature Mask</h3><p class="price"><span class="old">700 EGP</span>600 EGP</p>
         </div>
-        <div class="product" onclick="openP('Photoroom_20251227_224758.PNG', 'Chevron Peak', '900 EGP')">
+        <div class="product" onclick="openP('Photoroom_20251227_224758.PNG', 'Chevron Peak', 900)">
             <img src="Photoroom_20251227_224758.PNG"><h3>Chevron Peak</h3><p class="price"><span class="old">1300 EGP</span>900 EGP</p>
         </div>
-        <div class="product" onclick="openP('Photoroom_20251226_214602.PNG', 'Rose Classic', '900 EGP')">
+        <div class="product" onclick="openP('Photoroom_20251226_214602.PNG', 'Rose Classic', 900)">
             <img src="Photoroom_20251226_214602.PNG"><h3>Rose Classic</h3><p class="price"><span class="old">1300 EGP</span>900 EGP</p>
         </div>
-        <div class="product" onclick="openP('Photoroom_20251226_214200.PNG', 'Ochre Wave', '900 EGP')">
+        <div class="product" onclick="openP('Photoroom_20251226_214200.PNG', 'Ochre Wave', 900)">
             <img src="Photoroom_20251226_214200.PNG"><h3>Ochre Wave</h3><p class="price"><span class="old">1300 EGP</span>900 EGP</p>
         </div>
-        <div class="product" onclick="openP('Photoroom_20251226_210333.PNG', 'Midnight Duo', '900 EGP')">
+        <div class="product" onclick="openP('Photoroom_20251226_210333.PNG', 'Midnight Duo', 900)">
             <img src="Photoroom_20251226_210333.PNG"><h3>Midnight Duo</h3><p class="price"><span class="old">1300 EGP</span>900 EGP</p>
         </div>
-        <div class="product" onclick="openP('Photoroom_20251226_220111.PNG', 'Sand Shell', '900 EGP')">
+        <div class="product" onclick="openP('Photoroom_20251226_220111.PNG', 'Sand Shell', 900)">
             <img src="Photoroom_20251226_220111.PNG"><h3>Sand Shell</h3><p class="price"><span class="old">1300 EGP</span>900 EGP</p>
         </div>
     </div>
 
     <div class="about-section" id="story">
         <h2 id="sTitle">Handmade With Love</h2>
-        <p id="sText">Every bag in our collection tells a story. We don't just manufacture; we craft each piece by hand in Egypt, pouring heart and soul into every stitch. From our hands to yours, these bags are made to carry your most precious moments.</p>
+        <p id="sText">Every stitch in our collection carries a piece of our heart. Handcrafted in Egypt, these bags are more than accessories—they are stories made just for you.</p>
     </div>
 
-    <div id="pModal" class="modal"><div class="modal-content"><p onclick="closeAll()" style="text-align:right;cursor:pointer">✕</p><img id="mImg" style="width:100%; border-radius:20px;"><h2 id="mName" style="margin-top:20px"></h2><p id="mPrice" class="price"></p><button class="btn-black" onclick="add()">Add To Cart</button></div></div>
-    <div id="cModal" class="modal"><div class="modal-content"><h2>YOUR CART</h2><div id="cList"></div><button class="btn-black" onclick="check()">Checkout</button></div></div>
-    <div id="shModal" class="modal"><div class="modal-content"><h2>SHIPPING</h2>
+    <div id="pModal" class="modal"><div class="modal-content">
+        <p onclick="closeAll()" style="text-align:right;cursor:pointer">✕</p>
+        <img id="mImg" style="width:100%; border-radius:12px; max-height: 200px; object-fit: cover;">
+        <h2 id="mName" style="margin-top:10px; font-size: 1.2rem;"></h2>
+        <p id="mPrice" class="price"></p>
+        <div class="qty-box">
+            <button class="qty-btn" onclick="updateQty(-1)">-</button>
+            <span id="qtyVal" style="font-weight:bold;">1</span>
+            <button class="qty-btn" onclick="updateQty(1)">+</button>
+        </div>
+        <button class="btn-buy" onclick="buyNow()" id="bnTxt">Buy It Now</button>
+        <button class="btn-cart" onclick="addToCart()" id="acTxt">Add To Cart</button>
+    </div></div>
+
+    <div id="cModal" class="modal"><div class="modal-content">
+        <h2 id="ctTitle" style="font-size: 1.1rem;">YOUR CART</h2>
+        <div id="cList" style="margin:12px 0;"></div>
+        <div class="total-box"><span id="tTxt">Total:</span> <span id="totalPrice">0</span> EGP</div>
+        <button class="btn-buy" onclick="openShipping()" id="ckTxt">Checkout</button>
+    </div></div>
+
+    <div id="shModal" class="modal"><div class="modal-content">
+        <h2 id="shTitle" style="font-size: 1.1rem;">SHIPPING</h2>
         <form action="https://formspree.io/f/meeoyklk" method="POST">
-            <input type="hidden" name="Order" id="hCart">
-            <input name="Full_Name" placeholder="Full Name" required>
-            <input name="Phone_1" placeholder="Phone Number" required>
-            <input name="Phone_2" placeholder="Second Phone">
-            <select name="Governorate" required>
+            <input type="hidden" name="Order_Summary" id="hSummary">
+            <input type="hidden" name="Total_Price" id="hTotal">
+            <input name="Name" id="fN" placeholder="Full Name" required>
+            <input name="Phone_1" id="fP1" placeholder="Phone Number" required>
+            <input name="Phone_2" id="fP2" placeholder="Second Phone">
+            <select name="Governorate" id="fG" required>
                 <option value="" disabled selected>Select Governorate</option>
                 <option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option><option>Sharkia</option>
                 <option>Qalyubia</option><option>Beheira</option><option>Gharbia</option><option>Fayoum</option><option>Monufia</option>
@@ -97,27 +129,54 @@
                 <option>Minya</option><option>Aswan</option><option>Luxor</option><option>Qena</option><option>Beni Suef</option>
                 <option>Damietta</option><option>Kafr el-Sheikh</option><option>Matruh</option><option>Red Sea</option>
             </select>
-            <input name="Address" placeholder="Detailed Address" required>
-            <button type="submit" class="btn-black">Confirm Order</button>
+            <input name="Address" id="fA" placeholder="Detailed Address" required>
+            <button type="submit" class="btn-buy" id="fBtn">Confirm Order</button>
         </form>
     </div></div>
 
     <script>
-        let cart = []; let cur = {}; let isAr = false;
+        let cart = []; let cur = {}; let q = 1; let isAr = false;
+        function updateQty(v) { q = Math.max(1, q + v); document.getElementById('qtyVal').innerText = q; }
+        function openP(img, name, price) { 
+            cur={img, name, price}; q=1; document.getElementById('qtyVal').innerText=q;
+            document.getElementById('mImg').src=img; document.getElementById('mName').innerText=name; 
+            document.getElementById('mPrice').innerText=price + " EGP"; document.getElementById('pModal').style.display='block'; 
+        }
+        function addToCart() { cart.push({...cur, qty: q}); updateCount(); closeAll(); }
+        function buyNow() { cart = [{...cur, qty: q}]; updateCount(); openShipping(); }
+        function updateCount() { document.getElementById('count').innerText = cart.reduce((sum, i) => sum + i.qty, 0); }
+        function openCart() {
+            let l=document.getElementById('cList'); l.innerHTML=""; let total = 0;
+            cart.forEach(i => {
+                l.innerHTML += `<div class="cart-item"><img src="${i.img}"><div><b>${i.name}</b><br>${i.qty} x ${i.price} EGP</div></div>`;
+                total += (i.qty * i.price);
+            });
+            document.getElementById('totalPrice').innerText = total;
+            document.getElementById('cModal').style.display='block';
+        }
+        function openShipping() {
+            let total = cart.reduce((sum, i) => sum + (i.qty * i.price), 0);
+            document.getElementById('hSummary').value = cart.map(i => `${i.qty}x ${i.name}`).join(", ");
+            document.getElementById('hTotal').value = total + " EGP";
+            closeAll(); document.getElementById('shModal').style.display='block';
+        }
         function toggleLang() {
             isAr = !isAr; document.body.classList.toggle('rtl');
             document.getElementById('lBtn').innerText = isAr ? "English" : "العربية";
             document.getElementById('sTitle').innerText = isAr ? "صنع بكل حب" : "Handmade With Love";
-            document.getElementById('sText').innerText = isAr ? "كل حقيبة في مجموعتنا تحكي قصة. نحن لا نصنع فقط؛ نحن نصيغ كل قطعة يدوياً في مصر، ونضع قلبنا وروحنا في كل غرزة. من أيدينا إلى أيديكم، هذه الحقائب صنعت لتحمل لحظاتكم الغالية." : "Every bag in our collection tells a story. We don't just manufacture; we craft each piece by hand in Egypt, pouring heart and soul into every stitch. From our hands to yours, these bags are made to carry your most precious moments.";
+            document.getElementById('sText').innerText = isAr ? "كل غرزة في مجموعتنا تحمل قطعة من قلبنا. حقائبنا مصنوعة يدوياً في مصر، وهي أكثر من مجرد إكسسوارات - إنها قصص صنعت خصيصاً لك." : "Every stitch in our collection carries a piece of our heart. Handcrafted in Egypt, these bags are more than accessories—they are stories made just for you.";
+            document.getElementById('bnTxt').innerText = isAr ? "شراء الآن" : "Buy It Now";
+            document.getElementById('acTxt').innerText = isAr ? "إضافة للحقيبة" : "Add To Cart";
+            document.getElementById('ctTitle').innerText = isAr ? "حقيبة التسوق" : "YOUR CART";
+            document.getElementById('tTxt').innerText = isAr ? "الإجمالي:" : "Total:";
+            document.getElementById('ckTxt').innerText = isAr ? "إتمام الطلب" : "Checkout";
+            document.getElementById('shTitle').innerText = isAr ? "تفاصيل الشحن" : "SHIPPING";
+            document.getElementById('fN').placeholder = isAr ? "الاسم بالكامل" : "Full Name";
+            document.getElementById('fP1').placeholder = isAr ? "رقم الهاتف" : "Phone Number";
+            document.getElementById('fP2').placeholder = isAr ? "رقم إضافي (اختياري)" : "Second Phone (Optional)";
+            document.getElementById('fA').placeholder = isAr ? "العنوان بالتفصيل" : "Detailed Address";
+            document.getElementById('fBtn').innerText = isAr ? "تأكيد الطلب" : "Confirm Order";
         }
-        function openP(img, name, price) { cur={img, name, price}; document.getElementById('mImg').src=img; document.getElementById('mName').innerText=name; document.getElementById('mPrice').innerText=price; document.getElementById('pModal').style.display='block'; }
-        function add() { cart.push(cur); document.getElementById('count').innerText=cart.length; closeAll(); }
-        function openCart() { 
-            let l=document.getElementById('cList'); l.innerHTML=""; 
-            cart.forEach(i=> l.innerHTML+=`<div class="cart-item"><img src="${i.img}"><div><b>${i.name}</b><br>${i.price}</div></div>`); 
-            document.getElementById('cModal').style.display='block'; 
-        }
-        function check() { document.getElementById('hCart').value=cart.map(i=>i.name).join(", "); closeAll(); document.getElementById('shModal').style.display='block'; }
         function closeAll() { document.querySelectorAll('.modal').forEach(m=>m.style.display='none'); }
     </script>
 </body>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,71 +6,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG</title>
     <style>
-        /* Base Styles */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #fff; color: #000; transition: 0.3s; overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #fff; transition: 0.3s; scroll-behavior: smooth; }
         body.rtl { direction: rtl; text-align: right; }
         
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideIn {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Navigation */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); z-index: 100; }
-        .logo { font-weight: 900; font-size: 1.8rem; letter-spacing: -1px; animation: fadeInUp 0.8s ease; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: #fff; z-index: 100; }
+        .logo { font-weight: 900; font-size: 1.5rem; animation: fadeInUp 0.8s ease; }
+        .nav-links { display: flex; gap: 15px; align-items: center; }
         
-        /* About Section */
-        .about { padding: 60px 10%; background: #fdfdfd; animation: fadeInUp 1s ease; }
-        .about h2 { font-size: 2rem; margin-bottom: 15px; }
-
-        /* Shop Grid */
+        /* Buttons */
+        .btn-nav { background: none; border: 1px solid #000; padding: 5px 12px; border-radius: 20px; cursor: pointer; font-size: 12px; font-weight: bold; text-decoration: none; color: #000; }
+        .btn-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); color: white !important; border: none; }
+        
+        /* Sections */
         .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; padding: 40px 5%; }
         .product { cursor: pointer; animation: fadeInUp 1s ease both; }
         .product img { width: 100%; border-radius: 20px; transition: 0.5s; background: #f9f9f9; aspect-ratio: 1/1; object-fit: cover; }
-        .product:hover img { transform: scale(1.03); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .product h3 { margin-top: 15px; font-size: 1.2rem; }
-        
-        /* Pricing */
-        .price { font-weight: bold; color: #d32f2f; font-size: 1.1rem; margin-top: 5px; }
+        .product:hover img { transform: scale(1.03); }
+        .price { font-weight: bold; color: #d32f2f; margin-top: 5px; }
         .old { text-decoration: line-through; color: #aaa; margin-right: 10px; font-weight: normal; }
 
+        /* Story Section at the bottom */
+        .about-section { padding: 80px 10%; background: #000; color: #fff; margin-top: 50px; text-align: center; }
+        .about-section h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .about-section p { font-size: 1.2rem; line-height: 1.8; color: #ccc; }
+
         /* Modals */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1000; backdrop-filter: blur(8px); }
-        .modal-content { background: #fff; margin: 5vh auto; padding: 30px; width: 90%; max-width: 450px; border-radius: 30px; animation: slideIn 0.4s ease-out; position: relative; }
-        
-        /* Buttons */
-        .btn { background: #000; color: #fff; padding: 18px; width: 100%; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; transition: 0.3s; font-size: 1rem; }
-        .btn:hover { background: #333; transform: translateY(-2px); shadow: 0 10px 20px rgba(0,0,0,0.2); }
-        .lang-btn { background: #f0f0f0; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
-
-        /* Cart Items */
-        .cart-item { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; text-align: left; }
-        .cart-item img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; }
-
-        /* Form */
-        input, select { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #eee; border-radius: 15px; background: #f9f9f9; font-size: 1rem; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; backdrop-filter: blur(8px); }
+        .modal-content { background: #fff; margin: 5vh auto; padding: 30px; width: 90%; max-width: 450px; border-radius: 30px; animation: fadeInUp 0.4s ease; }
+        .btn-black { background: #000; color: #fff; padding: 18px; width: 100%; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; }
+        .cart-item img { width: 60px; height: 60px; border-radius: 10px; object-fit: cover; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 12px; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="logo">THE BAG</div>
-        <div>
-            <button class="lang-btn" onclick="toggleLang()" id="lBtn">العربية</button>
-            <span onclick="openCart()" style="cursor:pointer; font-weight:bold; margin-left:20px;">Cart (<span id="count">0</span>)</span>
+        <div class="nav-links">
+            <button class="btn-nav" onclick="document.getElementById('story').scrollIntoView()">About Us</button>
+            <a href="https://www.instagram.com/YOUR_USERNAME_HERE" target="_blank" class="btn-nav btn-insta">Instagram</a>
+            <button class="btn-nav" onclick="toggleLang()" id="lBtn">العربية</button>
+            <span onclick="openCart()" style="cursor:pointer; font-weight:bold;">(<span id="count">0</span>)</span>
         </div>
     </nav>
-
-    <div class="about">
-        <h2 id="aTitle">Handcrafted Luxury</h2>
-        <p id="aDesc">Elevate your style with our premium, handmade bags. Designed in Egypt, crafted for the world.</p>
-    </div>
 
     <div class="shop">
         <div class="product" onclick="openP('9544A993-B04E-46EB-9723-184ECF0990E4.PNG', 'Signature Mask', '600 EGP')">
@@ -92,17 +76,20 @@
         </div>
     </div>
 
-    <div id="pModal" class="modal"><div class="modal-content"><p onclick="closeAll()" style="text-align:right;cursor:pointer">✕</p><img id="mImg" style="width:100%; border-radius:20px;"><h2 id="mName" style="margin-top:20px"></h2><p id="mPrice" class="price"></p><button class="btn" onclick="add()">Add To Cart</button></div></div>
-    
-    <div id="cModal" class="modal"><div class="modal-content"><h2 id="cTitle">YOUR CART</h2><div id="cList" style="margin:25px 0;"></div><button class="btn" onclick="check()" id="ckBtn">Checkout</button></div></div>
-    
-    <div id="shModal" class="modal"><div class="modal-content"><h2 id="sTitle">SHIPPING</h2>
+    <div class="about-section" id="story">
+        <h2 id="sTitle">Handmade With Love</h2>
+        <p id="sText">Every bag in our collection tells a story. We don't just manufacture; we craft each piece by hand in Egypt, pouring heart and soul into every stitch. From our hands to yours, these bags are made to carry your most precious moments.</p>
+    </div>
+
+    <div id="pModal" class="modal"><div class="modal-content"><p onclick="closeAll()" style="text-align:right;cursor:pointer">✕</p><img id="mImg" style="width:100%; border-radius:20px;"><h2 id="mName" style="margin-top:20px"></h2><p id="mPrice" class="price"></p><button class="btn-black" onclick="add()">Add To Cart</button></div></div>
+    <div id="cModal" class="modal"><div class="modal-content"><h2>YOUR CART</h2><div id="cList"></div><button class="btn-black" onclick="check()">Checkout</button></div></div>
+    <div id="shModal" class="modal"><div class="modal-content"><h2>SHIPPING</h2>
         <form action="https://formspree.io/f/meeoyklk" method="POST">
-            <input type="hidden" name="Order_Items" id="hCart">
-            <input name="Full_Name" id="fName" placeholder="Full Name" required>
-            <input name="Phone_1" id="fPh1" placeholder="Phone Number" required>
-            <input name="Phone_2" id="fPh2" placeholder="Second Phone (Optional)">
-            <select name="Governorate" id="fGov" required>
+            <input type="hidden" name="Order" id="hCart">
+            <input name="Full_Name" placeholder="Full Name" required>
+            <input name="Phone_1" placeholder="Phone Number" required>
+            <input name="Phone_2" placeholder="Second Phone">
+            <select name="Governorate" required>
                 <option value="" disabled selected>Select Governorate</option>
                 <option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option><option>Sharkia</option>
                 <option>Qalyubia</option><option>Beheira</option><option>Gharbia</option><option>Fayoum</option><option>Monufia</option>
@@ -110,8 +97,8 @@
                 <option>Minya</option><option>Aswan</option><option>Luxor</option><option>Qena</option><option>Beni Suef</option>
                 <option>Damietta</option><option>Kafr el-Sheikh</option><option>Matruh</option><option>Red Sea</option>
             </select>
-            <input name="Address" id="fAddr" placeholder="Detailed Address (Street/Building)" required>
-            <button type="submit" class="btn" id="subBtn">Confirm Order</button>
+            <input name="Address" placeholder="Detailed Address" required>
+            <button type="submit" class="btn-black">Confirm Order</button>
         </form>
     </div></div>
 
@@ -120,26 +107,17 @@
         function toggleLang() {
             isAr = !isAr; document.body.classList.toggle('rtl');
             document.getElementById('lBtn').innerText = isAr ? "English" : "العربية";
-            document.getElementById('aTitle').innerText = isAr ? "فخامة الصناعة اليدوية" : "Handcrafted Luxury";
-            document.getElementById('aDesc').innerText = isAr ? "حقائبنا مصممة لمن يقدر الأناقة والجودة. كل قطعة مصنوعة يدويًا بشغف." : "Elevate your style with our premium, handmade bags. Designed in Egypt, crafted for the world.";
-            document.getElementById('cTitle').innerText = isAr ? "حقيبة التسوق" : "YOUR CART";
-            document.getElementById('ckBtn').innerText = isAr ? "إتمام الشراء" : "Checkout";
-            document.getElementById('sTitle').innerText = isAr ? "بيانات الشحن" : "SHIPPING";
-            document.getElementById('fName').placeholder = isAr ? "الاسم بالكامل" : "Full Name";
-            document.getElementById('fPh1').placeholder = isAr ? "رقم الهاتف" : "Phone Number";
-            document.getElementById('fPh2').placeholder = isAr ? "رقم هاتف إضافي" : "Second Phone (Optional)";
-            document.getElementById('fAddr').placeholder = isAr ? "العنوان بالتفصيل" : "Detailed Address (Street/Building)";
-            document.getElementById('subBtn').innerText = isAr ? "تأكيد الطلب" : "Confirm Order";
+            document.getElementById('sTitle').innerText = isAr ? "صنع بكل حب" : "Handmade With Love";
+            document.getElementById('sText').innerText = isAr ? "كل حقيبة في مجموعتنا تحكي قصة. نحن لا نصنع فقط؛ نحن نصيغ كل قطعة يدوياً في مصر، ونضع قلبنا وروحنا في كل غرزة. من أيدينا إلى أيديكم، هذه الحقائب صنعت لتحمل لحظاتكم الغالية." : "Every bag in our collection tells a story. We don't just manufacture; we craft each piece by hand in Egypt, pouring heart and soul into every stitch. From our hands to yours, these bags are made to carry your most precious moments.";
         }
         function openP(img, name, price) { cur={img, name, price}; document.getElementById('mImg').src=img; document.getElementById('mName').innerText=name; document.getElementById('mPrice').innerText=price; document.getElementById('pModal').style.display='block'; }
         function add() { cart.push(cur); document.getElementById('count').innerText=cart.length; closeAll(); }
         function openCart() { 
             let l=document.getElementById('cList'); l.innerHTML=""; 
-            if(cart.length === 0) { l.innerHTML = isAr ? "الحقيبة فارغة" : "Cart is empty"; }
             cart.forEach(i=> l.innerHTML+=`<div class="cart-item"><img src="${i.img}"><div><b>${i.name}</b><br>${i.price}</div></div>`); 
             document.getElementById('cModal').style.display='block'; 
         }
-        function check() { if(cart.length === 0) return; document.getElementById('hCart').value=cart.map(i=>i.name).join(", "); closeAll(); document.getElementById('shModal').style.display='block'; }
+        function check() { document.getElementById('hCart').value=cart.map(i=>i.name).join(", "); closeAll(); document.getElementById('shModal').style.display='block'; }
         function closeAll() { document.querySelectorAll('.modal').forEach(m=>m.style.display='none'); }
     </script>
 </body>

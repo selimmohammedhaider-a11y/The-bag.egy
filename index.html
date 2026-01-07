@@ -10,54 +10,42 @@
         body { background: var(--bg); color: var(--dark); transition: 0.5s; scroll-behavior: smooth; overflow-x: hidden; }
         body.rtl { direction: rtl; text-align: right; }
 
-        /* Smooth Entry Animations */
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(10deg); } 75% { transform: rotate(-10deg); } }
 
         /* Luxury Nav */
         nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; position: sticky; top: 0; background: rgba(255, 251, 245, 0.85); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--cream); }
-        .logo { font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; color: var(--dark); }
-        .cart-trigger { cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
-        .cart-trigger:hover { transform: scale(1.1); }
-        .cart-trigger.bump { animation: shake 0.4s ease; }
-
+        .logo { font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; color: var(--dark); text-transform: uppercase; }
+        
         /* Shop Grid */
         .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 40px 8%; }
-        .product { background: #fff; padding: 20px; border-radius: 30px; transition: 0.5s; animation: slideUp 0.8s ease both; box-shadow: 0 10px 30px rgba(0,0,0,0.03); position: relative; }
-        .product:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(166, 124, 82, 0.1); }
+        .product { background: #fff; padding: 20px; border-radius: 30px; transition: 0.5s; animation: slideUp 0.8s ease both; box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center; }
+        .product:hover { transform: translateY(-10px); }
         
-        .product img { width: 100%; border-radius: 20px; cursor: zoom-in; transition: 0.5s; aspect-ratio: 1/1; object-fit: cover; }
-        .product h3 { margin: 15px 0 5px; font-size: 1.1rem; }
-
-        /* Boss Level Feature: Quick Add UI */
+        .product img { width: 100%; border-radius: 20px; cursor: pointer; aspect-ratio: 1/1; object-fit: cover; }
+        
+        /* Quick Add UI */
         .quick-controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; background: var(--bg); padding: 8px; border-radius: 15px; }
         .qty-mini { width: 30px; height: 30px; border: 1px solid var(--brand); border-radius: 50%; background: none; cursor: pointer; font-weight: bold; color: var(--brand); }
-        .btn-quick-add { background: var(--dark); color: #fff; border: none; padding: 8px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-quick-add:hover { background: var(--brand); }
+        .btn-quick-add { background: var(--dark); color: #fff; border: none; padding: 8px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; }
 
-        /* Modals & Glassmorphism */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 2000; backdrop-filter: blur(8px); }
-        .modal-content { background: rgba(255, 251, 245, 0.95); margin: 5vh auto; padding: 25px; width: 90%; max-width: 400px; border-radius: 35px; animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; max-height: 90vh; overflow-y: auto; }
+        /* Modal Overlay (The "Empty Space") */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 2000; backdrop-filter: blur(8px); cursor: pointer; }
+        .modal-content { background: var(--bg); margin: 5vh auto; padding: 25px; width: 90%; max-width: 400px; border-radius: 35px; animation: scaleIn 0.3s ease; position: relative; max-height: 90vh; overflow-y: auto; cursor: default; }
         
-        /* Immersive Preview Mode */
-        .preview-mode .modal-content { background: none; box-shadow: none; max-width: 600px; padding: 0; }
-        .preview-mode .btn-back, .preview-mode h2, .preview-mode .qty-box, .preview-mode button { display: none; }
+        /* Full View Mode Logic */
+        .preview-mode .modal-content { background: none; box-shadow: none; max-width: 600px; padding: 0; overflow: hidden; }
         .preview-mode img { max-height: 80vh; width: 100%; object-fit: contain; border-radius: 20px; }
-        .close-preview { position: absolute; top: -40px; right: 0; color: white; font-size: 2rem; cursor: pointer; display: none; }
-        .preview-mode .close-preview { display: block; }
+        .preview-mode .ui-hide { display: none; }
 
-        .btn-back { width: 100%; padding: 12px; margin-bottom: 20px; background: var(--cream); border: none; border-radius: 15px; font-weight: 900; cursor: pointer; color: var(--dark); }
-        .btn-action { width: 100%; padding: 16px; border-radius: 18px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; transition: 0.3s; }
+        .btn-action { width: 100%; padding: 16px; border-radius: 18px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1rem; }
         .primary { background: var(--brand); color: #fff; }
-        .secondary { background: var(--cream); color: var(--dark); }
 
         /* Slogan */
         .slogan-box { background: var(--dark); color: #fff; padding: 60px 10%; text-align: center; border-radius: 50px 50px 0 0; }
         .slogan-box h2 { font-size: 2rem; color: var(--brand); margin-bottom: 10px; }
 
-        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid var(--cream); border-radius: 15px; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--brand); }
+        input, select { width: 100%; padding: 14px; margin: 8px 0; border: 2px solid var(--cream); border-radius: 15px; }
     </style>
 </head>
 <body>
@@ -65,58 +53,43 @@
     <nav>
         <div class="logo">THE BAG</div>
         <div class="nav-links">
-            <button class="btn-nav" style="background:none; border:none; font-weight:bold; margin-right:15px; cursor:pointer;" onclick="toggleLang()" id="lBtn">العربية</button>
-            <span class="cart-trigger" id="cartIco" onclick="openCart()">🛒 (<span id="count">0</span>)</span>
+            <button onclick="toggleLang()" style="background:none; border:none; font-weight:bold; cursor:pointer;" id="lBtn">العربية</button>
+            <span onclick="openCart()" style="cursor:pointer; font-weight:bold;">🛒 (<span id="count">0</span>)</span>
         </div>
     </nav>
 
-    <div class="shop" id="mainShop">
+    <div class="shop">
         <div class="product">
-            <img src="9544A993-B04E-46EB-9723-184ECF0990E4.PNG" onclick="previewImg(this.src)">
+            <img src="9544A993-B04E-46EB-9723-184ECF0990E4.PNG" onclick="openProduct('Signature Mask', 600, this.src)">
             <h3>Signature Mask</h3>
-            <p class="price">600 EGP</p>
+            <p style="color:var(--brand); font-weight:bold;">600 EGP</p>
             <div class="quick-controls">
-                <button class="qty-mini" onclick="changeQty('qty1', -1)">-</button>
-                <span id="qty1">1</span>
-                <button class="qty-mini" onclick="changeQty('qty1', 1)">+</button>
-                <button class="btn-quick-add" onclick="quickAdd('Signature Mask', 600, '9544A993-B04E-46EB-9723-184ECF0990E4.PNG', 'qty1')">Add</button>
+                <button class="qty-mini" onclick="changeQty('q1', -1)">-</button>
+                <span id="q1">1</span>
+                <button class="qty-mini" onclick="changeQty('q1', 1)">+</button>
+                <button class="btn-quick-add" onclick="quickAdd('Signature Mask', 600, '9544A993-B04E-46EB-9723-184ECF0990E4.PNG', 'q1')">Add</button>
             </div>
         </div>
-
         <div class="product">
-            <img src="Photoroom_20251227_224758.PNG" onclick="previewImg(this.src)">
+            <img src="Photoroom_20251227_224758.PNG" onclick="openProduct('Chevron Peak', 900, this.src)">
             <h3>Chevron Peak</h3>
-            <p class="price">900 EGP</p>
+            <p style="color:var(--brand); font-weight:bold;">900 EGP</p>
             <div class="quick-controls">
-                <button class="qty-mini" onclick="changeQty('qty2', -1)">-</button>
-                <span id="qty2">1</span>
-                <button class="qty-mini" onclick="changeQty('qty2', 1)">+</button>
-                <button class="btn-quick-add" onclick="quickAdd('Chevron Peak', 900, 'Photoroom_20251227_224758.PNG', 'qty2')">Add</button>
+                <button class="qty-mini" onclick="changeQty('q2', -1)">-</button>
+                <span id="q2">1</span>
+                <button class="qty-mini" onclick="changeQty('q2', 1)">+</button>
+                <button class="btn-quick-add" onclick="quickAdd('Chevron Peak', 900, 'Photoroom_20251227_224758.PNG', 'q2')">Add</button>
             </div>
         </div>
-
-        <div class="product">
-            <img src="Photoroom_20251226_214602.PNG" onclick="previewImg(this.src)">
-            <h3>Rose Classic</h3>
-            <p class="price">900 EGP</p>
-            <div class="quick-controls">
-                <button class="qty-mini" onclick="changeQty('qty3', -1)">-</button>
-                <span id="qty3">1</span>
-                <button class="qty-mini" onclick="changeQty('qty3', 1)">+</button>
-                <button class="btn-quick-add" onclick="quickAdd('Rose Classic', 900, 'Photoroom_20251226_214602.PNG', 'qty3')">Add</button>
-            </div>
-        </div>
-        </div>
+    </div>
 
     <div class="slogan-box">
         <h2 id="sTitle">Handmade With Love</h2>
-        <p id="sText">Handcrafted in Egypt, every bag tells a story of elegance and art.</p>
+        <p id="sText">Every stitch tells a story. Handcrafted crochet luxury from Egypt.</p>
     </div>
 
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-preview" onclick="closeAll()">✕</span>
-            <button class="btn-back" id="backBtn" onclick="closeAll()">← Back to Shop</button>
+    <div id="modal" class="modal" onclick="closeAll()">
+        <div class="modal-content" onclick="event.stopPropagation()">
             <div id="modalBody"></div>
         </div>
     </div>
@@ -130,54 +103,56 @@
             if(n > 0) el.innerText = n;
         }
 
-        function quickAdd(name, price, img, qtyId) {
-            let qty = parseInt(document.getElementById(qtyId).innerText);
-            cart.push({name, price, img, qty});
-            updateUI();
+        function quickAdd(name, price, img, qId) {
+            let q = parseInt(document.getElementById(qId).innerText);
+            cart.push({name, price, img, qty: q});
+            document.getElementById('count').innerText = cart.length;
         }
 
-        function updateUI() {
-            let count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('count').innerText = count;
-            document.getElementById('cartIco').classList.add('bump');
-            setTimeout(() => document.getElementById('cartIco').classList.remove('bump'), 400);
-        }
-
-        function previewImg(src) {
-            let m = document.getElementById('modal');
-            m.classList.add('preview-mode');
-            document.getElementById('modalBody').innerHTML = `<img src="${src}">`;
-            m.style.display = 'block';
-        }
-
-        function openCart() {
+        function openProduct(name, price, img) {
             let m = document.getElementById('modal');
             m.classList.remove('preview-mode');
-            document.getElementById('backBtn').style.display = 'block';
-            let list = cart.map(i => `<div style="display:flex; gap:15px; margin-bottom:15px; align-items:center;">
-                <img src="${i.img}" style="width:50px; border-radius:10px;">
-                <div><b>${i.name}</b><br>${i.qty} x ${i.price} EGP</div>
-            </div>`).join('');
-            let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
             document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom:20px;">Your Bag</h2>
-                ${list || '<p>Your cart is empty</p>'}
-                <div style="font-size:1.2rem; font-weight:900; border-top:2px solid #000; padding-top:10px; margin:20px 0;">Total: ${total} EGP</div>
-                <button class="btn-action primary" onclick="openCheckout()">Checkout Now</button>
+                <img src="${img}" style="width:100%; border-radius:20px; cursor:zoom-in;" onclick="previewImg('${img}')" class="ui-hide">
+                <h2 class="ui-hide" style="margin:15px 0 5px;">${name}</h2>
+                <p class="ui-hide" style="color:var(--brand); font-weight:bold; margin-bottom:15px;">${price} EGP</p>
+                <button class="btn-action primary ui-hide" onclick="directBuy('${name}', ${price}, '${img}')">Buy It Now</button>
+                <p class="ui-hide" style="text-align:center; font-size:0.8rem; margin-top:10px; color:#666;">Tip: Click image for full view</p>
             `;
             m.style.display = 'block';
         }
 
+        function previewImg(src) {
+            document.getElementById('modal').classList.add('preview-mode');
+            document.getElementById('modalBody').innerHTML = `<img src="${src}">`;
+        }
+
+        function directBuy(name, price, img) {
+            cart = [{name, price, img, qty: 1}];
+            openCheckout();
+        }
+
+        function openCart() {
+            let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+            document.getElementById('modal').classList.remove('preview-mode');
+            document.getElementById('modalBody').innerHTML = `
+                <h2>Your Bag</h2>
+                <div style="margin:20px 0;">${cart.map(i => `<p>${i.qty}x ${i.name} - ${i.price} EGP</p>`).join('')}</div>
+                <hr><p style="font-weight:bold; margin:15px 0;">Total: ${total} EGP</p>
+                <button class="btn-action primary" onclick="openCheckout()">Checkout</button>
+            `;
+            document.getElementById('modal').style.display = 'block';
+        }
+
         function openCheckout() {
             document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom:15px;">Shipping Details</h2>
+                <h2>Shipping</h2>
                 <form action="https://formspree.io/f/meeoyklk" method="POST">
                     <input type="hidden" name="Items" value="${cart.map(i => i.qty+'x '+i.name).join(', ')}">
                     <input name="Name" placeholder="Full Name" required>
-                    <input name="Phone" placeholder="Phone Number" required>
-                    <select name="City" required><option>Cairo</option><option>Giza</option><option>Alexandria</option></select>
-                    <input name="Address" placeholder="Detailed Address" required>
-                    <button type="submit" class="btn-action primary">Confirm My Order</button>
+                    <input name="Phone" placeholder="Phone" required>
+                    <input name="Address" placeholder="Address" required>
+                    <button type="submit" class="btn-action primary">Confirm Order</button>
                 </form>
             `;
         }
@@ -188,7 +163,6 @@
             isAr = !isAr;
             document.body.classList.toggle('rtl');
             document.getElementById('lBtn').innerText = isAr ? "English" : "العربية";
-            document.getElementById('sTitle').innerText = isAr ? "صنع بكل حب" : "Handmade With Love";
         }
     </script>
 </body>

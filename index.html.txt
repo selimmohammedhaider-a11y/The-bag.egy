@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE BAG | Handcrafted Luxury</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        
+        body { background-color: #ffffff; color: #000; scroll-behavior: smooth; overflow-x: hidden; opacity: 0; animation: siteFadeIn 1.2s forwards; }
+        @keyframes siteFadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        body.rtl { direction: rtl; font-family: 'Segoe UI', Tahoma, sans-serif; }
+
+        /* NAVIGATION */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: sticky; top: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid #eee; }
+        .logo-text { font-size: 2rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; cursor: pointer; }
+        
+        .nav-controls { display: flex; gap: 15px; align-items: center; }
+        .lang-btn { cursor: pointer; border: 1px solid #000; padding: 6px 14px; border-radius: 5px; font-weight: bold; font-size: 0.8rem; transition: 0.3s; }
+        .lang-btn:hover { background: #000; color: #fff; }
+        
+        .cart-btn { cursor: pointer; font-weight: bold; font-size: 0.8rem; background: #000; color: #fff; padding: 12px 24px; border-radius: 50px; transition: 0.3s; }
+
+        /* HERO */
+        .hero { padding: 120px 5% 80px 5%; text-align: center; }
+        .hero h1 { font-size: 12vw; text-transform: uppercase; line-height: 0.8; letter-spacing: -4px; margin-bottom: 20px; }
+        .hero p { font-size: 1.1rem; letter-spacing: 10px; color: #888; text-transform: lowercase; }
+
+        /* SHOP GRID */
+        .shop { padding: 40px 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px; }
+        .product { cursor: pointer; text-align: center; opacity: 0; transform: translateY(40px); transition: all 0.8s ease-out; position: relative; }
+        .product.visible { opacity: 1; transform: translateY(0); }
+        
+        .sale-badge { position: absolute; top: 10px; left: 10px; background: #ff3b30; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold; font-size: 0.7rem; z-index: 5; text-transform: uppercase; }
+        body.rtl .sale-badge { left: auto; right: 10px; }
+
+        .img-container { overflow: hidden; border-radius: 12px; margin-bottom: 20px; background: #f9f9f9; }
+        .product img { width: 100%; height: auto; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .product:hover img { transform: scale(1.08); }
+        
+        .product h3 { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+        .price-tag { font-weight: bold; color: #000; font-size: 1.1rem; }
+        .old-price { text-decoration: line-through; color: #aaa; font-size: 0.9rem; margin-right: 10px; font-weight: normal; }
+
+        /* MODALS */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.7); backdrop-filter: blur(15px); }
+        .modal-content { margin: 5vh auto; padding: 40px; width: 90%; max-width: 650px; text-align: center; background: #fff; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); transform: scale(0.9); opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .modal.active .modal-content { transform: scale(1); opacity: 1; }
+        
+        .modal-img { width: 100%; max-height: 50vh; object-fit: contain; border-radius: 10px; margin-bottom: 25px; }
+        .btn-gray { background: #000; color: #fff; padding: 18px 35px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; width: 100%; margin-top: 15px; font-size: 0.9rem; letter-spacing: 1px; transition: 0.3s; }
+        
+        footer { padding: 100px 5% 50px 5%; background: #000; color: #fff; text-align: center; }
+        .footer-logo { font-size: 5rem; font-weight: 900; letter-spacing: -4px; margin-bottom: 30px; }
+        input, select { width: 100%; padding: 18px; margin: 10px 0; border: 1px solid #eee; border-radius: 12px; font-size: 1rem; background: #f9f9f9; outline: none; }
+    </style>
+</head>
+<body id="body">
+
+    <nav>
+        <div class="logo-text" onclick="window.scrollTo(0,0)">THE BAG</div>
+        <div class="nav-controls">
+            <div class="lang-btn" onclick="toggleLang()" id="langBtn">العربية</div>
+            <div class="cart-btn" onclick="openCart()" id="cartWrapper"><span id="cartText">Cart</span> (<span id="count">0</span>)</div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 id="heroTitle">THE BAG</h1>
+        <p id="heroSlogan">made to carry the moment</p>
+    </header>
+
+    <div class="shop">
+        <div class="product">
+            <div class="sale-badge" id="saleText">SALE</div>
+            <div class="img-container" onclick="openProduct('9544A993-B04E-46EB-9723-184ECF0990E4.PNG', 'The Signature Mask', 'القناع المميز', '600 EGP')">
+                <img src="9544A993-B04E-46EB-9723-184ECF0990E4.PNG">
+            </div>
+            <h3 class="prod-name" data-en="The Signature Mask" data-ar="القناع المميز">The Signature Mask</h3>
+            <p class="price-tag"><span class="old-price">700 EGP</span> 600 EGP</p>
+        </div>
+
+        <div class="product">
+            <div class="img-container" onclick="openProduct('Photoroom_20251227_224758.PNG', 'The Chevron Peak', 'ذا شيفرون بيك', '900 EGP')">
+                <img src="Photoroom_20251227_224758.PNG">
+            </div>
+            <h3 class="prod-name" data-en="The Chevron Peak" data-ar="ذا شيفرون بيك">The Chevron Peak</h3>
+            <p class="price-tag">900 EGP</p>
+        </div>
+        <div class="product">
+            <div class="img-container" onclick="openProduct('Photoroom_20251226_214602.PNG', 'The Rose Classic', 'ذا روز كلاسيك', '900 EGP')">
+                <img src="Photoroom_20251226_214602.PNG">
+            </div>
+            <h3 class="prod-name" data-en="The Rose Classic" data-ar="ذا روز كلاسيك">The Rose Classic</h3>
+            <p class="price-tag">900 EGP</p>
+        </div>
+        <div class="product">
+            <div class="img-container" onclick="openProduct('Photoroom_20251226_214200.PNG', 'The Ochre Wave', 'ذا أوكر ويف', '900 EGP')">
+                <img src="Photoroom_20251226_214200.PNG">
+            </div>
+            <h3 class="prod-name" data-en="The Ochre Wave" data-ar="ذا أوكر ويف">The Ochre Wave</h3>
+            <p class="price-tag">900 EGP</p>
+        </div>
+        <div class="product">
+            <div class="img-container" onclick="openProduct('Photoroom_20251226_210333.PNG', 'The Midnight Duo', 'ذا ميدنايت ديو', '900 EGP')">
+                <img src="Photoroom_20251226_210333.PNG">
+            </div>
+            <h3 class="prod-name" data-en="The Midnight Duo" data-ar="ذا ميدنايت ديو">The Midnight Duo</h3>
+            <p class="price-tag">900 EGP</p>
+        </div>
+    </div>
+
+    <div id="productModal" class="modal"><div class="modal-content"><p onclick="closeAll()" style="cursor:pointer; text-align:right;">✕</p><img id="modalImg" class="modal-img"><h2 id="modalTitle"></h2><p id="modalPrice" style="font-weight:bold; color:#ff3b30; margin:15px 0;"></p><button class="btn-gray" onclick="addToCart()" id="addToCartBtn">Add To Cart</button></div></div>
+    <div id="cartModal" class="modal"><div class="modal-content"><p onclick="closeAll()" style="cursor:pointer; text-align:right;">✕</p><h2 id="cartTitle">YOUR CART</h2><div id="cartList" style="margin:20px 0;"></div><button class="btn-gray" onclick="openCheckout()" id="checkoutBtn">Complete Order</button></div></div>
+    <div id="checkoutModal" class="modal"><div class="modal-content"><p onclick="closeAll()" style="cursor:pointer; text-align:right;">✕</p><h2 id="shippingTitle">SHIPPING</h2><form action="https://formspree.io/f/meeoyklk" method="POST"><input type="hidden" name="Order" id="hiddenCart"><input type="text" name="Name" id="formName" placeholder="Full Name" required><input type="text" name="Phone" id="formPhone" placeholder="Phone Number" required><input type="text" name="Address" id="formAddress" placeholder="Detailed Address" required><select name="Governorate" id="formGov" required></select><button type="submit" class="btn-gray" id="submitBtn">Send Order</button></form></div></div>
+
+    <footer>
+        <div class="footer-logo">THE BAG</div>
+        <div class="footer-links" style="display:flex; justify-content:center; gap:30px;">
+            <a href="https://www.instagram.com/The_bag.egy" target="_blank" style="color:white; text-decoration:none;">INSTAGRAM</a>
+            <a href="https://wa.me/201014167990" target="_blank" style="color:white; text-decoration:none;">WHATSAPP</a>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.product').forEach(el => observer.observe(el));
+
+        let cart = []; let currentProd = ""; let currentPrice = ""; let isArabic = false;
+        const translations = {
+            en: { sale: "SALE", heroSlogan: "made to carry the moment", cartText: "Cart", cartTitle: "Your Cart", addToCart: "Add To Cart", checkout: "Complete Order", shipping: "Shipping Details", submit: "Send Order", namePh: "Full Name", phonePh: "Phone Number", addrPh: "Detailed Address", govDef: "Select Governorate", govs: ["Cairo", "Giza", "Alexandria", "Dakahlia", "Sharkia", "Qalyubia", "Beheira", "Gharbia", "Fayoum", "Monufia", "Ismailia", "Suez", "Port Said", "Asyut", "Sohag", "Minya", "Aswan", "Luxor", "Qena", "Beni Suef", "Damietta", "Kafr el-Sheikh", "Matruh", "North Sinai", "South Sinai", "Red Sea", "New Valley"] },
+            ar: { sale: "عرض", heroSlogan: "صُنع ليحمل اللحظة", cartText: "السلة", cartTitle: "سلتك", addToCart: "أضف إلى السلة", checkout: "إتمام الطلب", shipping: "بيانات الشحن", submit: "إرسال الطلب", namePh: "الاسم بالكامل", phonePh: "رقم الهاتف", addrPh: "العنوان بالتفصيل", govDef: "اختر المحافظة", govs: ["القاهرة", "الجيزة", "الإسكندرية", "الدقهلية", "الشرقية", "القليوبية", "البحيرة", "الغربية", "الفيوم", "المنوفية", "الإسماعيلية", "السويس", "بورسعيد", "أسيوط", "سوهاج", "المنيا", "أسوان", "الأقصر", "قنا", "بني سويف", "دمياط", "كفر الشيخ", "مطروح", "شمال سيناء", "جنوب سيناء", "البحر الأحمر", "الوادي الجديد"] }
+        };
+
+        function toggleLang() {
+            isArabic = !isArabic; const lang = isArabic ? 'ar' : 'en';
+            document.getElementById('body').className = isArabic ? 'rtl' : '';
+            document.getElementById('langBtn').innerText = isArabic ? 'English' : 'العربية';
+            document.getElementById('saleText').innerText = translations[lang].sale;
+            document.getElementById('heroSlogan').innerText = translations[lang].heroSlogan;
+            document.getElementById('cartText').innerText = translations[lang].cartText;
+            document.getElementById('cartTitle').innerText = translations[lang].cartTitle;
+            document.getElementById('addToCartBtn').innerText = translations[lang].addToCart;
+            document.getElementById('checkoutBtn').innerText = translations[lang].checkout;
+            document.getElementById('shippingTitle').innerText = translations[lang].shipping;
+            document.getElementById('submitBtn').innerText = translations[lang].submit;
+            document.getElementById('formName').placeholder = translations[lang].namePh;
+            document.getElementById('formPhone').placeholder = translations[lang].phonePh;
+            document.getElementById('formAddress').placeholder = translations[lang].addrPh;
+            document.querySelectorAll('.prod-name').forEach(el => { el.innerText = isArabic ? el.getAttribute('data-ar') : el.getAttribute('data-en'); });
+            populateGovs();
+        }
+
+        function populateGovs() {
+            const lang = isArabic ? 'ar' : 'en'; const select = document.getElementById('formGov');
+            select.innerHTML = `<option value="" disabled selected>${translations[lang].govDef}</option>`;
+            translations[lang].govs.forEach(gov => { select.innerHTML += `<option value="${gov}">${gov}</option>`; });
+        }
+
+        function openProduct(img, en, ar, price) {
+            currentProd = isArabic ? ar : en; currentPrice = price;
+            document.getElementById('modalImg').src = img;
+            document.getElementById('modalTitle').innerText = currentProd;
+            document.getElementById('modalPrice').innerText = price;
+            const modal = document.getElementById('productModal'); modal.style.display = "block";
+            setTimeout(() => modal.classList.add('active'), 10);
+            document.body.style.overflow = "hidden";
+        }
+
+        function addToCart() {
+            cart.push(currentProd + " (" + currentPrice + ")");
+            document.getElementById('count').innerText = cart.length;
+            const btn = document.getElementById('cartWrapper');
+            btn.style.transform = "scale(1.2)"; setTimeout(() => btn.style.transform = "scale(1)", 300);
+            closeAll();
+        }
+
+        function openCart() {
+            const list = document.getElementById('cartList');
+            list.innerHTML = cart.length === 0 ? (isArabic ? "السلة فارغة" : "Cart is empty") : cart.join("<br>");
+            const modal = document.getElementById('cartModal'); modal.style.display = "block";
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) return;
+            document.getElementById('hiddenCart').value = cart.join(", "); closeAll();
+            const modal = document.getElementById('checkoutModal'); modal.style.display = "block";
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        function closeAll() {
+            document.querySelectorAll('.modal').forEach(m => { m.classList.remove('active'); setTimeout(() => m.style.display = 'none', 400); });
+            document.body.style.overflow = "auto";
+        }
+        populateGovs();
+    </script>
+</body>
+</html>

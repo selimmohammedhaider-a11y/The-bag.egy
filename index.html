@@ -10,60 +10,69 @@
         body { background: var(--bg); color: var(--dark); transition: 0.5s; overflow-x: hidden; }
         body.rtl { direction: rtl; text-align: right; }
 
-        /* Advanced Animations */
-        @keyframes staggeredFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes cartBump { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3) rotate(10deg); } }
-        @keyframes glassIn { from { backdrop-filter: blur(0px); background: rgba(0,0,0,0); } to { backdrop-filter: blur(8px); background: rgba(0,0,0,0.6); } }
+        /* Massive Animation Suite */
+        @keyframes staggeredFade { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes cartBump { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.4) rotate(15deg); } }
+        @keyframes bannerGlow { 0%, 100% { background: #000; } 50% { background: #333; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .sale-banner { background: var(--dark); color: #fff; text-align: center; padding: 10px; font-size: 13px; font-weight: bold; letter-spacing: 2px; }
+        .sale-banner { animation: bannerGlow 3s infinite; color: #fff; text-align: center; padding: 12px; font-size: 13px; font-weight: bold; letter-spacing: 2px; }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: sticky; top: 0; background: rgba(255, 251, 245, 0.8); backdrop-filter: blur(15px); z-index: 1000; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: sticky; top: 0; background: rgba(255, 251, 245, 0.8); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--cream); }
         .logo { font-weight: 900; font-size: 1.8rem; letter-spacing: 3px; color: #000; text-transform: uppercase; }
         
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .btn-insta { background: #000; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s; }
+        .btn-insta:hover { transform: scale(1.1); background: var(--brand); }
+
         .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 40px 8%; }
-        .product { background: #fff; padding: 25px; border-radius: 35px; box-shadow: 0 15px 40px rgba(0,0,0,0.04); text-align: center; opacity: 0; animation: staggeredFade 0.8s ease forwards; }
-        .product img { width: 100%; border-radius: 25px; cursor: pointer; aspect-ratio: 1/1; object-fit: cover; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .product img:hover { transform: scale(1.03); }
+        .product { background: #fff; padding: 25px; border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.03); text-align: center; opacity: 0; animation: staggeredFade 1s ease forwards; }
+        .product img { width: 100%; border-radius: 30px; cursor: pointer; aspect-ratio: 1/1; object-fit: cover; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .product img:hover { transform: scale(1.05) rotate(1deg); }
 
-        .quick-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; background: var(--bg); padding: 10px; border-radius: 20px; }
-        .qty-mini { width: 35px; height: 35px; border: 2px solid var(--brand); border-radius: 50%; background: none; cursor: pointer; font-weight: bold; color: var(--brand); }
-        .btn-quick-add { background: var(--dark); color: #fff; border: none; padding: 10px 25px; border-radius: 15px; font-weight: bold; cursor: pointer; }
+        .price-tag { color: var(--brand); font-weight: 900; font-size: 1.2rem; margin: 10px 0; }
+        .old-price { text-decoration: line-through; color: #bbb; font-size: 0.9rem; margin-left: 10px; font-weight: normal; }
 
-        /* The Empty Space (Modal) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; animation: glassIn 0.4s forwards; cursor: pointer; }
-        .modal-content { background: var(--bg); margin: 5vh auto; padding: 30px; width: 92%; max-width: 420px; border-radius: 40px; position: relative; max-height: 90vh; overflow-y: auto; cursor: default; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .quick-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 20px; background: var(--bg); padding: 12px; border-radius: 25px; }
+        .qty-mini { width: 35px; height: 35px; border: 2px solid var(--brand); border-radius: 50%; background: none; cursor: pointer; font-weight: bold; }
+        .btn-quick-add { background: var(--dark); color: #fff; border: none; padding: 10px 25px; border-radius: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-quick-add:hover { background: var(--brand); }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); cursor: pointer; }
+        .modal-content { background: var(--bg); margin: 5vh auto; padding: 35px; width: 92%; max-width: 450px; border-radius: 50px; position: relative; max-height: 90vh; overflow-y: auto; cursor: default; animation: staggeredFade 0.5s ease; }
         
         .preview-mode .modal-content { background: none; box-shadow: none; max-width: 900px; padding: 0; }
-        .preview-mode img { max-height: 85vh; width: 100%; object-fit: contain; border-radius: 30px; }
+        .preview-mode img { max-height: 80vh; width: 100%; object-fit: contain; animation: float 4s infinite ease-in-out; }
 
-        .btn-action { width: 100%; padding: 18px; border-radius: 20px; border: none; font-weight: bold; cursor: pointer; margin-top: 12px; font-size: 1rem; transition: 0.3s; }
-        .primary { background: var(--brand); color: #fff; }
+        .btn-action { width: 100%; padding: 20px; border-radius: 25px; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 1rem; transition: 0.4s; }
+        .primary { background: var(--brand); color: #fff; box-shadow: 0 10px 20px rgba(166, 124, 82, 0.3); }
         .outline { background: transparent; border: 2px solid var(--brand); color: var(--brand); }
 
-        .cart-trigger.bump { animation: cartBump 0.5s ease; }
-        input, select { width: 100%; padding: 16px; margin: 10px 0; border: 2px solid var(--cream); border-radius: 18px; font-size: 1rem; }
+        .cart-trigger.bump { animation: cartBump 0.6s ease; }
+        input, select { width: 100%; padding: 18px; margin: 10px 0; border: 2px solid var(--cream); border-radius: 20px; font-size: 1rem; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--brand); }
         
         .about-section { padding: 80px 10%; background: #000; color: #fff; text-align: center; border-radius: 60px 60px 0 0; }
-        .about-section h2 { font-size: 2.2rem; color: var(--brand); margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="sale-banner" id="banner">LUXURY HANDMADE CROCHET | WORLDWIDE SHIPPING</div>
+    <div class="sale-banner" id="banner">NEW COLLECTION: 40% OFF SELECT ITEMS | SHIPPING EGYPT-WIDE</div>
 
     <nav>
         <div class="logo">THE BAG</div>
         <div class="nav-links">
-            <button style="background:none; border:none; font-weight:900; cursor:pointer; font-size:14px;" onclick="toggleLang()" id="lBtn">العربية</button>
-            <span class="cart-trigger" id="cartIco" onclick="openCart()" style="cursor:pointer; font-size:1.2rem;">🛒 (<span id="count">0</span>)</span>
+            <a href="https://instagram.com/the_bag.egy" target="_blank" class="btn-insta">Instagram</a>
+            <button style="background:none; border:none; font-weight:900; cursor:pointer;" onclick="toggleLang()" id="lBtn">العربية</button>
+            <span class="cart-trigger" id="cartIco" onclick="openCart()" style="cursor:pointer; font-size:1.3rem;">🛒 (<span id="count">0</span>)</span>
         </div>
     </nav>
 
     <div class="shop" id="shopGrid"></div>
 
     <div class="about-section">
-        <h2 id="sTitle">Handmade With Love</h2>
-        <p id="sText">Every stitch tells a story of Egyptian heritage and modern luxury.</p>
+        <h2 id="sTitle" style="color:var(--brand); margin-bottom:20px;">Handmade With Love</h2>
+        <p id="sText">Luxury crochet crafted in the heart of Egypt.</p>
     </div>
 
     <div id="modal" class="modal" onclick="closeAll()">
@@ -73,14 +82,13 @@
     </div>
 
     <script>
-        // Updated product list with Balaclava
         const products = [
-            { id: 'p1', name: 'Balaclava', price: 600, img: 'IMG_7095.JPG' },
-            { id: 'p2', name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG' },
-            { id: 'p3', name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG' },
-            { id: 'p4', name: 'Ochre Wave', price: 900, img: 'Photoroom_20251226_214200.PNG' },
-            { id: 'p5', name: 'Midnight Duo', price: 900, img: 'Photoroom_20251226_210333.PNG' },
-            { id: 'p6', name: 'Sand Shell', price: 900, img: 'Photoroom_20251226_220111.PNG' }
+            { id: 'p1', name: 'Balaclava', price: 600, old: 1000, img: 'IMG_7095.JPG' },
+            { id: 'p2', name: 'Chevron Peak', price: 900, old: 1300, img: 'Photoroom_20251227_224758.PNG' },
+            { id: 'p3', name: 'Rose Classic', price: 900, old: 1300, img: 'Photoroom_20251226_214602.PNG' },
+            { id: 'p4', name: 'Ochre Wave', price: 900, old: 1300, img: 'Photoroom_20251226_214200.PNG' },
+            { id: 'p5', name: 'Midnight Duo', price: 900, old: 1300, img: 'Photoroom_20251226_210333.PNG' },
+            { id: 'p6', name: 'Sand Shell', price: 900, old: 1300, img: 'Photoroom_20251226_220111.PNG' }
         ];
 
         let cart = [];
@@ -89,10 +97,10 @@
         function loadShop() {
             const grid = document.getElementById('shopGrid');
             grid.innerHTML = products.map((p, index) => `
-                <div class="product" style="animation-delay: ${index * 0.1}s">
+                <div class="product" style="animation-delay: ${index * 0.15}s">
                     <img src="${p.img}" onclick="openProductWindow('${p.id}')">
-                    <h3 style="margin-top:15px;">${p.name}</h3>
-                    <p style="color:var(--brand); font-weight:bold; margin:8px 0;">${p.price} EGP</p>
+                    <h3 style="margin-top:20px;">${p.name}</h3>
+                    <p class="price-tag">${p.price} EGP <span class="old-price">${p.old} EGP</span></p>
                     <div class="quick-controls">
                         <button class="qty-mini" onclick="changeQty('${p.id}', -1)">-</button>
                         <span id="q-${p.id}" style="font-weight:bold;">1</span>
@@ -119,7 +127,7 @@
         function updateCartUI() {
             document.getElementById('count').innerText = cart.reduce((s, i) => s + i.qty, 0);
             document.getElementById('cartIco').classList.add('bump');
-            setTimeout(() => document.getElementById('cartIco').classList.remove('bump'), 500);
+            setTimeout(() => document.getElementById('cartIco').classList.remove('bump'), 600);
         }
 
         function openProductWindow(id) {
@@ -127,14 +135,11 @@
             let m = document.getElementById('modal');
             m.classList.remove('preview-mode');
             document.getElementById('modalBody').innerHTML = `
-                <img src="${p.img}" style="width:100%; border-radius:25px; cursor:zoom-in;" onclick="fullPreview('${p.img}')">
-                <h2 style="margin:25px 0 10px; font-size:1.6rem;">${p.name}</h2>
-                <p style="color:var(--brand); font-weight:bold; font-size:1.3rem; margin-bottom:25px;">${p.price} EGP</p>
+                <img src="${p.img}" style="width:100%; border-radius:30px; cursor:zoom-in;" onclick="fullPreview('${p.img}')">
+                <h2 style="margin:25px 0 10px;">${p.name}</h2>
+                <p class="price-tag" style="font-size:1.5rem;">${p.price} EGP</p>
                 <button class="btn-action primary" onclick="buyNow('${p.id}')">${isAr ? 'شراء الآن' : 'Buy It Now'}</button>
                 <button class="btn-action outline" onclick="quickAdd('${p.id}'); closeAll();">${isAr ? 'إضافة للحقيبة' : 'Add to Cart'}</button>
-                <p style="text-align:center; font-size:0.8rem; margin-top:20px; color:#999; letter-spacing:1px;">
-                    ${isAr ? 'انقر على الصورة للتكبير • انقر خارج النافذة للإغلاق' : 'TAP IMAGE TO ZOOM • TAP BACKGROUND TO EXIT'}
-                </p>
             `;
             m.style.display = 'block';
         }
@@ -156,29 +161,38 @@
             m.classList.remove('preview-mode');
             let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
             let list = cart.map(i => `
-                <div style="display:flex; align-items:center; gap:20px; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                    <img src="${i.img}" style="width:60px; height:60px; border-radius:12px; object-fit:cover;">
-                    <div><b style="font-size:1.1rem;">${i.name}</b><br><span style="color:var(--brand)">${i.qty} x ${i.price} EGP</span></div>
+                <div style="display:flex; align-items:center; gap:20px; margin-bottom:20px;">
+                    <img src="${i.img}" style="width:70px; height:70px; border-radius:15px; object-fit:cover;">
+                    <div><b>${i.name}</b><br><span style="color:var(--brand)">${i.qty} x ${i.price} EGP</span></div>
                 </div>
             `).join('');
             document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom:25px;">${isAr ? 'حقيبة التسوق' : 'Your Bag'}</h2>
-                <div style="margin:20px 0;">${list || (isAr ? 'الحقيبة فارغة حالياً' : 'Your bag is empty')}</div>
-                <div style="font-weight:900; font-size:1.4rem; padding:15px 0;">Total: ${total} EGP</div>
-                ${cart.length > 0 ? `<button class="btn-action primary" onclick="openCheckout()">${isAr ? 'اتمام الطلب' : 'Checkout'}</button>` : ''}
+                <h2>${isAr ? 'حقيبتك' : 'Your Bag'}</h2>
+                <div style="margin:25px 0; max-height:40vh; overflow-y:auto;">${list || 'Empty'}</div>
+                <div style="font-weight:900; font-size:1.5rem; border-top:2px solid var(--cream); padding-top:15px;">Total: ${total} EGP</div>
+                ${cart.length > 0 ? `<button class="btn-action primary" onclick="openCheckout()">Checkout</button>` : ''}
             `;
             m.style.display = 'block';
         }
 
         function openCheckout() {
             document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom:20px;">${isAr ? 'بيانات الشحن' : 'Shipping Info'}</h2>
+                <h2>${isAr ? 'التوصيل' : 'Shipping'}</h2>
                 <form action="https://formspree.io/f/meeoyklk" method="POST">
-                    <input type="hidden" name="Details" value="${cart.map(i => i.qty+'x '+i.name).join(', ')}">
-                    <input name="Name" placeholder="${isAr ? 'الاسم' : 'Full Name'}" required>
-                    <input name="Phone" placeholder="${isAr ? 'الموبايل' : 'Phone Number'}" required>
-                    <input name="Address" placeholder="${isAr ? 'العنوان' : 'Detailed Address'}" required>
-                    <button type="submit" class="btn-action primary">${isAr ? 'تأكيد الطلب' : 'Confirm Luxury Order'}</button>
+                    <input type="hidden" name="Order" value="${cart.map(i => i.qty+'x '+i.name).join(', ')}">
+                    <input name="Name" placeholder="${isAr ? 'الاسم بالكامل' : 'Full Name'}" required>
+                    <input name="Phone 1" placeholder="${isAr ? 'رقم الهاتف 1' : 'Phone Number 1'}" required>
+                    <input name="Phone 2" placeholder="${isAr ? 'رقم هاتف إضافي' : 'Secondary Phone (Optional)'}">
+                    <select name="Governorate" required>
+                        <option value="" disabled selected>Select Governorate</option>
+                        <option>Cairo</option><option>Giza</option><option>Alexandria</option>
+                        <option>Dakahlia</option><option>Red Sea</option><option>Beheira</option>
+                        <option>Fayoum</option><option>Gharbia</option><option>Ismailia</option>
+                        <option>Monufia</option><option>Minya</option><option>Qalyubia</option>
+                        <option>Wadi El Gedid</option><option>Suez</option><option>Sharkia</option>
+                    </select>
+                    <input name="Address" placeholder="${isAr ? 'العنوان بالتفصيل' : 'Detailed Address'}" required>
+                    <button type="submit" class="btn-action primary">Confirm Luxury Order</button>
                 </form>
             `;
         }
@@ -187,7 +201,6 @@
             isAr = !isAr;
             document.body.classList.toggle('rtl');
             document.getElementById('lBtn').innerText = isAr ? "English" : "العربية";
-            document.getElementById('sTitle').innerText = isAr ? "صنع بكل حب" : "Handmade With Love";
             loadShop();
         }
 

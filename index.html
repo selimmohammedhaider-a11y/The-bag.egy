@@ -8,42 +8,43 @@
         :root { --brand: #A67C52; --bg: #FFFBF5; --dark: #000; --cream: #ede0d4; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background: var(--bg); color: var(--dark); transition: 0.5s; overflow-x: hidden; }
-        body.rtl { direction: rtl; text-align: right; }
-
-        @keyframes driftIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes modalSnap { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        @keyframes cartBump { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3) rotate(10deg); } }
+        
+        /* Animations */
+        @keyframes driftIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes modalSnap { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 
         .sale-banner { background: var(--dark); color: #fff; text-align: center; padding: 12px; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
-
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: sticky; top: 0; background: rgba(255, 251, 245, 0.85); backdrop-filter: blur(25px); z-index: 1000; border-bottom: 1px solid var(--cream); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: sticky; top: 0; background: rgba(255, 251, 245, 0.85); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--cream); }
         .logo { font-weight: 900; font-size: 1.6rem; letter-spacing: 4px; color: #000; text-transform: uppercase; }
-        
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .btn-insta { background: #000; color: white; padding: 8px 16px; border-radius: 25px; text-decoration: none; font-size: 10px; font-weight: bold; }
 
+        /* Shop Grid Styles */
         .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 40px 8%; }
-        .product { background: #fff; padding: 25px; border-radius: 45px; text-align: center; opacity: 0; animation: driftIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; box-shadow: 0 10px 40px rgba(0,0,0,0.02); }
-        .product img { width: 100%; border-radius: 35px; cursor: pointer; aspect-ratio: 1/1; object-fit: cover; transition: 0.8s; }
-        .product img:hover { transform: scale(1.04); }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); cursor: pointer; }
-        .modal-content { background: var(--bg); margin: 5vh auto; padding: 35px; width: 94%; max-width: 460px; border-radius: 45px; position: relative; max-height: 90vh; overflow-y: auto; cursor: default; animation: modalSnap 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .product { position: relative; background: #fff; padding: 15px; border-radius: 40px; text-align: center; animation: driftIn 0.8s ease forwards; }
+        .product img { width: 100%; border-radius: 30px; cursor: pointer; aspect-ratio: 1/1; object-fit: cover; transition: 0.4s; }
         
+        /* Floating Cart Icon */
+        .btn-circle-cart { position: absolute; right: 25px; bottom: 85px; background: var(--brand); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(166,124,82,0.3); transition: 0.3s; }
+        .btn-circle-cart:hover { transform: scale(1.1); }
+
+        /* Modal Styles */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); cursor: pointer; }
+        .modal-content { background: var(--bg); margin: 5vh auto; padding: 30px; width: 92%; max-width: 450px; border-radius: 45px; position: relative; max-height: 90vh; overflow-y: auto; cursor: default; animation: modalSnap 0.4s ease; }
+        
+        /* Product Window Buttons */
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; background: white; border: 1.5px solid var(--cream); padding: 10px; border-radius: 20px; width: fit-content; margin: 15px auto; }
+        .qty-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; width: 30px; font-weight: bold; }
+        
+        .btn-action { width: 100%; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 22px; }
+        .btn-med { padding: 15px; font-size: 0.9rem; background: var(--cream); color: var(--dark); margin-bottom: 10px; }
+        .btn-large { padding: 22px; font-size: 1.1rem; background: var(--brand); color: #fff; }
+
+        /* Bag List Controls */
+        .bag-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 25px; border: 1px solid var(--cream); }
+        .bag-qty-ctrl { display: flex; align-items: center; gap: 10px; border: 1px solid var(--cream); padding: 5px 10px; border-radius: 12px; }
+        .delete-btn { color: #ff4d4d; border: none; background: none; cursor: pointer; font-weight: 900; margin-left: auto; }
+
         .checkout-box { border: 1.5px solid var(--cream); padding: 20px; border-radius: 30px; margin-bottom: 15px; background: #fff; }
-        .checkout-title { font-size: 0.75rem; font-weight: 900; margin-bottom: 12px; letter-spacing: 1.5px; color: #aaa; text-transform: uppercase; }
-        
-        .method-row { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 18px; cursor: pointer; transition: 0.3s; border: 1.5px solid transparent; margin-bottom: 8px; background: var(--bg); }
-        .method-row:has(input:checked) { border-color: var(--brand); background: #fff; }
-        input[type="radio"] { width: 18px; height: 18px; accent-color: var(--brand); }
-
-        .btn-action { width: 100%; padding: 18px; border-radius: 22px; border: none; font-weight: bold; cursor: pointer; margin-top: 12px; font-size: 1rem; transition: 0.4s; }
-        .primary { background: var(--brand); color: #fff; }
-        .primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(166,124,82,0.2); }
-
         input, select { width: 100%; padding: 16px; margin: 8px 0; border: 1.5px solid var(--cream); border-radius: 18px; outline: none; }
-        .remove-btn { background: #fff1f1; border: none; color: #ff4d4d; padding: 6px 14px; border-radius: 12px; font-size: 0.75rem; cursor: pointer; font-weight: 700; }
-        .cart-trigger.bump { animation: cartBump 0.6s ease; }
     </style>
 </head>
 <body>
@@ -53,9 +54,7 @@
     <nav>
         <div class="logo">THE BAG</div>
         <div class="nav-links">
-            <a href="https://instagram.com/the_bag.egy" target="_blank" class="btn-insta">INSTAGRAM</a>
-            <button style="background:none; border:none; font-weight:900; cursor:pointer;" onclick="toggleLang()" id="lBtn">العربية</button>
-            <span class="cart-trigger" id="cartIco" onclick="openCart()" style="cursor:pointer; font-size:1.3rem;">🛒 (<span id="count">0</span>)</span>
+            <span onclick="openCart()" style="cursor:pointer; font-weight:900;">🛒 (<span id="count">0</span>)</span>
         </div>
     </nav>
 
@@ -69,166 +68,149 @@
 
     <script>
         const products = [
-            { id: 'p1', name: 'Balaclava', price: 600, old: 1000, img: 'IMG_7095.JPG' },
-            { id: 'p2', name: 'Chevron Peak', price: 900, old: 1300, img: 'Photoroom_20251227_224758.PNG' },
-            { id: 'p3', name: 'Rose Classic', price: 900, old: 1300, img: 'Photoroom_20251226_214602.PNG' },
-            { id: 'p4', name: 'Ochre Wave', price: 900, old: 1300, img: 'Photoroom_20251226_214200.PNG' },
-            { id: 'p5', name: 'Midnight Duo', price: 900, old: 1300, img: 'Photoroom_20251226_210333.PNG' },
-            { id: 'p6', name: 'Sand Shell', price: 900, old: 1300, img: 'Photoroom_20251226_220111.PNG' }
+            { id: 'p1', name: 'Balaclava', price: 600, img: 'IMG_7095.JPG' },
+            { id: 'p2', name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG' },
+            { id: 'p3', name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG' },
+            { id: 'p4', name: 'Ochre Wave', price: 900, img: 'Photoroom_20251226_214200.PNG' },
+            { id: 'p5', name: 'Midnight Duo', price: 900, img: 'Photoroom_20251226_210333.PNG' },
+            { id: 'p6', name: 'Sand Shell', price: 900, img: 'Photoroom_20251226_220111.PNG' }
         ];
 
         let cart = [];
-        let isAr = false;
+        let tempQty = 1;
 
         function loadShop() {
-            const grid = document.getElementById('shopGrid');
-            grid.innerHTML = products.map((p, index) => `
-                <div class="product" style="animation-delay: ${index * 0.1}s">
+            document.getElementById('shopGrid').innerHTML = products.map(p => `
+                <div class="product">
                     <img src="${p.img}" onclick="openProductWindow('${p.id}')">
-                    <h3 style="margin-top:20px;">${p.name}</h3>
-                    <p style="color:var(--brand); font-weight:900; margin:10px 0;">${p.price} EGP</p>
-                    <button class="btn-action primary" style="padding:12px; font-size:0.8rem;" onclick="quickAdd('${p.id}')">${isAr ? 'إضافة' : 'ADD TO BAG'}</button>
+                    <button class="btn-circle-cart" onclick="openProductWindow('${p.id}')">🛒</button>
+                    <h3 style="margin-top:15px;">${p.name}</h3>
+                    <p style="color:var(--brand); font-weight:900;">${p.price} EGP</p>
                 </div>
             `).join('');
         }
 
-        function quickAdd(id) {
-            let p = products.find(x => x.id === id);
-            cart.push({id: Date.now(), name: p.name, price: p.price, img: p.img});
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            document.getElementById('count').innerText = cart.length;
-            document.getElementById('cartIco').classList.add('bump');
-            setTimeout(() => document.getElementById('cartIco').classList.remove('bump'), 600);
-        }
-
-        function removeItem(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCartUI();
-            openCart();
-        }
-
         function openProductWindow(id) {
             let p = products.find(x => x.id === id);
-            let m = document.getElementById('modal');
+            tempQty = 1;
             document.getElementById('modalBody').innerHTML = `
                 <img src="${p.img}" style="width:100%; border-radius:35px;">
-                <h2 style="margin:20px 0 10px;">${p.name}</h2>
-                <p style="color:var(--brand); font-weight:900; font-size:1.5rem;">${p.price} EGP</p>
-                <button class="btn-action primary" onclick="buyNow('${p.id}')">BUY IT NOW</button>
+                <h2 style="margin:15px 0 5px;">${p.name}</h2>
+                <p style="color:var(--brand); font-weight:900; font-size:1.3rem;">${p.price} EGP</p>
+                
+                <div class="qty-box">
+                    <button class="qty-btn" onclick="updateTempQty(-1)">-</button>
+                    <span id="tempQtyDisp" style="font-weight:900;">1</span>
+                    <button class="qty-btn" onclick="updateTempQty(1)">+</button>
+                </div>
+
+                <button class="btn-action btn-med" onclick="addToBag('${p.id}')">ADD TO BAG</button>
+                <button class="btn-action btn-large" onclick="buyItNow('${p.id}')">BUY IT NOW</button>
             `;
-            m.style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
         }
 
-        function buyNow(id) {
+        function updateTempQty(amt) {
+            tempQty = Math.max(1, tempQty + amt);
+            document.getElementById('tempQtyDisp').innerText = tempQty;
+        }
+
+        function addToBag(id) {
             let p = products.find(x => x.id === id);
-            cart = [{id: Date.now(), name: p.name, price: p.price, img: p.img}];
-            updateCartUI();
+            let existing = cart.find(i => i.id === id);
+            if (existing) existing.qty += tempQty;
+            else cart.push({ ...p, qty: tempQty });
+            updateCartCount();
+            closeAll();
+        }
+
+        function buyItNow(id) {
+            let p = products.find(x => x.id === id);
+            cart = [{ ...p, qty: tempQty }];
+            updateCartCount();
             openCheckout();
         }
 
+        function updateCartCount() {
+            let totalItems = cart.reduce((s, i) => s + i.qty, 0);
+            document.getElementById('count').innerText = totalItems;
+        }
+
         function openCart() {
-            let m = document.getElementById('modal');
-            let total = cart.reduce((s, i) => s + i.price, 0);
-            let list = cart.map(i => `<div style="display:flex; align-items:center; gap:15px; margin-bottom:15px;"><img src="${i.img}" style="width:50px; border-radius:12px;"> <div style="flex-grow:1;"><b>${i.name}</b></div><button class="remove-btn" onclick="removeItem(${i.id})">×</button></div>`).join('');
+            let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+            let list = cart.map(i => `
+                <div class="bag-item">
+                    <img src="${i.img}" style="width:60px; border-radius:15px;">
+                    <div>
+                        <div style="font-weight:bold;">${i.name}</div>
+                        <div class="bag-qty-ctrl">
+                            <button class="qty-btn" onclick="updateCartQty('${i.id}', -1)">-</button>
+                            <b>${i.qty}</b>
+                            <button class="qty-btn" onclick="updateCartQty('${i.id}', 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="delete-btn" onclick="removeFromCart('${i.id}')">🗑️</button>
+                </div>
+            `).join('');
+            
             document.getElementById('modalBody').innerHTML = `
                 <h2 style="margin-bottom:20px;">BAG</h2>
-                <div style="margin:20px 0;">${list || 'Bag is empty'}</div>
-                <div style="font-weight:900; font-size:1.4rem;">TOTAL: ${total} EGP</div>
-                ${cart.length > 0 ? `<button class="btn-action primary" onclick="openCheckout()">CHECKOUT</button>` : ''}
+                <div>${list || 'Bag is empty'}</div>
+                <div style="font-weight:900; font-size:1.5rem; text-align:center; padding:20px 0;">TOTAL: ${total} EGP</div>
+                ${cart.length > 0 ? `<button class="btn-action btn-large" onclick="openCheckout()">CHECKOUT</button>` : ''}
             `;
-            m.style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function updateCartQty(id, amt) {
+            let item = cart.find(i => i.id === id);
+            if (item) item.qty = Math.max(1, item.qty + amt);
+            openCart();
+            updateCartCount();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            openCart();
+            updateCartCount();
         }
 
         function openCheckout() {
-            updateCheckoutUI();
-        }
-
-        function updateCheckoutUI() {
-            let baseTotal = cart.reduce((s, i) => s + i.price, 0);
-            let selectedMethod = document.querySelector('input[name="PayMethod"]:checked')?.value || 'InstaPay';
-            let fee = (selectedMethod === 'COD') ? 10 : 0;
-            let finalTotal = baseTotal + fee;
-
+            let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
             document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom:20px;">CHECKOUT</h2>
+                <h2 style="margin-bottom:20px;">ORDER INFO</h2>
                 <form id="orderForm" onsubmit="handleForm(event)">
                     <div class="checkout-box">
-                        <p class="checkout-title">1. Shipping</p>
                         <input name="Name" placeholder="Full Name" required>
-                        <input name="Phone1" placeholder="Phone 1" required>
-                        <input name="Phone2" placeholder="Phone 2">
+                        <input name="Phone" placeholder="Phone Number" required>
                         <select name="Gov" required>
-                            <option value="" disabled selected>Select Governorate</option>
-                            <option>Cairo</option><option>Giza</option><option>Alexandria</option><option>Dakahlia</option>
+                            <option value="" disabled selected>Governorate</option>
+                            <option>Cairo</option><option>Giza</option><option>Alexandria</option>
                         </select>
-                        <input name="Address" placeholder="Address Details" required>
+                        <input name="Address" placeholder="Full Address" required>
                     </div>
-
                     <div class="checkout-box">
-                        <p class="checkout-title">2. Payment Method</p>
-                        <label class="method-row">
-                            <input type="radio" name="PayMethod" value="InstaPay" ${selectedMethod==='InstaPay'?'checked':''} onchange="updateCheckoutUI()">
-                            <span>InstaPay (Fastest)</span>
-                        </label>
-                        <label class="method-row">
-                            <input type="radio" name="PayMethod" value="Telda" ${selectedMethod==='Telda'?'checked':''} onchange="updateCheckoutUI()">
-                            <span>Telda Transfer</span>
-                        </label>
-                        <label class="method-row">
-                            <input type="radio" name="PayMethod" value="COD" ${selectedMethod==='COD'?'checked':''} onchange="updateCheckoutUI()">
-                            <span>Cash on Delivery (+10 EGP fee)</span>
-                        </label>
+                        <label><input type="radio" name="PayMethod" value="InstaPay" checked> InstaPay (01004268823)</label><br><br>
+                        <label><input type="radio" name="PayMethod" value="Telda"> Telda (soly@5656)</label><br><br>
+                        <label><input type="radio" name="PayMethod" value="COD"> Cash on Delivery (+10 EGP)</label>
                     </div>
-
-                    <div style="font-weight:900; font-size:1.5rem; text-align:center; padding:10px 0;">TOTAL: ${finalTotal} EGP</div>
-                    <p style="font-size:0.7rem; color:#999; text-align:center; margin-bottom:10px;">*Shipping fee will be calculated upon call.</p>
-                    <button type="submit" class="btn-action primary">CONFIRM ORDER</button>
+                    <div style="font-weight:900; font-size:1.5rem; text-align:center; padding:10px 0;">TOTAL: ${total} EGP</div>
+                    <button type="submit" class="btn-action btn-large">PLACE ORDER</button>
                 </form>
             `;
-            document.getElementById('modal').style.display = 'block';
         }
 
         function handleForm(e) {
             e.preventDefault();
             const formData = new FormData(e.target);
-            const method = formData.get("PayMethod");
-            const total = cart.reduce((s, i) => s + i.price, 0) + (method === 'COD' ? 10 : 0);
-            
-            formData.append("Items", cart.map(i => i.name).join(', '));
-            formData.append("FinalTotal", total + " EGP");
-
-            fetch("https://formspree.io/f/meeoyklk", {
-                method: "POST",
-                body: formData,
-                headers: {'Accept': 'application/json'}
-            }).then(() => {
-                showSuccess(method);
-                cart = [];
-                updateCartUI();
+            formData.append("Items", cart.map(i => `${i.name} (x${i.qty})`).join(', '));
+            fetch("https://formspree.io/f/meeoyklk", { method: "POST", body: formData, headers: {'Accept': 'application/json'} })
+            .then(() => {
+                document.getElementById('modalBody').innerHTML = `<div style="text-align:center;"><h2>✨ THANK YOU!</h2><p>Order received. Please send payment screenshot to Instagram DMs.</p></div>`;
+                cart = []; updateCartCount();
             });
         }
 
-        function showSuccess(method) {
-            let instr = "";
-            if(method === 'InstaPay') instr = "Transfer total to <b>InstaPay: 01004268823</b>";
-            else if(method === 'Telda') instr = "Transfer total to <b>Telda: soly@5656</b>";
-            else instr = "Order confirmed with 10 EGP COD fee! We will call you soon.";
-
-            document.getElementById('modalBody').innerHTML = `
-                <div style="text-align:center; animation: modalSnap 0.5s forwards;">
-                    <div style="font-size: 4rem;">✨</div>
-                    <h2 style="margin: 15px 0;">ORDER RECEIVED</h2>
-                    <p style="color: #666; line-height: 1.6; margin-bottom:20px;">${instr}</p>
-                    <p style="font-size:0.8rem; color:var(--brand); font-weight:bold;">Send payment screenshot to our Instagram DM to confirm.</p>
-                    <button class="btn-action primary" onclick="closeAll()" style="margin-top:25px;">DONE</button>
-                </div>
-            `;
-        }
-
-        function toggleLang() { isAr = !isAr; document.body.classList.toggle('rtl'); loadShop(); }
         function closeAll() { document.getElementById('modal').style.display = 'none'; }
         loadShop();
     </script>

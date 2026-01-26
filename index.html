@@ -5,57 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG | Handmade Luxury</title>
     <style>
-        :root { --brand: #A67C52; --bg: #FFFBF5; --dark: #000; --cream: #ede0d4; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: var(--bg); color: var(--dark); transition: 0.5s; overflow-x: hidden; }
+        /* Black Luxury Palette */
+        :root { --brand: #000; --bg: #FFFBF5; --dark: #000; --cream: #ede0d4; --gray: #f4f4f4; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        body { background: var(--bg); color: var(--dark); }
         
-        /* Animations */
-        @keyframes driftIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes modalSnap { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes driftIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .sale-banner { background: var(--dark); color: #fff; text-align: center; padding: 12px; font-size: 11px; font-weight: bold; letter-spacing: 2px; }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; position: sticky; top: 0; background: rgba(255, 251, 245, 0.85); backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--cream); }
-        .logo { font-weight: 900; font-size: 1.6rem; letter-spacing: 4px; color: #000; text-transform: uppercase; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 8%; position: sticky; top: 0; background: rgba(255, 251, 245, 0.9); backdrop-filter: blur(15px); z-index: 1000; border-bottom: 1px solid var(--cream); }
+        .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: 6px; text-transform: uppercase; }
 
-        /* Shop Grid Styles */
+        /* Shop Grid */
         .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 40px 8%; }
-        .product { position: relative; background: #fff; padding: 15px; border-radius: 40px; text-align: center; animation: driftIn 0.8s ease forwards; }
-        .product img { width: 100%; border-radius: 30px; cursor: pointer; aspect-ratio: 1/1; object-fit: cover; transition: 0.4s; }
+        .product { position: relative; background: #fff; padding: 12px; border-radius: 35px; text-align: center; animation: driftIn 0.8s ease forwards; }
+        .product img { width: 100%; border-radius: 28px; aspect-ratio: 1/1; object-fit: cover; cursor: pointer; transition: 0.4s; }
         
-        /* Floating Cart Icon */
-        .btn-circle-cart { position: absolute; right: 25px; bottom: 85px; background: var(--brand); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(166,124,82,0.3); transition: 0.3s; }
-        .btn-circle-cart:hover { transform: scale(1.1); }
+        /* Badges */
+        .badge { position: absolute; top: 22px; left: 22px; padding: 5px 12px; border-radius: 8px; font-size: 0.6rem; font-weight: 900; letter-spacing: 1px; z-index: 10; text-transform: uppercase; }
+        .badge-limited { background: var(--brand); color: white; }
+        .badge-sold { background: #666; color: white; }
 
-        /* Modal Styles */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.6); backdrop-filter: blur(12px); cursor: pointer; }
-        .modal-content { background: var(--bg); margin: 5vh auto; padding: 30px; width: 92%; max-width: 450px; border-radius: 45px; position: relative; max-height: 90vh; overflow-y: auto; cursor: default; animation: modalSnap 0.4s ease; }
+        /* Small Circular Cart Button */
+        .btn-circle-cart { position: absolute; right: 22px; bottom: 82px; background: var(--brand); color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: 0.3s; z-index: 5; }
+        .btn-circle-cart:hover { transform: scale(1.15); }
+
+        /* Modal & UI */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        .modal-content { background: var(--bg); margin: 6vh auto; padding: 30px; width: 92%; max-width: 420px; border-radius: 40px; position: relative; animation: driftIn 0.4s ease; }
         
-        /* Product Window Buttons */
-        .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; background: white; border: 1.5px solid var(--cream); padding: 10px; border-radius: 20px; width: fit-content; margin: 15px auto; }
-        .qty-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; width: 30px; font-weight: bold; }
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 15px; background: var(--gray); padding: 8px; border-radius: 15px; width: fit-content; margin: 15px auto; }
+        .qty-btn { background: none; border: none; font-size: 1rem; cursor: pointer; padding: 0 10px; font-weight: bold; }
         
-        .btn-action { width: 100%; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; border-radius: 22px; }
-        .btn-med { padding: 15px; font-size: 0.9rem; background: var(--cream); color: var(--dark); margin-bottom: 10px; }
-        .btn-large { padding: 22px; font-size: 1.1rem; background: var(--brand); color: #fff; }
+        .btn-action { width: 100%; border: none; font-weight: bold; cursor: pointer; border-radius: 18px; transition: 0.3s; letter-spacing: 1px; }
+        .btn-med { padding: 14px; font-size: 0.8rem; background: var(--cream); color: var(--dark); margin-bottom: 10px; }
+        .btn-large { padding: 20px; font-size: 0.95rem; background: var(--dark); color: #fff; text-transform: uppercase; }
 
-        /* Bag List Controls */
-        .bag-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 25px; border: 1px solid var(--cream); }
-        .bag-qty-ctrl { display: flex; align-items: center; gap: 10px; border: 1px solid var(--cream); padding: 5px 10px; border-radius: 12px; }
-        .delete-btn { color: #ff4d4d; border: none; background: none; cursor: pointer; font-weight: 900; margin-left: auto; }
-
-        .checkout-box { border: 1.5px solid var(--cream); padding: 20px; border-radius: 30px; margin-bottom: 15px; background: #fff; }
-        input, select { width: 100%; padding: 16px; margin: 8px 0; border: 1.5px solid var(--cream); border-radius: 18px; outline: none; }
+        /* Bag List */
+        .bag-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; background: #fff; padding: 12px; border-radius: 20px; border: 1px solid var(--cream); }
+        .delete-btn { color: #000; opacity: 0.4; border: none; background: none; cursor: pointer; font-size: 1rem; margin-left: auto; }
+        
+        input, select { width: 100%; padding: 15px; margin: 8px 0; border: 1px solid var(--cream); border-radius: 15px; outline: none; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <div class="sale-banner">HANDMADE LUXURY | SHIPPING NATIONWIDE</div>
-
     <nav>
         <div class="logo">THE BAG</div>
-        <div class="nav-links">
-            <span onclick="openCart()" style="cursor:pointer; font-weight:900;">🛒 (<span id="count">0</span>)</span>
-        </div>
+        <div onclick="openCart()" style="cursor:pointer; font-weight:900; font-size: 0.8rem; letter-spacing:1px;">BAG (<span id="count">0</span>)</div>
     </nav>
 
     <div class="shop" id="shopGrid"></div>
@@ -67,106 +63,108 @@
     </div>
 
     <script>
+        // Update stock: 0 for SOLD OUT, 1 for ONLY 1 LEFT
         const products = [
-            { id: 'p1', name: 'Balaclava', price: 600, img: 'IMG_7095.JPG' },
-            { id: 'p2', name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG' },
-            { id: 'p3', name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG' },
-            { id: 'p4', name: 'Ochre Wave', price: 900, img: 'Photoroom_20251226_214200.PNG' },
-            { id: 'p5', name: 'Midnight Duo', price: 900, img: 'Photoroom_20251226_210333.PNG' },
-            { id: 'p6', name: 'Sand Shell', price: 900, img: 'Photoroom_20251226_220111.PNG' }
+            { id: 'p1', name: 'Balaclava', price: 600, img: 'IMG_7095.JPG', stock: 1 },
+            { id: 'p2', name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG', stock: 1 },
+            { id: 'p3', name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG', stock: 1 },
+            { id: 'p4', name: 'Ochre Wave', price: 900, img: 'Photoroom_20251226_214200.PNG', stock: 1 },
+            { id: 'p5', name: 'Midnight Duo', price: 900, img: 'Photoroom_20251226_210333.PNG', stock: 1 },
+            { id: 'p6', name: 'Sand Shell', price: 900, img: 'Photoroom_20251226_220111.PNG', stock: 1 }
         ];
 
         let cart = [];
         let tempQty = 1;
 
         function loadShop() {
-            document.getElementById('shopGrid').innerHTML = products.map(p => `
+            document.getElementById('shopGrid').innerHTML = products.map(p => {
+                const soldOut = p.stock <= 0;
+                return `
                 <div class="product">
-                    <img src="${p.img}" onclick="openProductWindow('${p.id}')">
-                    <button class="btn-circle-cart" onclick="openProductWindow('${p.id}')">🛒</button>
-                    <h3 style="margin-top:15px;">${p.name}</h3>
-                    <p style="color:var(--brand); font-weight:900;">${p.price} EGP</p>
+                    ${soldOut ? '<div class="badge badge-sold">SOLD OUT</div>' : '<div class="badge badge-limited">ONLY 1 LEFT</div>'}
+                    <img src="${p.img}" ${soldOut ? 'style="filter:grayscale(1); opacity:0.4;"' : `onclick="openProductWindow('${p.id}')"`}>
+                    ${!soldOut ? `<button class="btn-circle-cart" onclick="openProductWindow('${p.id}')">🛒</button>` : ''}
+                    <h3 style="margin-top:15px; font-size:0.9rem; letter-spacing:1px; opacity:${soldOut ? 0.3 : 1}">${p.name}</h3>
+                    <p style="font-weight:900; font-size:0.85rem; margin-top:5px;">${p.price} EGP</p>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         function openProductWindow(id) {
             let p = products.find(x => x.id === id);
             tempQty = 1;
             document.getElementById('modalBody').innerHTML = `
-                <img src="${p.img}" style="width:100%; border-radius:35px;">
-                <h2 style="margin:15px 0 5px;">${p.name}</h2>
-                <p style="color:var(--brand); font-weight:900; font-size:1.3rem;">${p.price} EGP</p>
-                
+                <img src="${p.img}" style="width:100%; border-radius:25px;">
+                <h2 style="margin:15px 0 5px; font-size:1.2rem; letter-spacing:1px;">${p.name}</h2>
+                <p style="font-weight:900; margin-bottom:15px;">${p.price} EGP</p>
                 <div class="qty-box">
                     <button class="qty-btn" onclick="updateTempQty(-1)">-</button>
                     <span id="tempQtyDisp" style="font-weight:900;">1</span>
-                    <button class="qty-btn" onclick="updateTempQty(1)">+</button>
+                    <button class="qty-btn" onclick="updateTempQty(1, ${p.stock})">+</button>
                 </div>
-
                 <button class="btn-action btn-med" onclick="addToBag('${p.id}')">ADD TO BAG</button>
                 <button class="btn-action btn-large" onclick="buyItNow('${p.id}')">BUY IT NOW</button>
             `;
             document.getElementById('modal').style.display = 'block';
         }
 
-        function updateTempQty(amt) {
-            tempQty = Math.max(1, tempQty + amt);
+        function updateTempQty(amt, max) {
+            tempQty = Math.max(1, Math.min(max, tempQty + amt));
             document.getElementById('tempQtyDisp').innerText = tempQty;
         }
 
         function addToBag(id) {
+            const currentTotal = cart.reduce((s, i) => s + i.qty, 0);
+            
+            // CHECK FOR 3 ITEM LIMIT
+            if (currentTotal + tempQty > 3) {
+                alert("Luxury exclusivity: Orders are limited to 3 items per customer.");
+                return;
+            }
+
             let p = products.find(x => x.id === id);
             let existing = cart.find(i => i.id === id);
-            if (existing) existing.qty += tempQty;
-            else cart.push({ ...p, qty: tempQty });
+            if (existing) {
+                existing.qty = Math.min(p.stock, existing.qty + tempQty);
+            } else {
+                cart.push({ ...p, qty: tempQty });
+            }
             updateCartCount();
             closeAll();
         }
 
         function buyItNow(id) {
+            // Skips Bag, but still respects the limit (Buy It Now is 1 item)
             let p = products.find(x => x.id === id);
-            cart = [{ ...p, qty: tempQty }];
+            cart = [{ ...p, qty: 1 }];
             updateCartCount();
             openCheckout();
         }
 
         function updateCartCount() {
-            let totalItems = cart.reduce((s, i) => s + i.qty, 0);
-            document.getElementById('count').innerText = totalItems;
+            document.getElementById('count').innerText = cart.reduce((s, i) => s + i.qty, 0);
         }
 
         function openCart() {
             let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
             let list = cart.map(i => `
                 <div class="bag-item">
-                    <img src="${i.img}" style="width:60px; border-radius:15px;">
-                    <div>
-                        <div style="font-weight:bold;">${i.name}</div>
-                        <div class="bag-qty-ctrl">
-                            <button class="qty-btn" onclick="updateCartQty('${i.id}', -1)">-</button>
-                            <b>${i.qty}</b>
-                            <button class="qty-btn" onclick="updateCartQty('${i.id}', 1)">+</button>
-                        </div>
+                    <img src="${i.img}" style="width:50px; border-radius:12px;">
+                    <div style="flex-grow:1; margin-left:10px;">
+                        <b style="font-size:0.85rem;">${i.name}</b><br>
+                        <small style="opacity:0.6;">${i.qty} x ${i.price} EGP</small>
                     </div>
-                    <button class="delete-btn" onclick="removeFromCart('${i.id}')">🗑️</button>
+                    <button class="delete-btn" onclick="removeFromCart('${i.id}')">✕</button>
                 </div>
             `).join('');
-            
             document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom:20px;">BAG</h2>
-                <div>${list || 'Bag is empty'}</div>
-                <div style="font-weight:900; font-size:1.5rem; text-align:center; padding:20px 0;">TOTAL: ${total} EGP</div>
+                <h2 style="font-size:1.1rem; letter-spacing:2px; margin-bottom:20px;">YOUR BAG</h2>
+                <p style="font-size:0.7rem; margin-bottom:10px; opacity:0.5;">LIMIT: 3 ITEMS PER ORDER</p>
+                ${list || '<p style="text-align:center; opacity:0.5;">Empty</p>'}
+                <h3 style="text-align:center; margin:25px 0; font-weight:900;">TOTAL: ${total} EGP</h3>
                 ${cart.length > 0 ? `<button class="btn-action btn-large" onclick="openCheckout()">CHECKOUT</button>` : ''}
             `;
             document.getElementById('modal').style.display = 'block';
-        }
-
-        function updateCartQty(id, amt) {
-            let item = cart.find(i => i.id === id);
-            if (item) item.qty = Math.max(1, item.qty + amt);
-            openCart();
-            updateCartCount();
         }
 
         function removeFromCart(id) {
@@ -178,23 +176,17 @@
         function openCheckout() {
             let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
             document.getElementById('modalBody').innerHTML = `
-                <h2 style="margin-bottom:20px;">ORDER INFO</h2>
+                <h2 style="font-size:1.1rem; letter-spacing:2px; margin-bottom:20px;">CHECKOUT</h2>
                 <form id="orderForm" onsubmit="handleForm(event)">
-                    <div class="checkout-box">
-                        <input name="Name" placeholder="Full Name" required>
-                        <input name="Phone" placeholder="Phone Number" required>
-                        <select name="Gov" required>
-                            <option value="" disabled selected>Governorate</option>
-                            <option>Cairo</option><option>Giza</option><option>Alexandria</option>
-                        </select>
-                        <input name="Address" placeholder="Full Address" required>
+                    <input name="Name" placeholder="Full Name" required>
+                    <input name="Phone" placeholder="WhatsApp Number" required>
+                    <input name="Address" placeholder="Shipping Address" required>
+                    <div style="background:#fff; padding:18px; border-radius:20px; margin:10px 0; border:1px solid var(--cream);">
+                        <p style="font-size:0.7rem; font-weight:bold; margin-bottom:10px; opacity:0.5;">PAYMENT METHOD</p>
+                        <label style="font-size:0.9rem;"><input type="radio" name="Pay" value="Insta" checked> InstaPay</label><br><br>
+                        <label style="font-size:0.9rem;"><input type="radio" name="Pay" value="Telda"> Telda</label><br><br>
+                        <label style="font-size:0.9rem;"><input type="radio" name="Pay" value="COD"> Cash on Delivery (+10 EGP)</label>
                     </div>
-                    <div class="checkout-box">
-                        <label><input type="radio" name="PayMethod" value="InstaPay" checked> InstaPay (01004268823)</label><br><br>
-                        <label><input type="radio" name="PayMethod" value="Telda"> Telda (soly@5656)</label><br><br>
-                        <label><input type="radio" name="PayMethod" value="COD"> Cash on Delivery (+10 EGP)</label>
-                    </div>
-                    <div style="font-weight:900; font-size:1.5rem; text-align:center; padding:10px 0;">TOTAL: ${total} EGP</div>
                     <button type="submit" class="btn-action btn-large">PLACE ORDER</button>
                 </form>
             `;
@@ -206,7 +198,7 @@
             formData.append("Items", cart.map(i => `${i.name} (x${i.qty})`).join(', '));
             fetch("https://formspree.io/f/meeoyklk", { method: "POST", body: formData, headers: {'Accept': 'application/json'} })
             .then(() => {
-                document.getElementById('modalBody').innerHTML = `<div style="text-align:center;"><h2>✨ THANK YOU!</h2><p>Order received. Please send payment screenshot to Instagram DMs.</p></div>`;
+                document.getElementById('modalBody').innerHTML = `<div style="text-align:center; padding:40px 0;"><h2>THANK YOU</h2><p style="margin-top:10px; opacity:0.6;">Your order is limited to 3 items. Processing now.</p></div>`;
                 cart = []; updateCartCount();
             });
         }

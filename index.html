@@ -16,7 +16,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--bg); color: var(--dark); }
 
-        /* Navigation */
+        /* Top Navigation */
         nav { 
             display: grid; 
             grid-template-columns: 1fr auto 1fr; 
@@ -32,7 +32,7 @@
         .nav-left { display: flex; justify-content: flex-start; }
         .more-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-        /* Bold Bauhaus Logo */
+        /* Bauhaus Bold Logo */
         .logo-text { 
             font-family: 'Bauhaus 93', sans-serif; 
             font-size: 2.4rem; 
@@ -53,11 +53,11 @@
             text-transform: uppercase;
         }
 
-        /* Hero Vision: Zoomed Scale (Bag to Face) */
+        /* Hero Vision: Precise Zoom (Head to Bag) */
         .hero {
             position: relative;
             width: 100%;
-            height: 65vh; /* Adjusted height for the zoom effect */
+            height: 55vh; /* Tighter vertical frame for that specific crop */
             display: flex;
             align-items: center;
             overflow: hidden;
@@ -67,10 +67,10 @@
         .hero img {
             position: absolute;
             width: 100%;
-            height: 140%; /* Scale up to allow zooming */
+            height: 180%; /* Heavy zoom to fill the frame */
             object-fit: cover;
-            object-position: 80% 20%; /* Focus on the model and bag area */
-            opacity: 0.9;
+            object-position: 90% 15%; /* Moves focus to top of head and the bag */
+            opacity: 0.95;
         }
 
         /* Minimalist Slogan */
@@ -85,13 +85,13 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* Product Grid */
+        /* Shop Grid */
         .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px 8%; }
         .product { position: relative; background: #fff; padding: 15px; border-radius: 40px; text-align: center; }
         .product img { width: 100%; border-radius: 30px; aspect-ratio: 1/1; object-fit: cover; }
-        
         .badge { position: absolute; top: 25px; left: 25px; background: #000; color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 0.65rem; font-weight: 900; }
     </style>
 </head>
@@ -107,14 +107,14 @@
     </nav>
 
     <div class="hero">
-        <img src="The-New-Black (4).jfif" alt="Model with Bag">
+        <img src="The-New-Black (4).jfif" alt="Model Detail">
         <div class="hero-text">MADE TO CARRY<br>THE MOMENT</div>
     </div>
 
-    <div class="shop" id="shopGrid">
-        </div>
+    <div class="shop" id="shopGrid"></div>
 
     <script>
+        // All 6 Products
         const products = [
             { id: 'p1', name: 'Balaclava', price: 600, img: 'IMG_7095.JPG' },
             { id: 'p2', name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG' },

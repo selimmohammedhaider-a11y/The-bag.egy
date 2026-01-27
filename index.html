@@ -5,20 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG | Handmade Luxury</title>
     <style>
-        :root { --brand: #000; --bg: #FFFBF5; --dark: #000; --cream: #ede0d4; --insta: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', sans-serif; }
-        body { background: var(--bg); color: var(--dark); }
+        /* Black Luxury & Instagram Palette */
+        :root { 
+            --brand: #000; 
+            --bg: #FFFBF5; 
+            --dark: #000; 
+            --cream: #ede0d4; 
+            --gray: #f4f4f4; 
+            --insta: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
 
-        /* Header Layout: 3-Column Grid for Perfect Centering */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        body { background: var(--bg); color: var(--dark); overflow-x: hidden; }
+        
+        @keyframes driftIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Perfect Centered Nav */
         nav { 
             display: grid; 
             grid-template-columns: 1fr auto 1fr; 
             align-items: center; 
-            padding: 15px 5%; 
+            padding: 20px 5%; 
             position: sticky; 
             top: 0; 
             background: rgba(255, 251, 245, 0.95); 
-            backdrop-filter: blur(10px); 
+            backdrop-filter: blur(15px); 
             z-index: 1000; 
             border-bottom: 1px solid var(--cream); 
         }
@@ -26,26 +37,22 @@
         .nav-left { display: flex; justify-content: flex-start; }
         .more-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
 
-        /* Bauhaus-style Text Logo */
-        .logo-container { text-align: center; }
+        /* Bold Bauhaus Logo */
         .logo-text { 
             font-family: 'Bauhaus 93', 'Arial Round MT Bold', sans-serif; 
             font-size: 2.2rem; 
-            line-height: 0.9;
-            letter-spacing: -1px;
+            font-weight: bold;
+            text-transform: uppercase;
             color: #000;
-            cursor: default;
+            letter-spacing: -1px;
         }
-        .logo-sub { font-size: 0.45rem; letter-spacing: 1px; font-weight: bold; margin-top: 2px; }
 
-        .nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
-        
-        /* Colorful Instagram Button */
+        .nav-right { display: flex; justify-content: flex-end; align-items: center; gap: 15px; }
         .insta-btn { 
             background: var(--insta); 
             color: white; 
             text-decoration: none; 
-            padding: 6px 12px; 
+            padding: 6px 14px; 
             border-radius: 10px; 
             font-size: 0.65rem; 
             font-weight: 900; 
@@ -53,39 +60,51 @@
         }
 
         /* Product Shop Grid */
-        .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 40px 8%; }
-        .product { position: relative; background: #fff; padding: 15px; border-radius: 40px; text-align: center; }
-        .product img { width: 100%; border-radius: 30px; aspect-ratio: 1/1; object-fit: cover; }
+        .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 40px 8%; }
+        .product { position: relative; background: #fff; padding: 12px; border-radius: 35px; text-align: center; animation: driftIn 0.8s ease forwards; }
+        .product img { width: 100%; border-radius: 28px; aspect-ratio: 1/1; object-fit: cover; cursor: pointer; transition: 0.4s; }
         
-        .badge { position: absolute; top: 25px; left: 25px; background: #000; color: #fff; padding: 5px 12px; border-radius: 8px; font-size: 0.6rem; font-weight: 900; }
-        .btn-circle-cart { position: absolute; right: 25px; bottom: 85px; background: #000; color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; }
+        .badge { position: absolute; top: 22px; left: 22px; padding: 5px 12px; border-radius: 8px; font-size: 0.6rem; font-weight: 900; z-index: 10; text-transform: uppercase; }
+        .badge-limited { background: var(--brand); color: white; }
+        .badge-sold { background: #666; color: white; }
 
-        /* Modals */
+        .btn-circle-cart { position: absolute; right: 22px; bottom: 82px; background: var(--brand); color: white; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; z-index: 5; }
+
+        /* UI Modals */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
-        .modal-content { background: var(--bg); margin: 10vh auto; padding: 30px; width: 90%; max-width: 400px; border-radius: 40px; text-align: center; }
+        .modal-content { background: var(--bg); margin: 6vh auto; padding: 30px; width: 92%; max-width: 420px; border-radius: 40px; position: relative; animation: driftIn 0.4s ease; }
+        
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 15px; background: var(--gray); padding: 8px; border-radius: 15px; width: fit-content; margin: 15px auto; }
+        .qty-btn { background: none; border: none; font-size: 1rem; cursor: pointer; padding: 0 10px; font-weight: bold; }
+        
+        .btn-action { width: 100%; border: none; font-weight: bold; cursor: pointer; border-radius: 18px; transition: 0.3s; }
+        .btn-med { padding: 14px; font-size: 0.8rem; background: var(--cream); color: var(--dark); margin-bottom: 10px; }
+        .btn-large { padding: 20px; font-size: 0.95rem; background: var(--dark); color: #fff; text-transform: uppercase; }
+
+        .bag-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; background: #fff; padding: 12px; border-radius: 20px; border: 1px solid var(--cream); }
+        .delete-btn { color: #000; opacity: 0.4; border: none; background: none; cursor: pointer; margin-left: auto; }
+        
+        input, select { width: 100%; padding: 15px; margin: 8px 0; border: 1px solid var(--cream); border-radius: 15px; outline: none; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="nav-left">
-            <button class="more-btn">☰</button>
+            <button class="more-btn" onclick="alert('Menu coming soon!')">☰</button>
         </div>
 
-        <div class="logo-container">
-            <div class="logo-text">The bag</div>
-            <div class="logo-sub">MADE TO CARRY THE MOMENT</div>
-        </div>
+        <div class="logo-text">The bag</div>
 
         <div class="nav-right">
             <a href="https://instagram.com/the_bag.egy" class="insta-btn" target="_blank">INSTAGRAM</a>
-            <div onclick="openCart()" style="cursor:pointer; font-size: 1.1rem;">🛒(<span id="count">0</span>)</div>
+            <div onclick="openCart()" style="cursor:pointer; font-weight:900; font-size: 0.8rem;">BAG (<span id="count">0</span>)</div>
         </div>
     </nav>
 
     <div class="shop" id="shopGrid"></div>
 
-    <div id="modal" class="modal" onclick="this.style.display='none'">
+    <div id="modal" class="modal" onclick="closeAll()">
         <div class="modal-content" onclick="event.stopPropagation()" id="modalBody"></div>
     </div>
 
@@ -93,36 +112,131 @@
         const products = [
             { id: 'p1', name: 'Balaclava', price: 600, img: 'IMG_7095.JPG', stock: 1 },
             { id: 'p2', name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG', stock: 1 },
-            { id: 'p3', name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG', stock: 1 }
+            { id: 'p3', name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG', stock: 1 },
+            { id: 'p4', name: 'Ochre Wave', price: 900, img: 'Photoroom_20251226_214200.PNG', stock: 1 },
+            { id: 'p5', name: 'Midnight Duo', price: 900, img: 'Photoroom_20251226_210333.PNG', stock: 1 },
+            { id: 'p6', name: 'Sand Shell', price: 900, img: 'Photoroom_20251226_220111.PNG', stock: 1 }
         ];
 
         let cart = [];
+        let tempQty = 1;
 
         function loadShop() {
-            document.getElementById('shopGrid').innerHTML = products.map(p => `
+            document.getElementById('shopGrid').innerHTML = products.map(p => {
+                const soldOut = p.stock <= 0;
+                return `
                 <div class="product">
-                    <div class="badge">ONLY 1 LEFT</div>
-                    <img src="${p.img}">
-                    <button class="btn-circle-cart" onclick="addToBag('${p.id}')">🛒</button>
-                    <h3 style="margin-top:15px; font-size:1rem;">${p.name}</h3>
-                    <p style="font-weight:900;">${p.price} EGP</p>
+                    ${soldOut ? '<div class="badge badge-sold">SOLD OUT</div>' : '<div class="badge badge-limited">ONLY 1 LEFT</div>'}
+                    <img src="${p.img}" ${soldOut ? 'style="filter:grayscale(1); opacity:0.4;"' : `onclick="openProductWindow('${p.id}')"`}>
+                    ${!soldOut ? `<button class="btn-circle-cart" onclick="openProductWindow('${p.id}')">🛒</button>` : ''}
+                    <h3 style="margin-top:15px; font-size:0.9rem; opacity:${soldOut ? 0.3 : 1}">${p.name}</h3>
+                    <p style="font-weight:900; font-size:0.85rem; margin-top:5px;">${p.price} EGP</p>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
-        function addToBag(id) {
+        function openProductWindow(id) {
             let p = products.find(x => x.id === id);
-            if (cart.length >= 3) { alert("Limit 3 items per order."); return; }
-            cart.push(p);
-            document.getElementById('count').innerText = cart.length;
-        }
-
-        function openCart() {
-            let body = document.getElementById('modalBody');
-            body.innerHTML = `<h2>YOUR BAG</h2>` + cart.map(i => `<p>${i.name} - ${i.price} EGP</p>`).join('') + `<br><button onclick="alert('Checkout coming soon!')" style="background:#000; color:#fff; padding:10px 20px; border-radius:10px; border:none;">CHECKOUT</button>`;
+            tempQty = 1;
+            document.getElementById('modalBody').innerHTML = `
+                <img src="${p.img}" style="width:100%; border-radius:25px;">
+                <h2 style="margin:15px 0 5px; font-size:1.2rem;">${p.name}</h2>
+                <div class="qty-box">
+                    <button class="qty-btn" onclick="updateTempQty(-1)">-</button>
+                    <span id="tempQtyDisp" style="font-weight:900;">1</span>
+                    <button class="qty-btn" onclick="updateTempQty(1, ${p.stock})">+</button>
+                </div>
+                <button class="btn-action btn-med" onclick="addToBag('${p.id}')">ADD TO BAG</button>
+                <button class="btn-action btn-large" onclick="buyItNow('${p.id}')">BUY IT NOW</button>
+            `;
             document.getElementById('modal').style.display = 'block';
         }
 
+        function updateTempQty(amt, max) {
+            tempQty = Math.max(1, Math.min(max, tempQty + amt));
+            document.getElementById('tempQtyDisp').innerText = tempQty;
+        }
+
+        function addToBag(id) {
+            const currentTotal = cart.reduce((s, i) => s + i.qty, 0);
+            if (currentTotal + tempQty > 3) {
+                alert("Limit: 3 items per customer.");
+                return;
+            }
+            let p = products.find(x => x.id === id);
+            let existing = cart.find(i => i.id === id);
+            if (existing) existing.qty = Math.min(p.stock, existing.qty + tempQty);
+            else cart.push({ ...p, qty: tempQty });
+            updateCartCount();
+            closeAll();
+        }
+
+        function buyItNow(id) {
+            let p = products.find(x => x.id === id);
+            cart = [{ ...p, qty: 1 }];
+            updateCartCount();
+            openCheckout();
+        }
+
+        function updateCartCount() {
+            document.getElementById('count').innerText = cart.reduce((s, i) => s + i.qty, 0);
+        }
+
+        function openCart() {
+            let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+            let list = cart.map(i => `
+                <div class="bag-item">
+                    <img src="${i.img}" style="width:50px; border-radius:10px;">
+                    <div style="flex-grow:1; margin-left:10px;">
+                        <b>${i.name}</b><br><small>${i.qty} x ${i.price} EGP</small>
+                    </div>
+                    <button class="delete-btn" onclick="removeFromCart('${i.id}')">✕</button>
+                </div>
+            `).join('');
+            document.getElementById('modalBody').innerHTML = `
+                <h2>YOUR BAG</h2><br>${list || 'Empty'}
+                <h3 style="text-align:center; margin:20px 0;">TOTAL: ${total} EGP</h3>
+                ${cart.length > 0 ? `<button class="btn-action btn-large" onclick="openCheckout()">CHECKOUT</button>` : ''}
+            `;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            openCart();
+            updateCartCount();
+        }
+
+        function openCheckout() {
+            let total = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+            document.getElementById('modalBody').innerHTML = `
+                <h2>CHECKOUT</h2>
+                <form id="orderForm" onsubmit="handleForm(event)">
+                    <input name="Name" placeholder="Full Name" required>
+                    <input name="Phone" placeholder="WhatsApp Number" required>
+                    <input name="Address" placeholder="Shipping Address" required>
+                    <div style="background:#fff; padding:15px; border-radius:15px; margin:10px 0; border:1px solid var(--cream);">
+                        <label><input type="radio" name="Pay" value="Insta" checked> InstaPay</label><br>
+                        <label><input type="radio" name="Pay" value="Telda"> Telda</label><br>
+                        <label><input type="radio" name="Pay" value="COD"> COD (+10 EGP)</label>
+                    </div>
+                    <button type="submit" class="btn-action btn-large">PLACE ORDER</button>
+                </form>
+            `;
+        }
+
+        function handleForm(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            formData.append("Items", cart.map(i => `${i.name} (x${i.qty})`).join(', '));
+            fetch("https://formspree.io/f/meeoyklk", { method: "POST", body: formData, headers: {'Accept': 'application/json'} })
+            .then(() => {
+                document.getElementById('modalBody').innerHTML = `<h2>THANK YOU</h2><p>Order received!</p>`;
+                cart = []; updateCartCount();
+            });
+        }
+
+        function closeAll() { document.getElementById('modal').style.display = 'none'; }
         loadShop();
     </script>
 </body>

@@ -5,37 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG | Handmade Luxury</title>
     <style>
-        /* Importing a high-contrast serif to match TAN St. Canard */
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,900;1,900&display=swap');
 
         :root { 
-            --brand: #000; 
             --bg: #FFFBF5; 
             --dark: #000; 
             --cream: #ede0d4; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg); color: var(--dark); }
-
-        /* Slogan Bar */
-        .slogan-bar {
-            background: #000;
-            color: #fff;
-            text-align: center;
-            padding: 8px 0;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-weight: 300;
-        }
+        body { background: var(--bg); color: var(--dark); overflow-x: hidden; }
 
         /* Navigation */
         nav { 
-            display: grid; 
-            grid-template-columns: 1fr auto 1fr; 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center; 
-            padding: 15px 5%; 
+            padding: 20px 5%; 
             background: #fff;
             position: sticky;
             top: 0;
@@ -43,83 +29,140 @@
             border-bottom: 1px solid var(--cream);
         }
 
-        .nav-left { display: flex; justify-content: flex-start; }
-        .more-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
-
-        /* Logo using TAN St. Canard style */
+        .menu-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; }
+        
         .logo-text { 
             font-family: 'Bodoni Moda', serif; 
-            font-size: 2.5rem; 
+            font-size: 2.2rem; 
             text-transform: uppercase;
             font-weight: 900;
-            letter-spacing: 1px;
-            color: #000;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .nav-right { display: flex; justify-content: flex-end; align-items: center; }
+        .cart-icon-img { width: 30px; height: auto; cursor: pointer; }
 
-        /* Custom Cart Icon Image */
-        .cart-container {
+        /* Sidebar Menu */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100%;
+            background: #fff;
+            z-index: 2000;
+            transition: 0.4s;
+            padding: 60px 40px;
             display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
+            flex-direction: column;
+            gap: 30px;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
         }
-
-        .cart-icon-img {
-            width: 30px; /* Size adjusted to match header scale */
-            height: auto;
+        .sidebar.active { left: 0; }
+        .sidebar-link { 
+            font-family: 'Bodoni Moda', serif;
+            font-size: 1.5rem; 
+            text-decoration: none; 
+            color: #000; 
+            text-transform: uppercase;
         }
+        .close-sidebar { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; }
 
-        .cart-count {
-            font-weight: 900;
-            font-size: 0.9rem;
+        /* Shop Section */
+        .shop-container { padding: 40px 5%; }
+        .shop-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
         }
-
-        /* Shop Grid */
-        .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px 8%; }
-        .product { position: relative; background: #fff; padding: 15px; border-radius: 40px; text-align: center; }
+        .product { background: #fff; padding: 15px; border-radius: 40px; text-align: center; }
         .product img { width: 100%; border-radius: 30px; aspect-ratio: 1/1; object-fit: cover; }
-        .badge { position: absolute; top: 25px; left: 25px; background: #000; color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 0.65rem; font-weight: 900; }
+        .price { font-weight: 900; margin-top: 10px; }
+
+        /* About Us Section */
+        .about-section { 
+            padding: 80px 10%; 
+            text-align: center; 
+            background: #fff; 
+            margin-top: 50px;
+            border-top: 1px solid var(--cream);
+        }
+        .about-section h2 { font-family: 'Bodoni Moda', serif; font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; }
+        .about-section p { line-height: 1.8; color: #555; max-width: 600px; margin: 0 auto; }
+
+        /* Hidden products for "Shop All" */
+        .hidden-item { display: none; }
+        .shop-all-active .hidden-item { display: block; }
+
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.2); z-index: 1500; display: none;
+        }
+        .overlay.active { display: block; }
     </style>
 </head>
 <body>
 
-    <div class="slogan-bar">
-        MADE TO CARRY THE MOMENT
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-sidebar" onclick="toggleMenu()">✕</div>
+        <a href="#" class="sidebar-link" onclick="showAbout(); toggleMenu();">About Us</a>
+        <a href="#" class="sidebar-link" onclick="showAll(); toggleMenu();">Shop All</a>
+        <a href="#" class="sidebar-link" onclick="alert('Our bags are handmade with premium yarn. Shipping takes 3-5 business days across Egypt.'); toggleMenu();">Shipping Policy</a>
     </div>
 
     <nav>
-        <div class="nav-left"><button class="more-btn">☰</button></div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <div class="logo-text">the bag</div>
-        <div class="nav-right">
-            <div class="cart-container">
-                <img src="icon.jfif" class="cart-icon-img" alt="Cart">
-                <span class="cart-count">(0)</span>
-            </div>
-        </div>
+        <img src="icon.jfif" class="cart-icon-img" alt="Cart">
     </nav>
 
-    <div class="shop" id="shopGrid"></div>
+    <section class="shop-container">
+        <div class="shop-grid" id="productGrid">
+            <div class="product">
+                <img src="IMG_7095.JPG">
+                <h3>Balaclava</h3>
+                <p class="price">600 EGP</p>
+            </div>
+            <div class="product">
+                <img src="Photoroom_20251227_224758.PNG">
+                <h3>Chevron Peak</h3>
+                <p class="price">900 EGP</p>
+            </div>
+            <div class="product">
+                <img src="Photoroom_20251226_214602.PNG">
+                <h3>Rose Classic</h3>
+                <p class="price">900 EGP</p>
+            </div>
+
+            <div class="product hidden-item"><img src="Photoroom_20251226_214200.PNG"><h3>Ochre Wave</h3><p class="price">900 EGP</p></div>
+            <div class="product hidden-item"><img src="Photoroom_20251226_210333.PNG"><h3>Midnight Duo</h3><p class="price">900 EGP</p></div>
+            <div class="product hidden-item"><img src="Photoroom_20251226_220111.PNG"><h3>Sand Shell</h3><p class="price">900 EGP</p></div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about-us">
+        <h2>About Us</h2>
+        <p>Welcome to THE BAG. We specialize in handmade, limited-edition crochet pieces designed to carry the moment. Every bag is crafted with care in Egypt, ensuring that you own a piece of art that is as unique as you are.</p>
+    </section>
 
     <script>
-        const products = [
-            { id: 'p1', name: 'Balaclava', price: 600, img: 'IMG_7095.JPG' },
-            { id: 'p2', name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG' },
-            { id: 'p3', name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG' },
-            { id: 'p4', name: 'Ochre Wave', price: 900, img: 'Photoroom_20251226_214200.PNG' },
-            { id: 'p5', name: 'Midnight Duo', price: 900, img: 'Photoroom_20251226_210333.PNG' },
-            { id: 'p6', name: 'Sand Shell', price: 900, img: 'Photoroom_20251226_220111.PNG' }
-        ];
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('overlay').classList.toggle('active');
+        }
 
-        document.getElementById('shopGrid').innerHTML = products.map(p => `
-            <div class="product">
-                <div class="badge">ONLY 1 LEFT</div>
-                <img src="${p.img}">
-                <h3 style="margin-top:20px; font-weight:300;">${p.name}</h3>
-                <p style="font-weight:900;">${p.price} EGP</p>
-            </div>
-        `).join('');
+        function showAll() {
+            document.getElementById('productGrid').classList.add('shop-all-active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showAbout() {
+            document.getElementById('about-us').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>

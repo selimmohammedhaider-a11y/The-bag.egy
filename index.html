@@ -5,194 +5,235 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG | Handmade Luxury</title>
     <style>
-        /* TAN St. Canard Style Serif - No Bolding */
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
 
-        :root { 
-            --bg: #FFFBF5; 
-            --dark: #000; 
-            --cream: #ede0d4; 
-        }
+        :root { --bg: #FFFBF5; --dark: #000; --cream: #ede0d4; }
 
-        /* Global Reset - No Bold Allowed */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            font-family: 'Inter', sans-serif; 
-            font-weight: 300; 
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; font-weight: 300; }
         body { background: var(--bg); color: var(--dark); overflow-x: hidden; }
 
-        /* Navigation Header */
+        /* Navigation */
         nav { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 20px 5%; 
-            background: #fff;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid var(--cream);
+            display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; 
+            padding: 20px 5%; background: #fff; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--cream);
         }
 
+        .nav-left { display: flex; align-items: center; gap: 15px; }
+        .back-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
         .menu-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; }
-        
-        .logo-text { 
-            font-family: 'Bodoni Moda', serif; 
-            font-size: 2.5rem; 
-            text-transform: uppercase;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            letter-spacing: 2px;
-        }
 
-        /* New minimalist cart icon integration */
-        .cart-icon-img { width: 28px; height: auto; cursor: pointer; }
+        .logo-area { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .logo-text { font-family: 'Bodoni Moda', serif; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 2px; }
+        .arrow-icon { font-size: 1.2rem; transition: 0.3s; }
 
-        /* Sidebar Menu */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 85%;
-            max-width: 320px;
-            height: 100%;
-            background: #fff;
-            z-index: 2000;
-            transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-            padding: 80px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
+        .nav-right { display: flex; justify-content: flex-end; }
+        .cart-trigger { display: flex; align-items: center; gap: 5px; cursor: pointer; }
+        .cart-img { width: 26px; height: auto; }
+
+        /* Sidebars */
+        .sidebar { position: fixed; top: 0; height: 100%; background: #fff; z-index: 2000; transition: 0.5s; padding: 40px; box-shadow: 0 0 40px rgba(0,0,0,0.1); }
+        .sidebar-left { left: -100%; width: 300px; }
+        .sidebar-right { right: -100%; width: 350px; display: flex; flex-direction: column; }
         .sidebar.active { left: 0; }
-        .sidebar-link { 
-            font-family: 'Bodoni Moda', serif;
-            font-size: 1.8rem; 
-            text-decoration: none; 
-            color: #000; 
-            text-transform: uppercase;
-            border-bottom: 1px solid transparent;
-            width: fit-content;
-        }
-        .close-sidebar { position: absolute; top: 25px; right: 25px; font-size: 1.8rem; cursor: pointer; }
+        .sidebar-right.active { right: 0; }
 
-        /* Shop Grid: First 3 Items */
-        .shop-container { padding: 60px 5%; }
-        .shop-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 30px; 
-        }
-        .product { background: #fff; padding: 20px; border-radius: 45px; text-align: center; transition: 0.3s; }
-        .product img { width: 100%; border-radius: 35px; aspect-ratio: 1/1; object-fit: cover; margin-bottom: 15px; }
-        .product h3 { font-family: 'Bodoni Moda', serif; font-size: 1.4rem; margin-bottom: 5px; }
-        .price { font-size: 1rem; color: #666; }
+        .sidebar-link { font-family: 'Bodoni Moda', serif; font-size: 1.8rem; text-decoration: none; color: #000; text-transform: uppercase; display: block; margin-bottom: 30px; }
 
-        /* Hidden products for Shop All functionality */
+        /* Cart Content */
+        .cart-header { font-family: 'Bodoni Moda', serif; font-size: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; text-transform: uppercase; }
+        .cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: grid; grid-template-columns: 60px 1fr auto; gap: 15px; align-items: center; margin-bottom: 20px; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; }
+        .qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+        .qty-btn { background: #eee; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; }
+        .delete-btn { color: red; background: none; border: none; cursor: pointer; font-size: 0.8rem; margin-top: 5px; }
+
+        .cart-footer { border-top: 1px solid #eee; padding-top: 20px; }
+        .total-row { display: flex; justify-content: space-between; font-weight: 600; font-size: 1.2rem; margin-bottom: 20px; }
+        .checkout-btn { width: 100%; background: #000; color: #fff; padding: 18px; border: none; border-radius: 15px; cursor: pointer; text-transform: uppercase; }
+
+        /* Shop & Modals */
+        .shop-container { padding: 60px 8%; }
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .product { text-align: center; cursor: pointer; }
+        .product img { width: 100%; border-radius: 40px; aspect-ratio: 1/1; object-fit: cover; }
         .hidden-item { display: none; }
         .shop-all-active .hidden-item { display: block; }
 
-        /* About Us Section: Black Background */
-        .about-section { 
-            padding: 120px 10%; 
-            text-align: center; 
-            background: #000; 
-            color: #fff;
-            margin-top: 80px;
-        }
-        .about-section h2 { 
-            font-family: 'Bodoni Moda', serif; 
-            font-size: 2.5rem; 
-            margin-bottom: 30px; 
-            text-transform: uppercase; 
-            letter-spacing: 3px;
-        }
-        .about-section p { 
-            line-height: 2; 
-            color: #aaa; 
-            max-width: 700px; 
-            margin: 0 auto; 
-            font-size: 1.1rem;
-        }
+        .about-section { padding: 100px 10%; background: #000; color: #fff; text-align: center; margin-top: 60px; }
+        .about-section h2 { font-family: 'Bodoni Moda', serif; font-size: 2.5rem; margin-bottom: 20px; text-transform: uppercase; }
 
-        /* Overlay */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3); z-index: 1500; display: none;
-        }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index: 3000; align-items:center; justify-content:center; }
+        .modal-content { background:#fff; width:90%; max-width:400px; padding:30px; border-radius:40px; text-align:center; }
+
+        /* Checkout Form Modal */
+        .checkout-modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index: 4000; padding: 40px; flex-direction: column; }
+        .form-input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #eee; border-radius: 10px; }
+        
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: 1500; display: none; }
         .overlay.active { display: block; }
     </style>
 </head>
 <body>
 
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-    <div class="sidebar" id="sidebar">
-        <div class="close-sidebar" onclick="toggleMenu()">✕</div>
-        <a href="#" class="sidebar-link" onclick="showAbout(); toggleMenu();">About Us</a>
-        <a href="#" class="sidebar-link" onclick="showAll(); toggleMenu();">Shop All</a>
-        <a href="#" class="sidebar-link" onclick="showPolicy(); toggleMenu();">Shipping Policy</a>
+    <div class="sidebar sidebar-right" id="cartSidebar">
+        <div onclick="closeAll()" style="cursor:pointer; margin-bottom:20px;">✕ CLOSE</div>
+        <div class="cart-header">Your Selection</div>
+        <div class="cart-items" id="cartItemsList"></div>
+        <div class="cart-footer">
+            <div class="total-row"><span>Total</span><span id="cartTotal">0 EGP</span></div>
+            <button class="checkout-btn" onclick="openCheckout()">Complete Order</button>
+        </div>
+    </div>
+
+    <div class="sidebar sidebar-left" id="menuSidebar">
+        <div onclick="closeAll()" style="cursor:pointer; margin-bottom:20px;">✕</div>
+        <a href="#" class="sidebar-link" onclick="showAll(); closeAll();">Shop All</a>
+        <a href="#" class="sidebar-link" onclick="scrollToAbout(); closeAll();">About Us</a>
     </div>
 
     <nav>
-        <button class="menu-btn" onclick="toggleMenu()">☰</button>
-        <div class="logo-text">the bag</div>
-        <img src="cart-new.png" class="cart-icon-img" alt="Cart">
+        <div class="nav-left">
+            <button class="back-btn" onclick="window.history.back()">←</button>
+            <button class="menu-btn" onclick="toggleLeftMenu()">☰</button>
+        </div>
+        <div class="logo-area" onclick="showAll()">
+            <span class="logo-text">the bag</span>
+            <span class="arrow-icon">→</span>
+        </div>
+        <div class="nav-right">
+            <div class="cart-trigger" onclick="toggleCart()">
+                <img src="icon.jfif" class="cart-img" alt="Cart">
+                <span id="cartCount">(0)</span>
+            </div>
+        </div>
     </nav>
 
     <section class="shop-container">
-        <div class="shop-grid" id="productGrid">
-            <div class="product">
-                <img src="IMG_7095.JPG" alt="Balaclava">
-                <h3>Balaclava</h3>
-                <p class="price">600 EGP</p>
-            </div>
-            <div class="product">
-                <img src="Photoroom_20251227_224758.PNG" alt="Chevron Peak">
-                <h3>Chevron Peak</h3>
-                <p class="price">900 EGP</p>
-            </div>
-            <div class="product">
-                <img src="Photoroom_20251226_214602.PNG" alt="Rose Classic">
-                <h3>Rose Classic</h3>
-                <p class="price">900 EGP</p>
-            </div>
-
-            <div class="product hidden-item"><img src="Photoroom_20251226_214200.PNG"><h3>Ochre Wave</h3><p class="price">900 EGP</p></div>
-            <div class="product hidden-item"><img src="Photoroom_20251226_210333.PNG"><h3>Midnight Duo</h3><p class="price">900 EGP</p></div>
-            <div class="product hidden-item"><img src="Photoroom_20251226_220111.PNG"><h3>Sand Shell</h3><p class="price">900 EGP</p></div>
-        </div>
+        <div class="shop-grid" id="mainGrid"></div>
     </section>
 
-    <section class="about-section" id="about-us">
+    <section class="about-section" id="about">
         <h2>About Us</h2>
-        <p>THE BAG is an Egyptian-born label dedicated to the art of crochet. Every piece is handmade with premium materials, focused on bringing high-fashion craftsmanship into the everyday. We don't just make bags; we create companions for your best moments.</p>
+        <p>Made in Egypt. Handmade. Carrying the Moment.</p>
     </section>
+
+    <div id="productModal" class="modal" onclick="closeAll()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="mImg" src="" style="width:100%; border-radius:25px; margin-bottom:15px;">
+            <h2 id="mTitle" style="font-family:'Bodoni Moda';"></h2>
+            <p id="mPrice" style="margin: 10px 0 20px;"></p>
+            <button class="checkout-btn" onclick="addItemToCart()">Add to Bag</button>
+        </div>
+    </div>
+
+    <div id="checkoutMenu" class="checkout-modal">
+        <div onclick="document.getElementById('checkoutMenu').style.display='none'" style="cursor:pointer; margin-bottom:30px;">← BACK TO CART</div>
+        <h1 style="font-family:'Bodoni Moda'; margin-bottom:20px;">Checkout</h1>
+        <form action="https://formspree.io/f/meeoyklk" method="POST">
+            <input type="text" name="name" placeholder="Full Name" class="form-input" required>
+            <input type="text" name="phone" placeholder="Phone Number" class="form-input" required>
+            <input type="text" name="address" placeholder="Delivery Address" class="form-input" required>
+            <textarea name="order_details" id="formOrderDetails" style="display:none;"></textarea>
+            <button type="submit" class="checkout-btn">Submit Order</button>
+        </form>
+    </div>
 
     <script>
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-            document.getElementById('overlay').classList.toggle('active');
+        const products = [
+            { id: 1, name: 'Balaclava', price: 600, img: 'IMG_7095.JPG', hidden: false },
+            { id: 2, name: 'Chevron Peak', price: 900, img: 'Photoroom_20251227_224758.PNG', hidden: false },
+            { id: 3, name: 'Rose Classic', price: 900, img: 'Photoroom_20251226_214602.PNG', hidden: false },
+            { id: 4, name: 'Ochre Wave', price: 900, img: 'Photoroom_20251226_214200.PNG', hidden: true },
+            { id: 5, name: 'Midnight Duo', price: 900, img: 'Photoroom_20251226_210333.PNG', hidden: true },
+            { id: 6, name: 'Sand Shell', price: 900, img: 'Photoroom_20251226_220111.PNG', hidden: true }
+        ];
+
+        let cart = [];
+        let selectedProd = null;
+
+        function renderShop() {
+            document.getElementById('mainGrid').innerHTML = products.map(p => `
+                <div class="product ${p.hidden ? 'hidden-item' : ''}" onclick="openDetail(${p.id})">
+                    <img src="${p.img}">
+                    <h3 style="font-family:'Bodoni Moda'; margin-top:15px; text-transform:uppercase;">${p.name}</h3>
+                    <p>${p.price} EGP</p>
+                </div>
+            `).join('');
         }
 
-        function showAll() {
-            document.getElementById('productGrid').classList.add('shop-all-active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function openDetail(id) {
+            selectedProd = products.find(p => p.id === id);
+            document.getElementById('mImg').src = selectedProd.img;
+            document.getElementById('mTitle').innerText = selectedProd.name;
+            document.getElementById('mPrice').innerText = selectedProd.price + " EGP";
+            document.getElementById('productModal').style.display = 'flex';
         }
 
-        function showAbout() {
-            document.getElementById('about-us').scrollIntoView({ behavior: 'smooth' });
+        function addItemToCart() {
+            const existing = cart.find(i => i.id === selectedProd.id);
+            if (existing) { existing.qty++; } 
+            else { 
+                if (cart.length >= 3) return alert("Limit: 3 unique items per order.");
+                cart.push({...selectedProd, qty: 1}); 
+            }
+            updateCart();
+            closeAll();
+            toggleCart();
         }
 
-        function showPolicy() {
-            alert("SHIPPING POLICY:\n\n• Delivery within 3-5 business days across Egypt.\n• Each bag is handmade to order.\n• Contact us via Instagram for custom color requests.");
+        function updateCart() {
+            const list = document.getElementById('cartItemsList');
+            let total = 0;
+            list.innerHTML = cart.map((item, index) => {
+                total += (item.price * item.qty);
+                return `
+                <div class="cart-item">
+                    <img src="${item.img}">
+                    <div>
+                        <div style="font-family:'Bodoni Moda'; text-transform:uppercase;">${item.name}</div>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                        </div>
+                        <button class="delete-btn" onclick="removeItem(${index})">REMOVE</button>
+                    </div>
+                    <div>${item.price * item.qty} EGP</div>
+                </div>`;
+            }).join('');
+            
+            document.getElementById('cartTotal').innerText = total + " EGP";
+            document.getElementById('cartCount').innerText = `(${cart.length})`;
+            document.getElementById('formOrderDetails').value = cart.map(i => `${i.name} x${i.qty}`).join(', ');
         }
+
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty < 1) removeItem(index);
+            updateCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function toggleLeftMenu() { document.getElementById('menuSidebar').classList.toggle('active'); document.getElementById('overlay').classList.toggle('active'); }
+        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); document.getElementById('overlay').classList.toggle('active'); }
+        function closeAll() { 
+            document.querySelectorAll('.sidebar, .overlay').forEach(el => el.classList.remove('active')); 
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function showAll() { document.getElementById('mainGrid').classList.add('shop-all-active'); }
+        function scrollToAbout() { document.getElementById('about').scrollIntoView({behavior:'smooth'}); }
+        function openCheckout() { document.getElementById('checkoutMenu').style.display = 'flex'; }
+
+        renderShop();
     </script>
 </body>
 </html>

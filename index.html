@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG | Handmade Luxury</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,900;1,900&display=swap');
+        /* TAN St. Canard Style Serif - No Bolding */
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap');
 
         :root { 
             --bg: #FFFBF5; 
@@ -13,10 +15,18 @@
             --cream: #ede0d4; 
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        /* Global Reset - No Bold Allowed */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif; 
+            font-weight: 300; 
+        }
+
         body { background: var(--bg); color: var(--dark); overflow-x: hidden; }
 
-        /* Navigation */
+        /* Navigation Header */
         nav { 
             display: flex; 
             justify-content: space-between; 
@@ -33,72 +43,88 @@
         
         .logo-text { 
             font-family: 'Bodoni Moda', serif; 
-            font-size: 2.2rem; 
+            font-size: 2.5rem; 
             text-transform: uppercase;
-            font-weight: 900;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            letter-spacing: 2px;
         }
 
-        .cart-icon-img { width: 30px; height: auto; cursor: pointer; }
+        /* New minimalist cart icon integration */
+        .cart-icon-img { width: 28px; height: auto; cursor: pointer; }
 
         /* Sidebar Menu */
         .sidebar {
             position: fixed;
             top: 0;
             left: -100%;
-            width: 80%;
-            max-width: 300px;
+            width: 85%;
+            max-width: 320px;
             height: 100%;
             background: #fff;
             z-index: 2000;
-            transition: 0.4s;
-            padding: 60px 40px;
+            transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+            padding: 80px 40px;
             display: flex;
             flex-direction: column;
-            gap: 30px;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+            gap: 40px;
         }
         .sidebar.active { left: 0; }
         .sidebar-link { 
             font-family: 'Bodoni Moda', serif;
-            font-size: 1.5rem; 
+            font-size: 1.8rem; 
             text-decoration: none; 
             color: #000; 
             text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            width: fit-content;
         }
-        .close-sidebar { position: absolute; top: 20px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+        .close-sidebar { position: absolute; top: 25px; right: 25px; font-size: 1.8rem; cursor: pointer; }
 
-        /* Shop Section */
-        .shop-container { padding: 40px 5%; }
+        /* Shop Grid: First 3 Items */
+        .shop-container { padding: 60px 5%; }
         .shop-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
         }
-        .product { background: #fff; padding: 15px; border-radius: 40px; text-align: center; }
-        .product img { width: 100%; border-radius: 30px; aspect-ratio: 1/1; object-fit: cover; }
-        .price { font-weight: 900; margin-top: 10px; }
+        .product { background: #fff; padding: 20px; border-radius: 45px; text-align: center; transition: 0.3s; }
+        .product img { width: 100%; border-radius: 35px; aspect-ratio: 1/1; object-fit: cover; margin-bottom: 15px; }
+        .product h3 { font-family: 'Bodoni Moda', serif; font-size: 1.4rem; margin-bottom: 5px; }
+        .price { font-size: 1rem; color: #666; }
 
-        /* About Us Section */
-        .about-section { 
-            padding: 80px 10%; 
-            text-align: center; 
-            background: #fff; 
-            margin-top: 50px;
-            border-top: 1px solid var(--cream);
-        }
-        .about-section h2 { font-family: 'Bodoni Moda', serif; font-size: 2rem; margin-bottom: 20px; text-transform: uppercase; }
-        .about-section p { line-height: 1.8; color: #555; max-width: 600px; margin: 0 auto; }
-
-        /* Hidden products for "Shop All" */
+        /* Hidden products for Shop All functionality */
         .hidden-item { display: none; }
         .shop-all-active .hidden-item { display: block; }
 
+        /* About Us Section: Black Background */
+        .about-section { 
+            padding: 120px 10%; 
+            text-align: center; 
+            background: #000; 
+            color: #fff;
+            margin-top: 80px;
+        }
+        .about-section h2 { 
+            font-family: 'Bodoni Moda', serif; 
+            font-size: 2.5rem; 
+            margin-bottom: 30px; 
+            text-transform: uppercase; 
+            letter-spacing: 3px;
+        }
+        .about-section p { 
+            line-height: 2; 
+            color: #aaa; 
+            max-width: 700px; 
+            margin: 0 auto; 
+            font-size: 1.1rem;
+        }
+
+        /* Overlay */
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.2); z-index: 1500; display: none;
+            background: rgba(0,0,0,0.3); z-index: 1500; display: none;
         }
         .overlay.active { display: block; }
     </style>
@@ -111,29 +137,29 @@
         <div class="close-sidebar" onclick="toggleMenu()">✕</div>
         <a href="#" class="sidebar-link" onclick="showAbout(); toggleMenu();">About Us</a>
         <a href="#" class="sidebar-link" onclick="showAll(); toggleMenu();">Shop All</a>
-        <a href="#" class="sidebar-link" onclick="alert('Our bags are handmade with premium yarn. Shipping takes 3-5 business days across Egypt.'); toggleMenu();">Shipping Policy</a>
+        <a href="#" class="sidebar-link" onclick="showPolicy(); toggleMenu();">Shipping Policy</a>
     </div>
 
     <nav>
         <button class="menu-btn" onclick="toggleMenu()">☰</button>
         <div class="logo-text">the bag</div>
-        <img src="icon.jfif" class="cart-icon-img" alt="Cart">
+        <img src="cart-new.png" class="cart-icon-img" alt="Cart">
     </nav>
 
     <section class="shop-container">
         <div class="shop-grid" id="productGrid">
             <div class="product">
-                <img src="IMG_7095.JPG">
+                <img src="IMG_7095.JPG" alt="Balaclava">
                 <h3>Balaclava</h3>
                 <p class="price">600 EGP</p>
             </div>
             <div class="product">
-                <img src="Photoroom_20251227_224758.PNG">
+                <img src="Photoroom_20251227_224758.PNG" alt="Chevron Peak">
                 <h3>Chevron Peak</h3>
                 <p class="price">900 EGP</p>
             </div>
             <div class="product">
-                <img src="Photoroom_20251226_214602.PNG">
+                <img src="Photoroom_20251226_214602.PNG" alt="Rose Classic">
                 <h3>Rose Classic</h3>
                 <p class="price">900 EGP</p>
             </div>
@@ -146,7 +172,7 @@
 
     <section class="about-section" id="about-us">
         <h2>About Us</h2>
-        <p>Welcome to THE BAG. We specialize in handmade, limited-edition crochet pieces designed to carry the moment. Every bag is crafted with care in Egypt, ensuring that you own a piece of art that is as unique as you are.</p>
+        <p>THE BAG is an Egyptian-born label dedicated to the art of crochet. Every piece is handmade with premium materials, focused on bringing high-fashion craftsmanship into the everyday. We don't just make bags; we create companions for your best moments.</p>
     </section>
 
     <script>
@@ -162,6 +188,10 @@
 
         function showAbout() {
             document.getElementById('about-us').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showPolicy() {
+            alert("SHIPPING POLICY:\n\n• Delivery within 3-5 business days across Egypt.\n• Each bag is handmade to order.\n• Contact us via Instagram for custom color requests.");
         }
     </script>
 </body>

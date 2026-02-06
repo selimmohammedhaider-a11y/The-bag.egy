@@ -3,153 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE BAG | Official Store</title>
+    <title>THE BAG | Handcrafted Elegance</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --black: #000; --white: #fff; --gray: #f4f4f4; --transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
 
-        /* --- MOVING TOP BANNER --- */
-        .top-banner { background: var(--black); color: var(--white); overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+        /* --- TOP MOVING BANNER --- */
+        .top-banner { background: var(--black); color: var(--white); overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 12px; font-weight: 600; letter-spacing: 1px; position: sticky; top: 0; z-index: 1001; }
         .banner-track { display: inline-block; animation: scroll 20s linear infinite; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* --- NAV --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: white; z-index: 100; }
-        .nav-item { cursor: pointer; font-size: 12px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: black; }
-        .logo-img { height: 40px; }
+        /* --- NAVIGATION --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #eee; position: sticky; top: 38px; background: white; z-index: 1000; }
+        .nav-left, .nav-right { display: flex; gap: 20px; flex: 1; }
+        .nav-right { justify-content: flex-end; }
+        .nav-item { cursor: pointer; font-size: 12px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: black; transition: 0.3s; }
+        .nav-item:hover { opacity: 0.5; }
+        .logo-img { height: 50px; cursor: pointer; }
 
-        /* --- GRID --- */
-        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px 5%; }
-        .card { cursor: pointer; text-align: center; transition: var(--transition); }
-        .card:hover { transform: translateY(-5px); }
-        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--gray); margin-bottom: 10px; }
-        .card h3 { font-size: 14px; text-transform: uppercase; }
-        .card p { color: #666; font-size: 13px; }
+        /* --- PRODUCT GRID --- */
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 40px 5%; }
+        .card { cursor: pointer; text-align: center; transition: var(--transition); position: relative; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--gray); margin-bottom: 15px; border-radius: 4px; }
+        .card h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .card p { color: #666; font-size: 13px; font-weight: 600; }
 
-        /* --- CENTERED MODAL --- */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
-        .modal-content { background: white; width: 90%; max-width: 500px; padding: 40px; position: relative; text-align: center; border-radius: 8px; }
+        /* --- CENTERED MODALS --- */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); }
+        .modal-content { background: white; width: 90%; max-width: 500px; padding: 40px; position: relative; text-align: center; border-radius: 2px; transform: scale(0.9); transition: 0.3s; }
+        .modal.active { display: flex; }
+        .modal.active .modal-content { transform: scale(1); }
         .close { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 24px; }
-        .modal img { width: 250px; height: 250px; object-fit: cover; margin-bottom: 20px; }
-
+        
         /* --- BUTTONS --- */
-        .btn { width: 100%; padding: 15px; margin-top: 10px; border: 1px solid black; cursor: pointer; font-family: inherit; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        .btn { width: 100%; padding: 18px; margin-top: 10px; border: 1px solid black; cursor: pointer; font-family: inherit; font-weight: 700; text-transform: uppercase; transition: 0.3s; font-size: 12px; letter-spacing: 1px; }
         .btn-black { background: black; color: white; }
         .btn-black:hover { background: #333; }
         .btn-white { background: white; color: black; }
+        .btn-white:hover { background: #f0f0f0; }
 
         /* --- CART SIDEBAR --- */
-        #cartSide { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: white; z-index: 1100; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: var(--transition); padding: 30px; display: flex; flex-direction: column; }
+        #cartSide { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: white; z-index: 2500; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); padding: 40px; display: flex; flex-direction: column; }
         #cartSide.active { right: 0; }
-        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .cart-item img { width: 60px; height: 60px; object-fit: cover; }
+        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 70px; height: 70px; object-fit: cover; }
         .cart-info { flex: 1; text-align: left; }
-        .cart-info h4 { font-size: 14px; }
+        .cart-info h4 { font-size: 13px; text-transform: uppercase; }
+        .remove-btn { cursor: pointer; color: red; font-size: 12px; font-weight: bold; }
 
-        /* --- CHECKOUT FORM --- */
-        #checkoutForm input, #checkoutForm select { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; }
-        
-        @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(1, 1fr); } #cartSide { width: 100%; right: -100%; } }
+        /* --- FORMS --- */
+        .checkout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; font-family: inherit; font-size: 14px; }
+
+        @media (max-width: 768px) { .product-grid { grid-template-columns: 1fr; } #cartSide { width: 100%; right: -100%; } }
     </style>
 </head>
 <body>
 
     <div class="top-banner">
         <div class="banner-track">
-            FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT — FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT —
+            FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT — MADE TO CARRY THE MOMENT — FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT — 
         </div>
     </div>
 
     <nav>
-        <div style="display:flex; gap:20px;">
-            <div class="nav-item">Menu</div>
-            <div class="nav-item">About Us</div>
+        <div class="nav-left">
+            <div class="nav-item" onclick="openMenu()">Menu</div>
+            <div class="nav-item" onclick="openAbout()">About Us</div>
         </div>
-        <img src="Black and White Bold Time Fashion Logo.PNG" class="logo-img">
-        <div style="display:flex; gap:20px;">
-            <a href="https://instagram.com/The_bag.egy" class="nav-item">Instagram</a>
+        <img src="Black and White Bold Time Fashion Logo.PNG" class="logo-img" alt="The Bag Logo">
+        <div class="nav-right">
+            <a href="https://instagram.com/The_bag.egy" target="_blank" class="nav-item">Instagram</a>
             <div class="nav-item" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</div>
         </div>
     </nav>
 
     <div class="product-grid">
-        <div class="card" onclick="openModal('Chevron Blue Tote', 1200, 'Photoroom_20251226_210333.PNG')">
-            <img src="Photoroom_20251226_210333.PNG">
+        <div class="card" onclick="openProduct('Chevron Blue Tote', 900, 'Photoroom_20251226_210333.PNG')">
+            <img src="Photoroom_20251226_210333.PNG" alt="Chevron Blue Tote">
             <h3>Chevron Blue Tote</h3>
-            <p>1,200 EGP</p>
+            <p>900 EGP</p>
         </div>
-        <div class="card" onclick="openModal('Earth Tone ZigZag', 1350, 'Photoroom_20251226_214200.PNG')">
-            <img src="Photoroom_20251226_214200.PNG">
+        <div class="card" onclick="openProduct('Earth Tone ZigZag', 900, 'Photoroom_20251226_214200.PNG')">
+            <img src="Photoroom_20251226_214200.PNG" alt="Earth Tone ZigZag">
             <h3>Earth Tone ZigZag</h3>
-            <p>1,350 EGP</p>
+            <p>900 EGP</p>
         </div>
-        <div class="card" onclick="openModal('Dusty Rose Crochet', 1100, 'Photoroom_20251226_214602.PNG')">
-            <img src="Photoroom_20251226_214602.PNG">
+        <div class="card" onclick="openProduct('Dusty Rose Crochet', 900, 'Photoroom_20251226_214602.PNG')">
+            <img src="Photoroom_20251226_214602.PNG" alt="Dusty Rose Crochet">
             <h3>Dusty Rose Crochet</h3>
-            <p>1,100 EGP</p>
+            <p>900 EGP</p>
         </div>
-        <div class="card" onclick="openModal('Sandy Beige Hobo', 1250, 'Photoroom_20251226_220111.PNG')">
-            <img src="Photoroom_20251226_220111.PNG">
+        <div class="card" onclick="openProduct('Sandy Beige Hobo', 900, 'Photoroom_20251226_220111.PNG')">
+            <img src="Photoroom_20251226_220111.PNG" alt="Sandy Beige Hobo">
             <h3>Sandy Beige Hobo</h3>
-            <p>1,250 EGP</p>
+            <p>900 EGP</p>
         </div>
-        <div class="card" onclick="openModal('Pink & Purple Chevron', 1400, 'Photoroom_20251227_224758.PNG')">
-            <img src="Photoroom_20251227_224758.PNG">
+        <div class="card" onclick="openProduct('Pink & Purple Chevron', 900, 'Photoroom_20251227_224758.PNG')">
+            <img src="Photoroom_20251227_224758.PNG" alt="Pink & Purple Chevron">
             <h3>Pink & Purple Chevron</h3>
-            <p>1,400 EGP</p>
+            <p>900 EGP</p>
         </div>
-        <div class="card" onclick="openModal('Monochrome Balaclava', 850, 'IMG_7095.JPG')">
-            <img src="IMG_7095.JPG">
+        <div class="card" onclick="openProduct('Monochrome Balaclava', 600, 'IMG_7095.JPG')">
+            <img src="IMG_7095.JPG" alt="Monochrome Balaclava">
             <h3>Monochrome Balaclava</h3>
-            <p>850 EGP</p>
+            <p>600 EGP</p>
         </div>
     </div>
 
     <div id="productModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="">
-            <h2 id="modalTitle"></h2>
-            <p id="modalPrice" style="margin-bottom:20px;"></p>
-            <input type="number" id="modalQty" value="1" min="1" style="padding:10px; width:60px; margin-bottom:20px;">
+            <span class="close" onclick="closeModals()">&times;</span>
+            <img id="mImg" src="" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 20px;">
+            <h2 id="mTitle" style="text-transform: uppercase; margin-bottom: 10px;"></h2>
+            <p id="mPrice" style="font-weight: bold; margin-bottom: 20px;"></p>
+            <div style="margin-bottom: 20px;">
+                <label style="font-size: 12px; font-weight: bold;">QUANTITY</label><br>
+                <input type="number" id="mQty" value="1" min="1" style="width: 60px; text-align: center; margin-top: 10px;">
+            </div>
             <button class="btn btn-white" onclick="addToCart()">Add to Cart</button>
             <button class="btn btn-black" onclick="buyNow()">Buy Now</button>
         </div>
     </div>
 
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModals()">&times;</span>
+            <h2 style="margin-bottom: 30px;">MENU</h2>
+            <div class="nav-item" style="font-size: 18px; margin-bottom: 20px;" onclick="alert('Shipping Policy: 3-5 business days across Egypt.')">Shipping Policy</div>
+            <div class="nav-item" style="font-size: 18px; margin-bottom: 20px;" onclick="alert('Return Policy: Returns accepted within 14 days if item is unused.')">Returning Policy</div>
+            <a href="https://wa.me/yournumber" class="nav-item" style="display: block; font-size: 18px; margin-bottom: 20px;">Contact via WhatsApp</a>
+            <a href="https://instagram.com/The_bag.egy" class="nav-item" style="display: block; font-size: 18px;">Contact via Instagram</a>
+        </div>
+    </div>
+
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModals()">&times;</span>
+            <h2>ABOUT US</h2>
+            <p style="margin-top: 20px; line-height: 1.8;">"The Bag" is an Egyptian brand dedicated to handcrafted crochet art. Each piece is meticulously made to carry the moment, blending traditional craftsmanship with minimalist, modern fashion.</p>
+        </div>
+    </div>
+
     <div id="cartSide">
-        <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
-            <h3>YOUR CART</h3>
-            <span style="cursor:pointer" onclick="toggleCart()">CLOSE</span>
+        <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom:30px;">
+            <h3 style="letter-spacing: 2px;">YOUR CART</h3>
+            <span style="cursor:pointer; font-weight: bold;" onclick="toggleCart()">CLOSE</span>
         </div>
         <div id="cartItems" style="flex:1; overflow-y:auto;"></div>
-        <div id="cartTotal" style="font-weight:bold; margin:20px 0;">Total: 0 EGP</div>
-        <button class="btn btn-black" onclick="showCheckout()">Checkout</button>
+        <div style="border-top: 1px solid #000; padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom: 20px;">
+                <span>TOTAL</span>
+                <span id="cartTotal">0 EGP</span>
+            </div>
+            <button class="btn btn-black" onclick="openCheckout()">Checkout</button>
+        </div>
     </div>
 
     <div id="checkoutModal" class="modal">
-        <div class="modal-content" style="max-width:600px;">
-            <span class="close" onclick="closeCheckout()">&times;</span>
-            <h2>CHECKOUT</h2>
-            <form id="checkoutForm" action="https://formspree.io/f/meeoyklk" method="POST">
-                <input type="hidden" name="Order_Details" id="orderInput">
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div class="modal-content" style="max-width: 600px; text-align: left;">
+            <span class="close" onclick="closeModals()">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 20px;">CHECKOUT</h2>
+            <form action="https://formspree.io/f/meeoyklk" method="POST">
+                <input type="hidden" name="_order_summary" id="formOrderSummary">
+                <div class="checkout-grid">
                     <input type="text" name="First_Name" placeholder="First Name" required>
                     <input type="text" name="Last_Name" placeholder="Last Name" required>
                 </div>
-                <select name="Governorate" required>
-                    <option value="">Select Governorate (Mohafaza)</option>
-                    <option value="Cairo">Cairo</option>
-                    <option value="Giza">Giza</option>
-                    <option value="Alexandria">Alexandria</option>
-                    </select>
+                <input type="text" name="Governorate" placeholder="Governorate (Mohafaza)" required>
                 <input type="text" name="City" placeholder="City" required>
-                <input type="text" name="Address" placeholder="Detailed Address (Building, Street, Floor)" required>
+                <textarea name="Address" placeholder="Detailed Address" rows="3" required></textarea>
                 <input type="email" name="Email" placeholder="Email Address" required>
-                <input type="tel" name="Phone_1" placeholder="Phone Number 1" required>
-                <input type="tel" name="Phone_2" placeholder="Phone Number 2">
+                <div class="checkout-grid">
+                    <input type="tel" name="Phone_1" placeholder="Phone Number 1" required>
+                    <input type="tel" name="Phone_2" placeholder="Phone Number 2">
+                </div>
                 <button type="submit" class="btn btn-black">Complete Order</button>
             </form>
         </div>
@@ -157,36 +188,32 @@
 
     <script>
         let cart = [];
-        let currentProduct = {};
+        let currentItem = {};
 
-        function openModal(name, price, img) {
-            currentProduct = { name, price, img };
-            document.getElementById('modalTitle').innerText = name;
-            document.getElementById('modalPrice').innerText = price + " EGP";
-            document.getElementById('modalImg').src = img;
-            document.getElementById('productModal').style.display = 'flex';
+        function openProduct(name, price, img) {
+            currentItem = { name, price, img };
+            document.getElementById('mTitle').innerText = name;
+            document.getElementById('mPrice').innerText = price + " EGP";
+            document.getElementById('mImg').src = img;
+            document.getElementById('productModal').classList.add('active');
         }
 
-        function closeModal() { document.getElementById('productModal').style.display = 'none'; }
-
         function addToCart() {
-            const qty = parseInt(document.getElementById('modalQty').value);
-            const item = {...currentProduct, qty};
-            cart.push(item);
-            updateCartUI();
-            closeModal();
+            const qty = parseInt(document.getElementById('mQty').value);
+            cart.push({ ...currentItem, qty });
+            updateCart();
+            closeModals();
             toggleCart();
         }
 
         function buyNow() {
-            const qty = parseInt(document.getElementById('modalQty').value);
-            cart = [{...currentProduct, qty}]; // Reset cart to just this item
-            updateCartUI();
-            closeModal();
-            showCheckout();
+            cart = [{ ...currentItem, qty: parseInt(document.getElementById('mQty').value) }];
+            updateCart();
+            closeModals();
+            openCheckout();
         }
 
-        function updateCartUI() {
+        function updateCart() {
             const container = document.getElementById('cartItems');
             container.innerHTML = '';
             let total = 0;
@@ -198,34 +225,22 @@
                         <div class="cart-info">
                             <h4>${item.name}</h4>
                             <p>${item.price} EGP x ${item.qty}</p>
+                            <span class="remove-btn" onclick="removeItem(${index})">REMOVE</span>
                         </div>
-                        <span style="cursor:pointer" onclick="removeItem(${index})">🗑️</span>
                     </div>
                 `;
             });
-            document.getElementById('cartTotal').innerText = `Total: ${total} EGP`;
+            document.getElementById('cartTotal').innerText = total + " EGP";
             document.getElementById('cartCount').innerText = cart.length;
-            document.getElementById('orderInput').value = JSON.stringify(cart);
+            document.getElementById('formOrderSummary').value = JSON.stringify(cart);
         }
 
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
+        function removeItem(index) { cart.splice(index, 1); updateCart(); }
         function toggleCart() { document.getElementById('cartSide').classList.toggle('active'); }
-        
-        function showCheckout() {
-            if(cart.length === 0) return alert("Your cart is empty!");
-            document.getElementById('checkoutModal').style.display = 'flex';
-        }
-
-        function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
-
-        // Success message after Formspree submission
-        if (window.location.search.includes('thanks')) {
-            alert("THANK YOU FOR YOUR ORDER! Order ID: #" + Math.floor(Math.random() * 1000000));
-        }
+        function openMenu() { document.getElementById('menuModal').classList.add('active'); }
+        function openAbout() { document.getElementById('aboutModal').classList.add('active'); }
+        function openCheckout() { if(cart.length > 0) document.getElementById('checkoutModal').classList.add('active'); else alert("Cart is empty!"); }
+        function closeModals() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
     </script>
 </body>
 </html>

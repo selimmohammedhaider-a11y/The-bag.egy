@@ -5,133 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE BAG | Handmade Luxury</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500&family=Inter:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500&family=Inter:wght@300;400;500&display=swap');
 
         :root { 
             --bg: #ffffff; 
             --text: #1a1a1a; 
-            --accent: #d4a373;
+            --border: #e6e6e6;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
         body.rtl { direction: rtl; }
 
-        /* --- HEADER & NAV --- */
+        /* --- HEADER --- */
         nav { 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 25px 5%; background: #fff; position: sticky; top: 0; z-index: 1000;
+            padding: 25px 4%; background: #fff; position: sticky; top: 0; z-index: 1000;
             border-bottom: 1px solid #f2f2f2;
         }
+        .nav-group { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .nav-right { justify-content: flex-end; gap: 20px; }
 
-        .nav-group { display: flex; align-items: center; gap: 20px; flex: 1; }
-        .nav-right { justify-content: flex-end; gap: 25px; }
+        .menu-trigger { font-size: 1.6rem; cursor: pointer; background: none; border: none; }
+        .back-link { cursor: pointer; font-size: 0.8rem; text-transform: uppercase; border-bottom: 1px solid #000; }
 
-        /* Left Controls */
-        .menu-trigger { 
-            font-size: 1.5rem; cursor: pointer; background: none; border: none; 
-            padding: 0; transition: 0.2s;
-        }
-        .back-link { 
-            cursor: pointer; font-size: 0.75rem; text-transform: uppercase; 
-            letter-spacing: 1px; border-bottom: 1px solid #000; padding-bottom: 2px;
-        }
-
-        /* Logo */
         .logo { 
             font-family: 'Bodoni Moda', serif; font-size: 2rem; 
-            text-transform: uppercase; letter-spacing: 4px; cursor: pointer;
-            text-align: center; flex: 1;
+            text-transform: uppercase; letter-spacing: 3px; flex: 1; text-align: center;
         }
 
-        /* Right Controls */
-        .lang-switch { 
-            cursor: pointer; font-size: 0.75rem; border: 1px solid #ddd; 
-            padding: 5px 10px; border-radius: 4px; transition: 0.2s; font-weight: 500;
-        }
-        .lang-switch:hover { border-color: #000; }
-
-        /* TEXT ONLY CART DESIGN */
-        .cart-wrap { 
-            cursor: pointer; position: relative; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; height: 40px;
-        }
-        .cart-text { 
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;
-        }
+        /* CART: Badge on LEFT, Bigger */
+        .cart-wrap { cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .cart-text { font-size: 0.95rem; text-transform: uppercase; font-weight: 600; }
         .cart-badge { 
-            position: absolute; top: -5px; background: #000; color: #fff; 
-            font-size: 0.6rem; width: 18px; height: 18px; border-radius: 50%; 
+            background: #000; color: #fff; font-size: 0.7rem; 
+            width: 24px; height: 24px; border-radius: 50%; 
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* --- MENUS (SIDEBARS) --- */
+        .lang-switch { cursor: pointer; font-size: 0.8rem; border: 1px solid #ddd; padding: 6px 12px; border-radius: 4px; }
+
+        /* --- SIDEBARS --- */
         .sidebar { 
             position: fixed; top: 0; height: 100%; width: 380px; background: #fff; 
             z-index: 2000; padding: 50px 40px; box-shadow: 0 0 60px rgba(0,0,0,0.05);
-            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column;
         }
-        .sidebar-left { left: -100%; border-right: 1px solid #eee; }
+        .sidebar-left { left: -100%; }
         .sidebar-left.active { left: 0; }
-        .sidebar-right { right: -100%; border-left: 1px solid #eee; }
+        .sidebar-right { right: -100%; }
         .sidebar-right.active { right: 0; }
-        
-        .close-btn { 
-            cursor: pointer; align-self: flex-start; margin-bottom: 40px; 
-            font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; opacity: 0.5;
-        }
-        .menu-link { 
-            display: block; font-family: 'Bodoni Moda'; font-size: 1.8rem; margin-bottom: 25px; 
-            text-decoration: none; color: #000; cursor: pointer; transition: 0.3s;
-        }
-        .menu-link:hover { padding-left: 10px; color: var(--accent); }
+        .close-btn { cursor: pointer; margin-bottom: 40px; opacity: 0.5; }
+        .menu-link { display: block; font-family: 'Bodoni Moda'; font-size: 1.8rem; margin-bottom: 25px; text-decoration: none; color: #000; }
 
-        /* --- GRID LAYOUT --- */
+        /* --- GRID --- */
         .container { padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
-        .product-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 40px; align-items: start;
-        }
-
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 50px; }
         .card { cursor: pointer; text-align: center; }
-        .card-img-wrap { 
-            width: 100%; aspect-ratio: 1/1; border-radius: 30px; overflow: hidden; 
-            background: #fdfdfd; margin-bottom: 20px;
-        }
-        .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .card-img-wrap { width: 100%; aspect-ratio: 1/1; border-radius: 30px; overflow: hidden; margin-bottom: 20px; }
+        .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
         .card:hover img { transform: scale(1.05); }
-        .card-title { 
-            font-family: 'Bodoni Moda'; text-transform: uppercase; font-size: 1.1rem; 
-            letter-spacing: 0.5px; margin-bottom: 5px; 
+        .card-title { font-family: 'Bodoni Moda'; font-size: 1.1rem; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+        /* THE ARROW IN CIRCLE FOR ROSE CLASSIC */
+        .title-arrow-circle {
+            width: 22px; height: 22px; border: 1px solid #000; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center; font-size: 10px;
         }
-        .card-price { font-size: 0.9rem; color: #666; font-weight: 300; }
+
+        /* --- CHECKOUT (Split Screen) --- */
+        .checkout-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 6000; overflow-y: auto; }
+        .checkout-container { display: flex; min-height: 100%; }
+        .checkout-left { flex: 1.2; padding: 60px 8%; border-right: 1px solid #eee; }
+        .checkout-right { flex: 0.8; background: #fafafa; padding: 60px 8%; }
+        .co-input { width: 100%; padding: 14px; border: 1px solid #d9d9d9; border-radius: 6px; margin-bottom: 15px; outline: none; }
+        .co-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .co-img-box { position: relative; width: 65px; height: 65px; border: 1px solid #e6e6e6; border-radius: 8px; background: #fff; }
+        .co-qty-badge { position: absolute; top: -8px; right: -8px; background: #666; color: #fff; font-size: 0.7rem; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
         
-        .arrow-icon { margin-left: 5px; font-size: 1.2rem; position: relative; top: 1px; }
-
-        /* --- ABOUT SECTION --- */
-        .about-section { 
-            background: #000; color: #fff; padding: 100px 5%; 
-            text-align: center; margin-top: 80px;
-        }
-        .about-title { font-family: 'Bodoni Moda'; font-size: 2.5rem; margin-bottom: 30px; }
-        .about-text { max-width: 700px; margin: 0 auto; line-height: 1.8; opacity: 0.85; font-weight: 300; }
-
-        /* --- MODALS & CART UI --- */
-        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f5f5f5; }
-        .cart-item img { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; }
-        .cart-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 5000; align-items: center; justify-content: center; backdrop-filter: blur(5px); }
-        .modal-box { background: #fff; width: 90%; max-width: 420px; padding: 40px; border-radius: 30px; position: relative; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        .btn { width: 100%; padding: 16px; border-radius: 12px; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-top: 10px; }
+        .btn { width: 100%; padding: 16px; border-radius: 12px; border: none; cursor: pointer; text-transform: uppercase; font-weight: 600; margin-top: 10px; }
         .btn-black { background: #000; color: #fff; }
         .btn-outline { background: transparent; border: 1px solid #000; }
-        .form-input { width: 100%; padding: 15px; margin-bottom: 12px; border: 1px solid #eee; background: #fafafa; border-radius: 8px; outline: none; }
 
-        @media (max-width: 768px) { .sidebar { width: 100%; } .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) { .checkout-container { flex-direction: column-reverse; } .sidebar { width: 100%; } }
     </style>
 </head>
 <body id="body">
@@ -141,12 +97,9 @@
             <button class="menu-trigger" onclick="toggleMenu(true)">☰</button>
             <span class="back-link" onclick="window.location.reload()" data-en="BACK" data-ar="رجوع">BACK</span>
         </div>
-        
         <div class="logo">THE BAG</div>
-
         <div class="nav-group nav-right">
             <div class="lang-switch" onclick="toggleLang()">EN/AR</div>
-            
             <div class="cart-wrap" onclick="toggleCart(true)">
                 <div class="cart-badge" id="cartCount">0</div>
                 <span class="cart-text" data-en="CART" data-ar="عربة">CART</span>
@@ -158,19 +111,14 @@
         <div class="close-btn" onclick="toggleMenu(false)" data-en="✕ CLOSE" data-ar="✕ إغلاق">✕ CLOSE</div>
         <a href="#shop" class="menu-link" onclick="toggleMenu(false)" data-en="Shop All" data-ar="تسوق الكل">Shop All</a>
         <a href="#about" class="menu-link" onclick="toggleMenu(false)" data-en="About Us" data-ar="من نحن">About Us</a>
-        <a href="#" class="menu-link" onclick="toggleMenu(false)" data-en="Shipping Policy" data-ar="سياسة الشحن">Shipping Policy</a>
     </div>
 
     <div id="sideCart" class="sidebar sidebar-right">
         <div class="close-btn" onclick="toggleCart(false)" data-en="✕ CLOSE" data-ar="✕ إغلاق">✕ CLOSE</div>
-        <h2 style="font-family:'Bodoni Moda'; margin-bottom:30px; font-size:1.5rem;" data-en="YOUR BAG" data-ar="حقيبتك">YOUR BAG</h2>
-        
-        <div id="cartList" style="flex:1; overflow-y: auto;">
-            <p style="text-align:center; opacity:0.5; margin-top:50px;" data-en="Your bag is empty." data-ar="حقيبتك فارغة">Your bag is empty.</p>
-        </div>
-
+        <h2 style="font-family:'Bodoni Moda'; margin-bottom:30px;" data-en="YOUR BAG" data-ar="حقيبتك">YOUR BAG</h2>
+        <div id="cartList" style="flex:1; overflow-y: auto;"></div>
         <div style="border-top:1px solid #eee; padding-top:20px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-family:'Bodoni Moda'; font-size:1.2rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-weight:600;">
                 <span data-en="TOTAL" data-ar="المجموع">TOTAL</span>
                 <span id="cartTotal">0 EGP</span>
             </div>
@@ -180,81 +128,63 @@
 
     <div class="container" id="shop">
         <div class="product-grid">
-            
             <div class="card" onclick="openProduct(0)">
-                <div class="card-img-wrap"><img src="IMG_7095.JPG" alt="Balaclava"></div>
+                <div class="card-img-wrap"><img src="IMG_7095.JPG"></div>
                 <div class="card-title" data-en="BALACLAVA" data-ar="بالاكلافا">BALACLAVA</div>
                 <div class="card-price">600 EGP</div>
             </div>
-
             <div class="card" onclick="openProduct(1)">
-                <div class="card-img-wrap"><img src="Photoroom_20251227_224758.PNG" alt="Chevron Peak"></div>
+                <div class="card-img-wrap"><img src="Photoroom_20251227_224758.PNG"></div>
                 <div class="card-title" data-en="CHEVRON PEAK" data-ar="شيفرون بيك">CHEVRON PEAK</div>
                 <div class="card-price">900 EGP</div>
             </div>
-
             <div class="card" onclick="openProduct(2)">
-                <div class="card-img-wrap"><img src="Photoroom_20251226_214602.PNG" alt="Rose Classic"></div>
-                <div class="card-title"><span data-en="ROSE CLASSIC" data-ar="روز كلاسيك">ROSE CLASSIC</span> <span class="arrow-icon">→</span></div>
+                <div class="card-img-wrap"><img src="Photoroom_20251226_214602.PNG"></div>
+                <div class="card-title">
+                    <span data-en="ROSE CLASSIC" data-ar="روز كلاسيك">ROSE CLASSIC</span> 
+                    <div class="title-arrow-circle">➜</div>
+                </div>
                 <div class="card-price">900 EGP</div>
             </div>
-
         </div>
     </div>
 
-    <section class="about-section" id="about">
-        <h2 class="about-title" data-en="HANDMADE IN EGYPT" data-ar="صنع يدوياً في مصر">HANDMADE IN EGYPT</h2>
-        <p class="about-text" data-en="At THE BAG, we believe luxury isn't just about the price—it's about the process. Each piece is meticulously hand-woven by local artisans using traditional Egyptian techniques merged with modern, bold silhouettes." data-ar="في ذا باج، نؤمن بأن الفخامة ليست مجرد سعر، بل هي عملية إبداع. كل قطعة منسوجة يدوياً بدقة على يد حرفيين محليين باستخدام تقنيات مصرية تقليدية مدمجة مع تصاميم عصرية وجريئة.">
-            At THE BAG, we believe luxury isn't just about the price—it's about the process.
-        </p>
-    </section>
-
     <div id="productModal" class="modal" onclick="closeAll()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <div style="text-align:right; cursor:pointer; font-size:1.2rem;" onclick="closeAll()">✕</div>
-            <img id="mImg" src="" style="width:100%; border-radius:20px; margin: 15px 0;">
-            <h2 id="mTitle" style="font-family:'Bodoni Moda'; margin-bottom:5px;"></h2>
+            <img id="mImg" src="" style="width:100%; border-radius:20px;">
+            <h2 id="mTitle" style="font-family:'Bodoni Moda'; margin: 15px 0 5px;"></h2>
             <p id="mPrice" style="color:#888; margin-bottom:20px;"></p>
-            
-            <div style="display:flex; justify-content:center; align-items:center; gap:15px; margin-bottom:20px;">
-                <button onclick="adjQty(-1)" style="width:30px; height:30px; background:#f0f0f0; border:none; border-radius:50%;">-</button>
-                <span id="mQty">1</span>
-                <button onclick="adjQty(1)" style="width:30px; height:30px; background:#f0f0f0; border:none; border-radius:50%;">+</button>
-            </div>
-
             <button class="btn btn-outline" onclick="addToCart()" data-en="ADD TO BAG" data-ar="أضف إلى الحقيبة">ADD TO BAG</button>
             <button class="btn btn-black" onclick="buyNow()" data-en="BUY NOW" data-ar="شراء الآن">BUY NOW</button>
         </div>
     </div>
 
-    <div id="checkoutModal" class="modal" onclick="closeAll()">
-        <div class="modal-box" onclick="event.stopPropagation()">
-            <div style="text-align:right; cursor:pointer; margin-bottom:10px;" onclick="closeAll()">✕</div>
-            <h2 style="font-family:'Bodoni Moda'; margin-bottom:20px; text-align:center;" data-en="CHECKOUT" data-ar="الدفع">CHECKOUT</h2>
-            
-            <form action="https://formspree.io/f/meeoyklk" method="POST">
-                <input type="text" name="name" class="form-input" id="ph_name" placeholder="Full Name" required>
-                <input type="text" name="phone" class="form-input" id="ph_phone" placeholder="Phone Number" required>
-                <input type="text" name="address" class="form-input" id="ph_addr" placeholder="Detailed Address" required>
+    <div id="checkoutModal" class="checkout-modal">
+        <form action="https://formspree.io/f/meeoyklk" method="POST" class="checkout-container">
+            <div class="checkout-left">
+                <h2 class="logo" style="text-align:left; margin-bottom:30px;">THE BAG</h2>
+                <input type="text" name="name" class="co-input" placeholder="Full Name" id="ph_name" required>
+                <input type="tel" name="phone" class="co-input" placeholder="Phone Number" id="ph_phone" required>
+                <input type="text" name="address" class="co-input" placeholder="Detailed Address" id="ph_addr" required>
                 
-                <div style="margin:15px 0; font-size:0.9rem;">
-                    <label style="display:block; margin-bottom:8px;">
-                        <input type="radio" name="payment" value="COD" checked onclick="toggleVodafone(false)"> <span data-en="Cash on Delivery" data-ar="الدفع عند الاستلام">Cash on Delivery</span>
-                    </label>
-                    <label style="display:block;">
-                        <input type="radio" name="payment" value="Vodafone" onclick="toggleVodafone(true)"> <span data-en="Vodafone Cash" data-ar="فودافون كاش">Vodafone Cash</span>
-                    </label>
+                <div style="margin:20px 0;">
+                    <label style="display:block; margin-bottom:10px;"><input type="radio" name="pay" value="COD" checked> Cash on Delivery</label>
+                    <label style="display:block;"><input type="radio" name="pay" value="Voda"> Vodafone Cash (01004268823)</label>
                 </div>
-
-                <div id="vodaInfo" style="display:none; background:#f4f4f4; padding:15px; border-radius:10px; font-size:0.85rem; margin-bottom:15px;">
-                    <span data-en="Send amount to: " data-ar="أرسل المبلغ إلى: ">Send amount to: </span><strong>01004268823</strong><br>
-                    <span data-en="Send screenshot to Instagram." data-ar="أرسل سكرين شوت عبر الانستجرام">Send screenshot to Instagram.</span>
+                <input type="hidden" name="order" id="orderInput">
+                <button type="submit" class="btn btn-black" data-en="COMPLETE ORDER" data-ar="إتمام الطلب">COMPLETE ORDER</button>
+                <p onclick="closeAll()" style="text-align:center; margin-top:15px; cursor:pointer; font-size:0.8rem;">Return to Shop</p>
+            </div>
+            <div class="checkout-right">
+                <div id="checkoutItems"></div>
+                <div style="margin-top:20px; padding-top:20px; border-top:1px solid #ddd;">
+                    <div style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:600;">
+                        <span>Total</span>
+                        <span id="coTotal">0 EGP</span>
+                    </div>
                 </div>
-
-                <input type="hidden" name="order_details" id="orderInput">
-                <button type="submit" class="btn btn-black" data-en="CONFIRM ORDER" data-ar="تأكيد الطلب">CONFIRM ORDER</button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
     <script>
@@ -263,114 +193,64 @@
             { id: 2, nameEn: 'Chevron Peak', nameAr: 'شيفرون بيك', price: 900, img: 'Photoroom_20251227_224758.PNG' },
             { id: 3, nameEn: 'Rose Classic', nameAr: 'روز كلاسيك', price: 900, img: 'Photoroom_20251226_214602.PNG' }
         ];
-        
-        let cart = [];
-        let currentProduct = null;
-        let lang = 'en';
+        let cart = []; let lang = 'en'; let currentProduct = null;
 
-        // --- TRANSLATION FUNCTION ---
-        function toggleLang() {
-            lang = lang === 'en' ? 'ar' : 'en';
-            document.getElementById('body').classList.toggle('rtl', lang === 'ar');
-            
-            // Translate static elements
-            document.querySelectorAll('[data-en]').forEach(el => {
-                el.innerText = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar');
-            });
-
-            // Translate Placeholders
-            if(lang === 'ar') {
-                document.getElementById('ph_name').placeholder = "الاسم بالكامل";
-                document.getElementById('ph_phone').placeholder = "رقم الهاتف";
-                document.getElementById('ph_addr').placeholder = "العنوان بالتفصيل";
-            } else {
-                document.getElementById('ph_name').placeholder = "Full Name";
-                document.getElementById('ph_phone').placeholder = "Phone Number";
-                document.getElementById('ph_addr').placeholder = "Detailed Address";
-            }
-
-            // Update Dynamic Elements (Cart & Modals)
-            updateCartUI(); 
-            if(document.getElementById('productModal').style.display === 'flex' && currentProduct) {
-                document.getElementById('mTitle').innerText = lang === 'en' ? currentProduct.nameEn : currentProduct.nameAr;
-            }
-        }
-
-        // --- CORE FUNCTIONS ---
         function toggleMenu(open) { document.getElementById('sideMenu').classList.toggle('active', open); }
         function toggleCart(open) { document.getElementById('sideCart').classList.toggle('active', open); }
-        function closeAll() { document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); }
-        
+        function closeAll() { document.querySelectorAll('.modal, .checkout-modal').forEach(m => m.style.display = 'none'); }
+
         function openProduct(idx) {
             currentProduct = products[idx];
             document.getElementById('mImg').src = currentProduct.img;
             document.getElementById('mTitle').innerText = lang === 'en' ? currentProduct.nameEn : currentProduct.nameAr;
             document.getElementById('mPrice').innerText = currentProduct.price + " EGP";
-            document.getElementById('mQty').innerText = "1";
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        function adjQty(delta) {
-            let q = parseInt(document.getElementById('mQty').innerText) + delta;
-            if(q > 0) document.getElementById('mQty').innerText = q;
-        }
-
         function addToCart() {
-            let qty = parseInt(document.getElementById('mQty').innerText);
             let existing = cart.find(i => i.id === currentProduct.id);
-            if(existing) existing.qty += qty;
-            else cart.push({ ...currentProduct, qty });
-            updateCartUI(); closeAll(); toggleCart(true);
+            if(existing) existing.qty++; else cart.push({...currentProduct, qty: 1});
+            updateCartUI(); closeAll();
         }
 
-        function buyNow() {
-            cart = [{ ...currentProduct, qty: parseInt(document.getElementById('mQty').innerText) }];
-            updateCartUI(); closeAll(); openCheckout();
-        }
+        function buyNow() { addToCart(); openCheckout(); }
 
         function updateCartUI() {
             const list = document.getElementById('cartList');
-            const count = document.getElementById('cartCount');
             const totalEl = document.getElementById('cartTotal');
-            
-            if(cart.length === 0) {
-                list.innerHTML = `<p style="text-align:center; opacity:0.5; margin-top:50px;">${lang === 'en' ? 'Your bag is empty.' : 'حقيبتك فارغة'}</p>`;
-                count.innerText = "0";
-                totalEl.innerText = "0 EGP";
-                return;
-            }
-
-            let total = 0;
-            let html = '';
-            
-            cart.forEach((item, index) => {
+            let total = 0; let html = '';
+            cart.forEach((item, idx) => {
                 total += item.price * item.qty;
-                let pName = lang === 'en' ? item.nameEn : item.nameAr;
-                let removeText = lang === 'en' ? 'REMOVE' : 'حذف';
-                
-                html += `
-                <div class="cart-item">
-                    <img src="${item.img}">
-                    <div class="cart-info">
-                        <div style="font-family:'Bodoni Moda';">${pName}</div>
-                        <div style="font-size:0.8rem; opacity:0.6;">${item.qty} x ${item.price}</div>
-                    </div>
-                    <div style="display:flex; flex-direction:column; justify-content:space-between; align-items:flex-end;">
-                        <div>${item.qty * item.price}</div>
-                        <div style="color:red; font-size:0.7rem; cursor:pointer; text-decoration:underline;" onclick="removeFromCart(${index})">${removeText}</div>
-                    </div>
+                html += `<div style="display:flex; gap:10px; margin-bottom:15px;">
+                    <img src="${item.img}" style="width:50px; height:50px; border-radius:5px;">
+                    <div style="flex:1;">${lang==='en'?item.nameEn:item.nameAr} x${item.qty}</div>
+                    <div>${item.price * item.qty}</div>
                 </div>`;
             });
-
-            list.innerHTML = html;
-            count.innerText = cart.length;
+            list.innerHTML = html || 'Empty';
             totalEl.innerText = total + " EGP";
-            document.getElementById('orderInput').value = cart.map(i => `${i.nameEn} (x${i.qty})`).join(', ') + ` | TOTAL: ${total} EGP`;
+            document.getElementById('cartCount').innerText = cart.length;
         }
 
-        function removeFromCart(idx) { cart.splice(idx, 1); updateCartUI(); }
-        function openCheckout() { if(cart.length > 0) document.getElementById('checkoutModal').style.display = 'flex'; }
-        function toggleVodafone(show) { document.getElementById('vodaInfo').style.display = show ? 'block' : 'none'; }
+        function openCheckout() {
+            if(cart.length === 0) return;
+            let html = ''; let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.qty;
+                html += `<div class="co-item"><div class="co-img-box"><img src="${item.img}" class="co-img"><div class="co-qty-badge">${item.qty}</div></div><div style="flex:1;">${lang==='en'?item.nameEn:item.nameAr}</div><div>${item.price*item.qty} EGP</div></div>`;
+            });
+            document.getElementById('checkoutItems').innerHTML = html;
+            document.getElementById('coTotal').innerText = total + " EGP";
+            document.getElementById('orderInput').value = cart.map(i=>i.nameEn).join(', ') + " Total: " + total;
+            document.getElementById('checkoutModal').style.display = 'block';
+        }
+
+        function toggleLang() {
+            lang = lang === 'en' ? 'ar' : 'en';
+            document.getElementById('body').classList.toggle('rtl', lang === 'ar');
+            document.querySelectorAll('[data-en]').forEach(el => el.innerText = lang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-ar'));
+            updateCartUI();
+        }
     </script>
 </body>
 </html>

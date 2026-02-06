@@ -3,179 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE BAG | Handcrafted Crochet</title>
+    <title>THE BAG | Official Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --light-gray: #f9f9f9;
-            --transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
+        :root { --black: #000; --white: #fff; --gray: #f4f4f4; --transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--white); color: var(--black); line-height: 1.6; }
+        body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; width: 100%; z-index: 100;
-            display: grid; grid-template-columns: 1fr auto 1fr;
-            align-items: center; padding: 25px 5%;
-            background: rgba(255,255,255,0.8); backdrop-filter: blur(10px);
-            border-bottom: 1px solid #eee;
-        }
-        .nav-links { display: flex; gap: 20px; font-weight: 600; font-size: 12px; letter-spacing: 1px; }
-        .logo { font-weight: 800; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
-        .nav-right { display: flex; justify-content: flex-end; gap: 20px; font-weight: 600; font-size: 12px; }
-        .nav-item { cursor: pointer; text-decoration: none; color: var(--black); transition: var(--transition); }
-        .nav-item:hover { opacity: 0.5; }
+        /* --- MOVING TOP BANNER --- */
+        .top-banner { background: var(--black); color: var(--white); overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+        .banner-track { display: inline-block; animation: scroll 20s linear infinite; }
+        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* --- PRODUCT GRID --- */
-        .container { margin-top: 120px; padding: 0 5%; margin-bottom: 100px; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        /* --- NAV --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #eee; position: sticky; top: 0; background: white; z-index: 100; }
+        .nav-item { cursor: pointer; font-size: 12px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: black; }
+        .logo-img { height: 40px; }
+
+        /* --- GRID --- */
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 40px 5%; }
+        .card { cursor: pointer; text-align: center; transition: var(--transition); }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--gray); margin-bottom: 10px; }
+        .card h3 { font-size: 14px; text-transform: uppercase; }
+        .card p { color: #666; font-size: 13px; }
+
+        /* --- CENTERED MODAL --- */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(5px); }
+        .modal-content { background: white; width: 90%; max-width: 500px; padding: 40px; position: relative; text-align: center; border-radius: 8px; }
+        .close { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 24px; }
+        .modal img { width: 250px; height: 250px; object-fit: cover; margin-bottom: 20px; }
+
+        /* --- BUTTONS --- */
+        .btn { width: 100%; padding: 15px; margin-top: 10px; border: 1px solid black; cursor: pointer; font-family: inherit; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        .btn-black { background: black; color: white; }
+        .btn-black:hover { background: #333; }
+        .btn-white { background: white; color: black; }
+
+        /* --- CART SIDEBAR --- */
+        #cartSide { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: white; z-index: 1100; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: var(--transition); padding: 30px; display: flex; flex-direction: column; }
+        #cartSide.active { right: 0; }
+        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; }
+        .cart-info { flex: 1; text-align: left; }
+        .cart-info h4 { font-size: 14px; }
+
+        /* --- CHECKOUT FORM --- */
+        #checkoutForm input, #checkoutForm select { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; }
         
-        .product-card { cursor: pointer; text-align: center; }
-        .image-container { 
-            background: var(--light-gray); overflow: hidden; 
-            aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
-            margin-bottom: 15px; border-radius: 2px;
-        }
-        .product-card img { 
-            width: 100%; transition: var(--transition); 
-        }
-        .product-card:hover img { transform: scale(1.08); }
-        .product-name { font-weight: 600; font-size: 14px; margin-bottom: 5px; }
-        .product-price { font-size: 13px; color: #666; }
-
-        /* --- CENTERED PRODUCT MODAL --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.95); z-index: 1000;
-            display: none; align-items: center; justify-content: center;
-            opacity: 0; transition: var(--transition);
-        }
-        .modal-overlay.active { display: flex; opacity: 1; }
-        
-        .modal-content {
-            background: white; width: 90%; max-width: 500px; padding: 40px;
-            text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-            position: relative; transform: translateY(30px); transition: var(--transition);
-        }
-        .modal-overlay.active .modal-content { transform: translateY(0); }
-
-        .close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 20px; }
-        .modal-img { width: 100%; max-width: 300px; margin-bottom: 20px; }
-        
-        .qty-input {
-            width: 100px; padding: 10px; margin: 20px 0; border: 1px solid #ddd;
-            text-align: center; font-family: inherit;
-        }
-
-        .btn {
-            display: block; width: 100%; padding: 18px; margin-top: 10px;
-            border: 1px solid var(--black); font-family: inherit;
-            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: var(--transition); font-size: 12px;
-        }
-        .btn-black { background: var(--black); color: var(--white); }
-        .btn-white { background: var(--white); color: var(--black); }
-        .btn:hover { background: #333; color: white; border-color: #333; }
-
-        /* --- MOBILE --- */
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-            .nav-links, .nav-right { display: none; }
-            nav { grid-template-columns: 1fr; text-align: center; }
-        }
+        @media (max-width: 768px) { .product-grid { grid-template-columns: repeat(1, 1fr); } #cartSide { width: 100%; right: -100%; } }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-links">
-            <div class="nav-item" onclick="toggleSideMenu()">MENU</div>
-            <div class="nav-item">ABOUT US</div>
-        </div>
-        <div class="logo">THE BAG</div>
-        <div class="nav-right">
-            <a href="https://instagram.com/The_bag.egy" target="_blank" class="nav-item">INSTAGRAM</a>
-            <div class="nav-item">CART (0)</div>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="grid">
-            <div class="product-card" onclick="openProduct('Chevron Blue Tote', '1,200 EGP', 'Photoroom_20251226_210333.PNG')">
-                <div class="image-container"><img src="Photoroom_20251226_210333.PNG"></div>
-                <div class="product-name">CHEVRON BLUE TOTE</div>
-                <div class="product-price">1,200 EGP</div>
-            </div>
-
-            <div class="product-card" onclick="openProduct('Earth Tone ZigZag', '1,350 EGP', 'Photoroom_20251226_214200.PNG')">
-                <div class="image-container"><img src="Photoroom_20251226_214200.PNG"></div>
-                <div class="product-name">EARTH TONE ZIGZAG</div>
-                <div class="product-price">1,350 EGP</div>
-            </div>
-
-            <div class="product-card" onclick="openProduct('Dusty Rose Crochet', '1,100 EGP', 'Photoroom_20251226_214602.PNG')">
-                <div class="image-container"><img src="Photoroom_20251226_214602.PNG"></div>
-                <div class="product-name">DUSTY ROSE CROCHET</div>
-                <div class="product-price">1,100 EGP</div>
-            </div>
-
-            <div class="product-card" onclick="openProduct('Sandy Beige Hobo', '1,250 EGP', 'Photoroom_20251226_220111.PNG')">
-                <div class="image-container"><img src="Photoroom_20251226_220111.PNG"></div>
-                <div class="product-name">SANDY BEIGE HOBO</div>
-                <div class="product-price">1,250 EGP</div>
-            </div>
-
-            <div class="product-card" onclick="openProduct('Pink & Purple Chevron', '1,400 EGP', 'Photoroom_20251227_224758.PNG')">
-                <div class="image-container"><img src="Photoroom_20251227_224758.PNG"></div>
-                <div class="product-name">PINK & PURPLE CHEVRON</div>
-                <div class="product-price">1,400 EGP</div>
-            </div>
-
-            <div class="product-card" onclick="openProduct('Monochrome Balaclava', '850 EGP', 'IMG_7095.JPG')">
-                <div class="image-container"><img src="IMG_7095.JPG"></div>
-                <div class="product-name">MONOCHROME BALACLAVA</div>
-                <div class="product-price">850 EGP</div>
-            </div>
+    <div class="top-banner">
+        <div class="banner-track">
+            FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT — FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT —
         </div>
     </div>
 
-    <div class="modal-overlay" id="productModal" onclick="closeProduct(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeProduct(null)">✕</span>
-            <img id="mImg" class="modal-img" src="">
-            <h2 id="mTitle" style="text-transform: uppercase; margin-bottom: 5px;"></h2>
-            <p id="mPrice" style="color: #666; font-size: 18px;"></p>
-            
-            <input type="number" value="1" min="1" class="qty-input">
-            
-            <button class="btn btn-white" onclick="alert('Added to Cart!')">Add to Cart</button>
-            
-            <form action="https://formspree.io/f/meeoyklk" method="POST">
-                <input type="hidden" name="item" id="formItem">
-                <button type="submit" class="btn btn-black">Buy Now</button>
+    <nav>
+        <div style="display:flex; gap:20px;">
+            <div class="nav-item">Menu</div>
+            <div class="nav-item">About Us</div>
+        </div>
+        <img src="Black and White Bold Time Fashion Logo.PNG" class="logo-img">
+        <div style="display:flex; gap:20px;">
+            <a href="https://instagram.com/The_bag.egy" class="nav-item">Instagram</a>
+            <div class="nav-item" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</div>
+        </div>
+    </nav>
+
+    <div class="product-grid">
+        <div class="card" onclick="openModal('Chevron Blue Tote', 1200, 'Photoroom_20251226_210333.PNG')">
+            <img src="Photoroom_20251226_210333.PNG">
+            <h3>Chevron Blue Tote</h3>
+            <p>1,200 EGP</p>
+        </div>
+        <div class="card" onclick="openModal('Earth Tone ZigZag', 1350, 'Photoroom_20251226_214200.PNG')">
+            <img src="Photoroom_20251226_214200.PNG">
+            <h3>Earth Tone ZigZag</h3>
+            <p>1,350 EGP</p>
+        </div>
+        <div class="card" onclick="openModal('Dusty Rose Crochet', 1100, 'Photoroom_20251226_214602.PNG')">
+            <img src="Photoroom_20251226_214602.PNG">
+            <h3>Dusty Rose Crochet</h3>
+            <p>1,100 EGP</p>
+        </div>
+        <div class="card" onclick="openModal('Sandy Beige Hobo', 1250, 'Photoroom_20251226_220111.PNG')">
+            <img src="Photoroom_20251226_220111.PNG">
+            <h3>Sandy Beige Hobo</h3>
+            <p>1,250 EGP</p>
+        </div>
+        <div class="card" onclick="openModal('Pink & Purple Chevron', 1400, 'Photoroom_20251227_224758.PNG')">
+            <img src="Photoroom_20251227_224758.PNG">
+            <h3>Pink & Purple Chevron</h3>
+            <p>1,400 EGP</p>
+        </div>
+        <div class="card" onclick="openModal('Monochrome Balaclava', 850, 'IMG_7095.JPG')">
+            <img src="IMG_7095.JPG">
+            <h3>Monochrome Balaclava</h3>
+            <p>850 EGP</p>
+        </div>
+    </div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImg" src="">
+            <h2 id="modalTitle"></h2>
+            <p id="modalPrice" style="margin-bottom:20px;"></p>
+            <input type="number" id="modalQty" value="1" min="1" style="padding:10px; width:60px; margin-bottom:20px;">
+            <button class="btn btn-white" onclick="addToCart()">Add to Cart</button>
+            <button class="btn btn-black" onclick="buyNow()">Buy Now</button>
+        </div>
+    </div>
+
+    <div id="cartSide">
+        <div style="display:flex; justify-content:space-between; margin-bottom:30px;">
+            <h3>YOUR CART</h3>
+            <span style="cursor:pointer" onclick="toggleCart()">CLOSE</span>
+        </div>
+        <div id="cartItems" style="flex:1; overflow-y:auto;"></div>
+        <div id="cartTotal" style="font-weight:bold; margin:20px 0;">Total: 0 EGP</div>
+        <button class="btn btn-black" onclick="showCheckout()">Checkout</button>
+    </div>
+
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content" style="max-width:600px;">
+            <span class="close" onclick="closeCheckout()">&times;</span>
+            <h2>CHECKOUT</h2>
+            <form id="checkoutForm" action="https://formspree.io/f/meeoyklk" method="POST">
+                <input type="hidden" name="Order_Details" id="orderInput">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <input type="text" name="First_Name" placeholder="First Name" required>
+                    <input type="text" name="Last_Name" placeholder="Last Name" required>
+                </div>
+                <select name="Governorate" required>
+                    <option value="">Select Governorate (Mohafaza)</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Giza">Giza</option>
+                    <option value="Alexandria">Alexandria</option>
+                    </select>
+                <input type="text" name="City" placeholder="City" required>
+                <input type="text" name="Address" placeholder="Detailed Address (Building, Street, Floor)" required>
+                <input type="email" name="Email" placeholder="Email Address" required>
+                <input type="tel" name="Phone_1" placeholder="Phone Number 1" required>
+                <input type="tel" name="Phone_2" placeholder="Phone Number 2">
+                <button type="submit" class="btn btn-black">Complete Order</button>
             </form>
         </div>
     </div>
 
     <script>
-        function openProduct(name, price, img) {
-            document.getElementById('mTitle').innerText = name;
-            document.getElementById('mPrice').innerText = price;
-            document.getElementById('mImg').src = img;
-            document.getElementById('formItem').value = name;
-            document.getElementById('productModal').classList.add('active');
+        let cart = [];
+        let currentProduct = {};
+
+        function openModal(name, price, img) {
+            currentProduct = { name, price, img };
+            document.getElementById('modalTitle').innerText = name;
+            document.getElementById('modalPrice').innerText = price + " EGP";
+            document.getElementById('modalImg').src = img;
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        function closeProduct(e) {
-            document.getElementById('productModal').classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('productModal').style.display = 'none';
-            }, 500);
+        function closeModal() { document.getElementById('productModal').style.display = 'none'; }
+
+        function addToCart() {
+            const qty = parseInt(document.getElementById('modalQty').value);
+            const item = {...currentProduct, qty};
+            cart.push(item);
+            updateCartUI();
+            closeModal();
+            toggleCart();
+        }
+
+        function buyNow() {
+            const qty = parseInt(document.getElementById('modalQty').value);
+            cart = [{...currentProduct, qty}]; // Reset cart to just this item
+            updateCartUI();
+            closeModal();
+            showCheckout();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItems');
+            container.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}">
+                        <div class="cart-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.price} EGP x ${item.qty}</p>
+                        </div>
+                        <span style="cursor:pointer" onclick="removeItem(${index})">🗑️</span>
+                    </div>
+                `;
+            });
+            document.getElementById('cartTotal').innerText = `Total: ${total} EGP`;
+            document.getElementById('cartCount').innerText = cart.length;
+            document.getElementById('orderInput').value = JSON.stringify(cart);
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleCart() { document.getElementById('cartSide').classList.toggle('active'); }
+        
+        function showCheckout() {
+            if(cart.length === 0) return alert("Your cart is empty!");
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function closeCheckout() { document.getElementById('checkoutModal').style.display = 'none'; }
+
+        // Success message after Formspree submission
+        if (window.location.search.includes('thanks')) {
+            alert("THANK YOU FOR YOUR ORDER! Order ID: #" + Math.floor(Math.random() * 1000000));
         }
     </script>
 </body>

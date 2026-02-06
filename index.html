@@ -3,112 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE BAG | Handcrafted Elegance</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>THE BAG | Handcrafted</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --black: #000; --white: #fff; --gray: #f4f4f4; --transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
+        :root { --radius: 25px; --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--black); overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #000; overflow-x: hidden; }
 
-        /* --- TOP MOVING BANNER --- */
-        .top-banner { background: var(--black); color: var(--white); overflow: hidden; white-space: nowrap; padding: 10px 0; font-size: 12px; font-weight: 600; letter-spacing: 1px; position: sticky; top: 0; z-index: 1001; }
-        .banner-track { display: inline-block; animation: scroll 20s linear infinite; }
+        /* --- ANNOUNCEMENT BANNER --- */
+        .banner { background: #000; color: #fff; overflow: hidden; white-space: nowrap; padding: 12px 0; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; position: fixed; width: 100%; top: 0; z-index: 2000; }
+        .banner-track { display: inline-block; animation: scroll 30s linear infinite; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* --- NAVIGATION --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; border-bottom: 1px solid #eee; position: sticky; top: 38px; background: white; z-index: 1000; }
-        .nav-left, .nav-right { display: flex; gap: 20px; flex: 1; }
-        .nav-right { justify-content: flex-end; }
-        .nav-item { cursor: pointer; font-size: 12px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: black; transition: 0.3s; }
-        .nav-item:hover { opacity: 0.5; }
-        .logo-img { height: 50px; cursor: pointer; }
+        /* --- NAV --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 5%; background: #fff; position: sticky; top: 38px; z-index: 1000; border-bottom: 1px solid #f2f2f2; }
+        .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; letter-spacing: 1.5px; }
+        
+        /* BOLD TEXT LOGO */
+        .logo-text { font-weight: 800; font-size: 26px; letter-spacing: -1px; text-transform: uppercase; cursor: pointer; }
 
         /* --- PRODUCT GRID --- */
-        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 40px 5%; }
-        .card { cursor: pointer; text-align: center; transition: var(--transition); position: relative; }
-        .card:hover { transform: translateY(-10px); }
-        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--gray); margin-bottom: 15px; border-radius: 4px; }
-        .card h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .card p { color: #666; font-size: 13px; font-weight: 600; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 80px 5%; }
+        .card { cursor: pointer; transition: var(--transition); text-align: left; }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f9f9f9; border-radius: var(--radius); margin-bottom: 15px; transition: var(--transition); }
+        .card:hover img { transform: scale(0.98); opacity: 0.8; }
+        .card h3 { font-size: 14px; text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
+        .card p { font-size: 14px; color: #666; }
 
-        /* --- CENTERED MODALS --- */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px); }
-        .modal-content { background: white; width: 90%; max-width: 500px; padding: 40px; position: relative; text-align: center; border-radius: 2px; transform: scale(0.9); transition: 0.3s; }
-        .modal.active { display: flex; }
-        .modal.active .modal-content { transform: scale(1); }
-        .close { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 24px; }
+        /* --- CENTERED TAB (PRODUCT VIEW) --- */
+        .modal { position: fixed; inset: 0; background: rgba(255,255,255,0.9); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(15px); }
+        .modal-content { background: #fff; width: 90%; max-width: 480px; padding: 40px; border-radius: var(--radius); border: 1px solid #eee; text-align: center; position: relative; box-shadow: 0 30px 60px rgba(0,0,0,0.05); }
+        .modal-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: var(--radius); margin-bottom: 20px; }
         
         /* --- BUTTONS --- */
-        .btn { width: 100%; padding: 18px; margin-top: 10px; border: 1px solid black; cursor: pointer; font-family: inherit; font-weight: 700; text-transform: uppercase; transition: 0.3s; font-size: 12px; letter-spacing: 1px; }
-        .btn-black { background: black; color: white; }
-        .btn-black:hover { background: #333; }
-        .btn-white { background: white; color: black; }
-        .btn-white:hover { background: #f0f0f0; }
+        .btn { width: 100%; border-radius: 50px; cursor: pointer; font-family: inherit; font-weight: 800; text-transform: uppercase; border: none; transition: var(--transition); }
+        .btn-cart { background: #f4f4f4; color: #000; padding: 14px; font-size: 11px; margin-top: 15px; }
+        .btn-buy { background: #000; color: #fff; padding: 20px; font-size: 13px; margin-top: 10px; }
+        .btn:hover { opacity: 0.7; transform: scale(0.98); }
 
-        /* --- CART SIDEBAR --- */
-        #cartSide { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: white; z-index: 2500; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); padding: 40px; display: flex; flex-direction: column; }
-        #cartSide.active { right: 0; }
-        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
-        .cart-item img { width: 70px; height: 70px; object-fit: cover; }
-        .cart-info { flex: 1; text-align: left; }
-        .cart-info h4 { font-size: 13px; text-transform: uppercase; }
-        .remove-btn { cursor: pointer; color: red; font-size: 12px; font-weight: bold; }
+        /* --- QUANTITY --- */
+        .qty-box { display: flex; align-items: center; justify-content: center; gap: 20px; margin: 15px 0; font-weight: 800; }
+        .qty-btn { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #eee; background: none; cursor: pointer; }
 
-        /* --- FORMS --- */
-        .checkout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; font-family: inherit; font-size: 14px; }
+        /* --- SIDEBARS (CART & MENU) --- */
+        .sidebar { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: #fff; z-index: 4000; transition: var(--transition); padding: 50px 30px; box-shadow: -20px 0 50px rgba(0,0,0,0.05); }
+        .sidebar.active { right: 0; }
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; font-weight: 800; font-size: 18px; }
+        
+        .cart-item { display: flex; gap: 15px; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f9f9f9; padding-bottom: 15px; }
+        .cart-item img { width: 60px; height: 60px; border-radius: 12px; }
 
-        @media (max-width: 768px) { .product-grid { grid-template-columns: 1fr; } #cartSide { width: 100%; right: -100%; } }
+        /* --- FORM --- */
+        input, textarea { width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 15px; border: 1px solid #eee; font-family: inherit; outline: none; }
+
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .sidebar { width: 100%; right: -100%; } }
     </style>
 </head>
 <body>
 
-    <div class="top-banner">
+    <div class="banner">
         <div class="banner-track">
-            FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT — MADE TO CARRY THE MOMENT — FREE SHIPPING ON ORDERS OVER 2000 EGP — HANDCRAFTED WITH LOVE — THE BAG EGYPT — 
+            FREE SHIPPING ON ALL ORDERS — HANDCRAFTED CROCHET — THE BAG — EGYPT'S FINEST — FREE SHIPPING ON ALL ORDERS — HANDCRAFTED CROCHET — THE BAG — EGYPT'S FINEST —
         </div>
     </div>
 
     <nav>
-        <div class="nav-left">
-            <div class="nav-item" onclick="openMenu()">Menu</div>
-            <div class="nav-item" onclick="openAbout()">About Us</div>
-        </div>
-        <img src="Black and White Bold Time Fashion Logo.PNG" class="logo-img" alt="The Bag Logo">
-        <div class="nav-right">
-            <a href="https://instagram.com/The_bag.egy" target="_blank" class="nav-item">Instagram</a>
-            <div class="nav-item" onclick="toggleCart()">Cart (<span id="cartCount">0</span>)</div>
-        </div>
+        <div class="nav-link" onclick="toggleSidebar('menu')">Menu</div>
+        <div class="logo-text">THE BAG</div>
+        <div class="nav-link" onclick="toggleSidebar('cart')">Cart (<span id="cartCount">0</span>)</div>
     </nav>
 
-    <div class="product-grid">
+    <div class="grid">
         <div class="card" onclick="openProduct('Chevron Blue Tote', 900, 'Photoroom_20251226_210333.PNG')">
-            <img src="Photoroom_20251226_210333.PNG" alt="Chevron Blue Tote">
+            <img src="Photoroom_20251226_210333.PNG">
             <h3>Chevron Blue Tote</h3>
             <p>900 EGP</p>
         </div>
         <div class="card" onclick="openProduct('Earth Tone ZigZag', 900, 'Photoroom_20251226_214200.PNG')">
-            <img src="Photoroom_20251226_214200.PNG" alt="Earth Tone ZigZag">
+            <img src="Photoroom_20251226_214200.PNG">
             <h3>Earth Tone ZigZag</h3>
             <p>900 EGP</p>
         </div>
         <div class="card" onclick="openProduct('Dusty Rose Crochet', 900, 'Photoroom_20251226_214602.PNG')">
-            <img src="Photoroom_20251226_214602.PNG" alt="Dusty Rose Crochet">
+            <img src="Photoroom_20251226_214602.PNG">
             <h3>Dusty Rose Crochet</h3>
             <p>900 EGP</p>
         </div>
-        <div class="card" onclick="openProduct('Sandy Beige Hobo', 900, 'Photoroom_20251226_220111.PNG')">
-            <img src="Photoroom_20251226_220111.PNG" alt="Sandy Beige Hobo">
-            <h3>Sandy Beige Hobo</h3>
-            <p>900 EGP</p>
-        </div>
-        <div class="card" onclick="openProduct('Pink & Purple Chevron', 900, 'Photoroom_20251227_224758.PNG')">
-            <img src="Photoroom_20251227_224758.PNG" alt="Pink & Purple Chevron">
-            <h3>Pink & Purple Chevron</h3>
-            <p>900 EGP</p>
-        </div>
         <div class="card" onclick="openProduct('Monochrome Balaclava', 600, 'IMG_7095.JPG')">
-            <img src="IMG_7095.JPG" alt="Monochrome Balaclava">
+            <img src="IMG_7095.JPG">
             <h3>Monochrome Balaclava</h3>
             <p>600 EGP</p>
         </div>
@@ -116,131 +98,112 @@
 
     <div id="productModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModals()">&times;</span>
-            <img id="mImg" src="" style="width: 200px; height: 200px; object-fit: cover; margin-bottom: 20px;">
-            <h2 id="mTitle" style="text-transform: uppercase; margin-bottom: 10px;"></h2>
-            <p id="mPrice" style="font-weight: bold; margin-bottom: 20px;"></p>
-            <div style="margin-bottom: 20px;">
-                <label style="font-size: 12px; font-weight: bold;">QUANTITY</label><br>
-                <input type="number" id="mQty" value="1" min="1" style="width: 60px; text-align: center; margin-top: 10px;">
+            <span style="position:absolute; top:20px; right:20px; cursor:pointer" onclick="closeModals()">✕</span>
+            <img id="mImg" class="modal-img" src="">
+            <h2 id="mTitle" style="font-size: 18px; margin-bottom: 5px;"></h2>
+            <p id="mPrice" style="color:#888; margin-bottom: 20px;"></p>
+            
+            <div class="qty-box">
+                <button class="qty-btn" onclick="changeQty(-1)">-</button>
+                <span id="mQty">1</span>
+                <button class="qty-btn" onclick="changeQty(1)">+</button>
             </div>
-            <button class="btn btn-white" onclick="addToCart()">Add to Cart</button>
-            <button class="btn btn-black" onclick="buyNow()">Buy Now</button>
+
+            <button class="btn btn-cart" onclick="addToCart()">Add to Cart</button>
+            <button class="btn btn-buy" onclick="buyNow()">Buy It Now</button>
         </div>
     </div>
 
-    <div id="menuModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModals()">&times;</span>
-            <h2 style="margin-bottom: 30px;">MENU</h2>
-            <div class="nav-item" style="font-size: 18px; margin-bottom: 20px;" onclick="alert('Shipping Policy: 3-5 business days across Egypt.')">Shipping Policy</div>
-            <div class="nav-item" style="font-size: 18px; margin-bottom: 20px;" onclick="alert('Return Policy: Returns accepted within 14 days if item is unused.')">Returning Policy</div>
-            <a href="https://wa.me/yournumber" class="nav-item" style="display: block; font-size: 18px; margin-bottom: 20px;">Contact via WhatsApp</a>
-            <a href="https://instagram.com/The_bag.egy" class="nav-item" style="display: block; font-size: 18px;">Contact via Instagram</a>
-        </div>
-    </div>
-
-    <div id="aboutModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModals()">&times;</span>
-            <h2>ABOUT US</h2>
-            <p style="margin-top: 20px; line-height: 1.8;">"The Bag" is an Egyptian brand dedicated to handcrafted crochet art. Each piece is meticulously made to carry the moment, blending traditional craftsmanship with minimalist, modern fashion.</p>
-        </div>
-    </div>
-
-    <div id="cartSide">
-        <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom:30px;">
-            <h3 style="letter-spacing: 2px;">YOUR CART</h3>
-            <span style="cursor:pointer; font-weight: bold;" onclick="toggleCart()">CLOSE</span>
-        </div>
+    <div id="cartSidebar" class="sidebar">
+        <div class="sidebar-header"><span>YOUR BAG</span><span onclick="closeSidebars()" style="cursor:pointer">✕</span></div>
         <div id="cartItems" style="flex:1; overflow-y:auto;"></div>
-        <div style="border-top: 1px solid #000; padding-top: 20px;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom: 20px;">
-                <span>TOTAL</span>
-                <span id="cartTotal">0 EGP</span>
+        <div style="border-top:1px solid #eee; padding-top:20px; margin-top:20px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-weight:800">
+                <span>Total</span><span id="cartTotal">0 EGP</span>
             </div>
-            <button class="btn btn-black" onclick="openCheckout()">Checkout</button>
+            <button class="btn btn-buy" onclick="toggleSidebar('checkout')">Checkout</button>
         </div>
     </div>
 
-    <div id="checkoutModal" class="modal">
-        <div class="modal-content" style="max-width: 600px; text-align: left;">
-            <span class="close" onclick="closeModals()">&times;</span>
-            <h2 style="text-align: center; margin-bottom: 20px;">CHECKOUT</h2>
-            <form action="https://formspree.io/f/meeoyklk" method="POST">
-                <input type="hidden" name="_order_summary" id="formOrderSummary">
-                <div class="checkout-grid">
-                    <input type="text" name="First_Name" placeholder="First Name" required>
-                    <input type="text" name="Last_Name" placeholder="Last Name" required>
-                </div>
-                <input type="text" name="Governorate" placeholder="Governorate (Mohafaza)" required>
-                <input type="text" name="City" placeholder="City" required>
-                <textarea name="Address" placeholder="Detailed Address" rows="3" required></textarea>
-                <input type="email" name="Email" placeholder="Email Address" required>
-                <div class="checkout-grid">
-                    <input type="tel" name="Phone_1" placeholder="Phone Number 1" required>
-                    <input type="tel" name="Phone_2" placeholder="Phone Number 2">
-                </div>
-                <button type="submit" class="btn btn-black">Complete Order</button>
-            </form>
+    <div id="menuSidebar" class="sidebar">
+        <div class="sidebar-header"><span>MENU</span><span onclick="closeSidebars()" style="cursor:pointer">✕</span></div>
+        <div style="display:flex; flex-direction:column; gap:20px; font-weight:800; text-transform:uppercase; font-size:14px;">
+            <div onclick="alert('Shipping: 3-5 days across Egypt.')" style="cursor:pointer">Shipping Policy</div>
+            <div onclick="alert('Returns: Within 14 days of purchase.')" style="cursor:pointer">Returning Policy</div>
+            <a href="https://instagram.com/The_bag.egy" target="_blank" style="text-decoration:none; color:#000;">Instagram</a>
+            <a href="https://wa.me/yournumber" style="text-decoration:none; color:#000;">WhatsApp Support</a>
         </div>
+    </div>
+
+    <div id="checkoutSidebar" class="sidebar">
+        <div class="sidebar-header"><span>CHECKOUT</span><span onclick="closeSidebars()" style="cursor:pointer">✕</span></div>
+        <form action="https://formspree.io/f/meeoyklk" method="POST">
+            <input type="hidden" name="Order_Details" id="orderInput">
+            <input type="text" name="First_Name" placeholder="First Name" required>
+            <input type="text" name="Last_Name" placeholder="Last Name" required>
+            <input type="text" name="Governorate" placeholder="Governorate (Mohafaza)" required>
+            <input type="text" name="City" placeholder="City" required>
+            <textarea name="Address" placeholder="Detailed Address" rows="3" required></textarea>
+            <input type="email" name="Email" placeholder="Email" required>
+            <input type="tel" name="Phone_1" placeholder="Phone Number 1" required>
+            <input type="tel" name="Phone_2" placeholder="Phone Number 2">
+            <button type="submit" class="btn btn-buy">Complete Order</button>
+        </form>
     </div>
 
     <script>
         let cart = [];
         let currentItem = {};
+        let currentQty = 1;
 
         function openProduct(name, price, img) {
             currentItem = { name, price, img };
+            currentQty = 1;
+            document.getElementById('mQty').innerText = 1;
             document.getElementById('mTitle').innerText = name;
             document.getElementById('mPrice').innerText = price + " EGP";
             document.getElementById('mImg').src = img;
-            document.getElementById('productModal').classList.add('active');
+            document.getElementById('productModal').style.display = 'flex';
         }
 
+        function changeQty(v) { currentQty = Math.max(1, currentQty + v); document.getElementById('mQty').innerText = currentQty; }
+
         function addToCart() {
-            const qty = parseInt(document.getElementById('mQty').value);
-            cart.push({ ...currentItem, qty });
+            cart.push({...currentItem, qty: currentQty});
             updateCart();
             closeModals();
-            toggleCart();
+            toggleSidebar('cart');
         }
 
         function buyNow() {
-            cart = [{ ...currentItem, qty: parseInt(document.getElementById('mQty').value) }];
+            cart = [{...currentItem, qty: currentQty}];
             updateCart();
             closeModals();
-            openCheckout();
+            toggleSidebar('checkout');
         }
 
         function updateCart() {
             const container = document.getElementById('cartItems');
             container.innerHTML = '';
             let total = 0;
-            cart.forEach((item, index) => {
+            cart.forEach((item, i) => {
                 total += item.price * item.qty;
-                container.innerHTML += `
-                    <div class="cart-item">
-                        <img src="${item.img}">
-                        <div class="cart-info">
-                            <h4>${item.name}</h4>
-                            <p>${item.price} EGP x ${item.qty}</p>
-                            <span class="remove-btn" onclick="removeItem(${index})">REMOVE</span>
-                        </div>
-                    </div>
-                `;
+                container.innerHTML += `<div class="cart-item"><img src="${item.img}"><div><b>${item.name}</b><p>${item.qty} x ${item.price} EGP</p><span onclick="removeItem(${i})" style="font-size:10px; cursor:pointer; font-weight:800; color:red">REMOVE</span></div></div>`;
             });
             document.getElementById('cartTotal').innerText = total + " EGP";
             document.getElementById('cartCount').innerText = cart.length;
-            document.getElementById('formOrderSummary').value = JSON.stringify(cart);
+            document.getElementById('orderInput').value = JSON.stringify(cart);
         }
 
-        function removeItem(index) { cart.splice(index, 1); updateCart(); }
-        function toggleCart() { document.getElementById('cartSide').classList.toggle('active'); }
-        function openMenu() { document.getElementById('menuModal').classList.add('active'); }
-        function openAbout() { document.getElementById('aboutModal').classList.add('active'); }
-        function openCheckout() { if(cart.length > 0) document.getElementById('checkoutModal').classList.add('active'); else alert("Cart is empty!"); }
-        function closeModals() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
+        function removeItem(i) { cart.splice(i, 1); updateCart(); }
+
+        function toggleSidebar(id) {
+            closeSidebars();
+            document.getElementById(id + 'Sidebar').classList.add('active');
+        }
+
+        function closeSidebars() { document.querySelectorAll('.sidebar').forEach(s => s.classList.remove('active')); }
+        function closeModals() { document.getElementById('productModal').style.display = 'none'; }
     </script>
 </body>
 </html>

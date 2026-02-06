@@ -2,72 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE BAG | Handcrafted</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE BAG | Official Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --radius: 25px; --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #fff; color: #000; overflow-x: hidden; }
+        :root { --radius: 25px; --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; background: #fff; color: #000; overflow-x: hidden; touch-action: manipulation; }
 
-        /* --- MOVING BANNER --- */
-        .banner { background: #000; color: #fff; overflow: hidden; white-space: nowrap; padding: 12px 0; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; position: fixed; width: 100%; top: 0; z-index: 2000; }
-        .banner-track { display: inline-block; animation: scroll 30s linear infinite; }
+        /* --- ANNOUNCEMENT --- */
+        .banner { background: #000; color: #fff; overflow: hidden; white-space: nowrap; padding: 12px 0; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; position: fixed; width: 100%; top: 0; z-index: 2000; }
+        .banner-track { display: inline-block; animation: scroll 25s linear infinite; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* --- NAVIGATION --- */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 5%; background: #fff; position: sticky; top: 38px; z-index: 1000; border-bottom: 1px solid #f2f2f2; }
-        .nav-link { font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; letter-spacing: 1.5px; }
-        .logo-text { font-weight: 900; font-size: 28px; letter-spacing: -1.5px; text-transform: uppercase; }
+        /* --- NAV --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; position: sticky; top: 34px; z-index: 1000; border-bottom: 1px solid #f2f2f2; height: 70px; }
+        .logo-text { font-weight: 800; font-size: 24px; letter-spacing: -1px; text-transform: uppercase; }
+        .nav-btn { font-size: 11px; font-weight: 800; text-transform: uppercase; cursor: pointer; padding: 10px 0; }
 
-        /* --- PRODUCT GRID (6 PRODUCTS) --- */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 80px 5%; }
+        /* --- GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 60px 5%; margin-top: 20px; }
         .card { cursor: pointer; transition: var(--transition); }
-        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f9f9f9; border-radius: var(--radius); margin-bottom: 15px; transition: var(--transition); }
-        .card:hover img { transform: scale(0.98); }
-        .card h3 { font-size: 14px; text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
-        .card p { font-size: 14px; color: #666; }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f9f9f9; border-radius: var(--radius); margin-bottom: 12px; }
+        .card h3 { font-size: 13px; text-transform: uppercase; font-weight: 800; }
+        .card p { font-size: 13px; color: #666; font-weight: 600; }
 
-        /* --- PRODUCT TAB (MODAL) ADJUSTED --- */
-        .modal { position: fixed; inset: 0; background: rgba(255,255,255,0.85); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(10px); }
-        .modal-content { 
-            background: #fff; 
-            width: 95%; 
-            max-width: 700px; /* Wider width */
-            padding: 30px; 
-            border-radius: var(--radius); 
-            border: 1px solid #eee; 
-            display: flex; /* Side by side layout */
-            gap: 30px;
-            align-items: center;
-            position: relative; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
-        }
-        .modal-img { width: 300px; height: 300px; object-fit: cover; border-radius: 20px; }
+        /* --- PRODUCT TAB (RESPONSIVE) --- */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 3000; backdrop-filter: blur(10px); padding: 20px; }
+        .modal-content { background: #fff; width: 100%; max-width: 700px; padding: 25px; border-radius: var(--radius); display: flex; gap: 25px; align-items: center; position: relative; }
+        .modal-img { width: 45%; aspect-ratio: 1/1; object-fit: cover; border-radius: 20px; }
         .modal-details { flex: 1; text-align: left; }
 
         /* --- BUTTONS --- */
-        .btn { width: 100%; border-radius: 50px; cursor: pointer; font-family: inherit; font-weight: 800; text-transform: uppercase; border: none; transition: var(--transition); }
-        .btn-cart { background: #f4f4f4; color: #000; padding: 12px; font-size: 10px; margin-top: 15px; }
+        .btn { width: 100%; border-radius: 50px; cursor: pointer; font-family: inherit; font-weight: 800; text-transform: uppercase; border: none; transition: 0.2s; }
+        .btn-cart { background: #f2f2f2; color: #000; padding: 14px; font-size: 10px; margin-top: 15px; }
         .btn-buy { background: #000; color: #fff; padding: 18px; font-size: 12px; margin-top: 8px; }
-        .btn:hover { opacity: 0.7; transform: scale(0.98); }
+        .btn:active { transform: scale(0.96); opacity: 0.8; }
 
-        /* --- QTY --- */
-        .qty-box { display: flex; align-items: center; gap: 15px; margin: 15px 0; font-weight: 800; }
-        .qty-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #eee; background: none; cursor: pointer; }
+        /* --- QTY BOX --- */
+        .qty-box { display: flex; align-items: center; gap: 15px; margin: 15px 0; }
+        .qty-btn { width: 34px; height: 34px; border-radius: 50%; border: 1px solid #eee; background: #fff; cursor: pointer; font-weight: 800; font-size: 16px; }
 
         /* --- SIDEBARS --- */
-        .sidebar { position: fixed; right: -450px; top: 0; width: 400px; height: 100%; background: #fff; z-index: 4000; transition: var(--transition); padding: 50px 30px; box-shadow: -20px 0 50px rgba(0,0,0,0.05); }
+        .sidebar { position: fixed; right: -100%; top: 0; width: 400px; height: 100%; background: #fff; z-index: 4000; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 40px 25px; box-shadow: -10px 0 40px rgba(0,0,0,0.1); }
         .sidebar.active { right: 0; }
-        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; font-weight: 800; }
-        
-        input, textarea { width: 100%; padding: 15px; margin-bottom: 10px; border-radius: 15px; border: 1px solid #eee; font-family: inherit; outline: none; }
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; font-weight: 800; }
+
+        /* --- CART ITEMS --- */
+        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; border-bottom: 1px solid #f9f9f9; padding-bottom: 15px; }
+        .cart-item img { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; }
+        .cart-qty-controls { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+        .cart-qty-btn { width: 24px; height: 24px; border-radius: 50%; border: 1px solid #ddd; background: #fff; font-size: 14px; cursor: pointer; }
+
+        /* --- FORM --- */
+        input, textarea { width: 100%; padding: 14px; margin-bottom: 8px; border-radius: 15px; border: 1px solid #eee; font-family: inherit; outline: none; -webkit-appearance: none; }
 
         @media (max-width: 768px) { 
-            .grid { grid-template-columns: 1fr; } 
-            .modal-content { flex-direction: column; max-width: 400px; text-align: center; }
+            .sidebar { width: 100%; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .modal-content { flex-direction: column; text-align: center; max-width: 400px; padding: 20px; }
+            .modal-img { width: 100%; }
             .modal-details { text-align: center; }
-            .sidebar { width: 100%; right: -100%; }
+            .qty-box { justify-content: center; }
         }
     </style>
 </head>
@@ -80,9 +76,9 @@
     </div>
 
     <nav>
-        <div class="nav-link" onclick="toggleSidebar('menu')">Menu</div>
+        <div class="nav-btn" onclick="toggleSidebar('menu')">Menu</div>
         <div class="logo-text">THE BAG</div>
-        <div class="nav-link" onclick="toggleSidebar('cart')">Cart (<span id="cartCount">0</span>)</div>
+        <div class="nav-btn" onclick="toggleSidebar('cart')">Cart (<span id="cartCount">0</span>)</div>
     </nav>
 
     <div class="grid">
@@ -118,21 +114,18 @@
         </div>
     </div>
 
-    <div id="productModal" class="modal">
-        <div class="modal-content">
+    <div id="productModal" class="modal" onclick="closeModals()">
+        <div class="modal-content" onclick="event.stopPropagation()">
             <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-weight:800;" onclick="closeModals()">✕</span>
             <img id="mImg" class="modal-img" src="">
             <div class="modal-details">
-                <h2 id="mTitle" style="font-size: 20px; font-weight:900; margin-bottom: 5px;"></h2>
-                <p id="mPrice" style="color:#666; font-weight:600; margin-bottom: 15px;"></p>
-                
+                <h2 id="mTitle" style="font-weight:800; font-size: 20px;"></h2>
+                <p id="mPrice" style="color:#666; font-weight:600;"></p>
                 <div class="qty-box">
-                    <span>QTY:</span>
-                    <button class="qty-btn" onclick="changeQty(-1)">-</button>
-                    <span id="mQty">1</span>
-                    <button class="qty-btn" onclick="changeQty(1)">+</button>
+                    <button class="qty-btn" onclick="changeModalQty(-1)">-</button>
+                    <span id="mQty" style="font-weight:800;">1</span>
+                    <button class="qty-btn" onclick="changeModalQty(1)">+</button>
                 </div>
-
                 <button class="btn btn-cart" onclick="addToCart()">Add to Cart</button>
                 <button class="btn btn-buy" onclick="buyNow()">Buy It Now</button>
             </div>
@@ -141,9 +134,9 @@
 
     <div id="cartSidebar" class="sidebar">
         <div class="sidebar-header"><span>YOUR BAG</span><span onclick="closeSidebars()" style="cursor:pointer">✕</span></div>
-        <div id="cartItems" style="flex:1; overflow-y:auto;"></div>
+        <div id="cartItems" style="flex:1; overflow-y:auto; max-height: 60vh;"></div>
         <div style="border-top:1px solid #eee; padding-top:20px; margin-top:20px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-weight:900">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-weight:800; font-size: 18px;">
                 <span>Total</span><span id="cartTotal">0 EGP</span>
             </div>
             <button class="btn btn-buy" onclick="toggleSidebar('checkout')">Proceed to Checkout</button>
@@ -156,8 +149,8 @@
             <div onclick="alert('Shipping: 3-5 days across Egypt.')" style="cursor:pointer">Shipping Policy</div>
             <div onclick="alert('Returns: Accepted within 14 days.')" style="cursor:pointer">Return Policy</div>
             <a href="https://instagram.com/The_bag.egy" target="_blank" style="text-decoration:none; color:#000;">Instagram</a>
-            <a href="https://wa.me/20123456789" style="text-decoration:none; color:#000;">WhatsApp Us</a>
-            <div onclick="alert('About: Handcrafted crochet bags made in Egypt.')" style="cursor:pointer">About Us</div>
+            <a href="https://wa.me/yournumber" style="text-decoration:none; color:#000;">WhatsApp Us</a>
+            <div onclick="alert('The Bag: Handcrafted crochet art from Egypt.')" style="cursor:pointer">About Us</div>
         </div>
     </div>
 
@@ -170,21 +163,21 @@
             <input type="text" name="Governorate" placeholder="Governorate" required>
             <input type="text" name="City" placeholder="City" required>
             <textarea name="Address" placeholder="Full Detailed Address" rows="3" required></textarea>
-            <input type="email" name="Email" placeholder="Email Address" required>
+            <input type="email" name="Email" placeholder="Email" required>
             <input type="tel" name="Phone_1" placeholder="Phone Number 1" required>
             <input type="tel" name="Phone_2" placeholder="Phone Number 2">
-            <button type="submit" class="btn btn-buy">Place Order</button>
+            <button type="submit" class="btn btn-buy">Complete Order</button>
         </form>
     </div>
 
     <script>
         let cart = [];
         let currentItem = {};
-        let currentQty = 1;
+        let currentModalQty = 1;
 
         function openProduct(name, price, img) {
             currentItem = { name, price, img };
-            currentQty = 1;
+            currentModalQty = 1;
             document.getElementById('mQty').innerText = 1;
             document.getElementById('mTitle').innerText = name;
             document.getElementById('mPrice').innerText = price + " EGP";
@@ -192,17 +185,22 @@
             document.getElementById('productModal').style.display = 'flex';
         }
 
-        function changeQty(v) { currentQty = Math.max(1, currentQty + v); document.getElementById('mQty').innerText = currentQty; }
+        function changeModalQty(v) { 
+            currentModalQty = Math.max(1, currentModalQty + v); 
+            document.getElementById('mQty').innerText = currentModalQty; 
+        }
 
         function addToCart() {
-            cart.push({...currentItem, qty: currentQty});
+            const existing = cart.find(i => i.name === currentItem.name);
+            if (existing) { existing.qty += currentModalQty; } 
+            else { cart.push({...currentItem, qty: currentModalQty}); }
             updateCart();
             closeModals();
             toggleSidebar('cart');
         }
 
         function buyNow() {
-            cart = [{...currentItem, qty: currentQty}];
+            cart = [{...currentItem, qty: currentModalQty}];
             updateCart();
             closeModals();
             toggleSidebar('checkout');
@@ -215,15 +213,30 @@
             cart.forEach((item, i) => {
                 total += item.price * item.qty;
                 container.innerHTML += `
-                    <div style="display:flex; gap:15px; margin-bottom:15px; align-items:center;">
-                        <img src="${item.img}" style="width:50px; height:50px; border-radius:10px;">
-                        <div style="flex:1; font-size:12px;"><b>${item.name}</b><br>${item.qty} x ${item.price} EGP</div>
-                        <span onclick="removeItem(${i})" style="color:red; cursor:pointer; font-size:10px;">REMOVE</span>
+                    <div class="cart-item">
+                        <img src="${item.img}">
+                        <div style="flex:1;">
+                            <b style="font-size:12px; text-transform:uppercase;">${item.name}</b>
+                            <div class="cart-qty-controls">
+                                <button class="cart-qty-btn" onclick="updateCartQty(${i}, -1)">-</button>
+                                <span style="font-size:12px; font-weight:800;">${item.qty}</span>
+                                <button class="cart-qty-btn" onclick="updateCartQty(${i}, 1)">+</button>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:12px; font-weight:800;">${item.price * item.qty} EGP</div>
+                            <div onclick="removeItem(${i})" style="color:red; font-size:10px; cursor:pointer; margin-top:5px;">REMOVE</div>
+                        </div>
                     </div>`;
             });
             document.getElementById('cartTotal').innerText = total + " EGP";
             document.getElementById('cartCount').innerText = cart.length;
             document.getElementById('orderInput').value = JSON.stringify(cart);
+        }
+
+        function updateCartQty(index, v) {
+            cart[index].qty = Math.max(1, cart[index].qty + v);
+            updateCart();
         }
 
         function removeItem(i) { cart.splice(i, 1); updateCart(); }
